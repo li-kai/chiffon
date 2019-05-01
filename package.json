@@ -1,0 +1,12 @@
+{
+  "name": "chiffon",
+  "version": "0.0.1",
+  "description": "Easy package bundling",
+  "main": "index.js",
+  "author": "Li Kai <hello+github@lik.ai>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true
+}
