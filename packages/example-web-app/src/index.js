@@ -1,13 +1,36 @@
-import { h, render } from 'preact'
+const {
+  generateCSSReferences,
+  generateJSReferences,
+} = require('@chiffon/prerender-webpack-plugin')
 
-function App() {
-  let time = new Date().toLocaleTimeString()
-  return (
-    <div>
-      <h1>Example Web App</h1>
-      <span>{time}</span>
-    </div>
-  )
+function defaultTemplate({
+  css,
+  js,
+  title = 'Example Web App',
+  htmlAttributes = { lang: 'en' },
+  publicPath,
+}) {
+  const normalizedPublicPath = publicPath || ''
+  return `<!DOCTYPE html>
+  <html ${Object.entries(htmlAttributes || {})
+    .map(attribute => `${attribute[0]}="${attribute[1]}"`)
+    .join(' ')}>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>${title || ''}</title>
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <link rel="manifest" href="/site.webmanifest" />
+
+      ${generateCSSReferences(css, normalizedPublicPath)}
+    </head>
+    <body>
+    <div id="root"></div>
+      ${generateJSReferences(js, normalizedPublicPath)}
+    </body>
+  </html>`
 }
 
-render(<App />, document.getElementById('root'))
+module.exports = defaultTemplate

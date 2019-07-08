@@ -1,7 +1,7 @@
 const path = require('path')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const PrerenderWebpackPlugin = require('@chiffon/prerender-webpack-plugin').default;
 const TerserPlugin = require('terser-webpack-plugin')
 
 const IS_DEV = process.env.NODE_ENV === 'development'
@@ -9,7 +9,7 @@ const IS_PROD = process.env.NODE_ENV === 'production'
 
 const config = {
   entry: {
-    app: './src/index.js',
+    app: './src/root.js',
   },
   output: {
     filename: '[name].js',
@@ -66,10 +66,9 @@ const config = {
         ],
       },
   plugins: [
-    new HtmlWebpackPlugin({
+    new PrerenderWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve(__dirname, 'src', 'index.html'),
-      favicon: path.resolve(__dirname, 'src', 'img', 'favicon.ico'),
+      template: path.resolve(__dirname, 'src', 'index.js'),
     }),
     IS_PROD &&
       new MiniCssExtractPlugin({
