@@ -1,7 +1,8 @@
 const path = require('path')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const PrerenderWebpackPlugin = require('@chiffon/prerender-webpack-plugin').default;
+const PrerenderWebpackPlugin = require('@chiffon/prerender-webpack-plugin')
+  .default
 const TerserPlugin = require('terser-webpack-plugin')
 
 const IS_DEV = process.env.NODE_ENV === 'development'
@@ -24,7 +25,14 @@ const config = {
           IS_DEV && 'style-loader',
           IS_PROD && MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [require('autoprefixer')],
+            },
+          },
+          ,
         ].filter(Boolean),
       },
       {

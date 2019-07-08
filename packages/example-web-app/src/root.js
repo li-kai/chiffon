@@ -1,4 +1,5 @@
 import { h, render } from 'preact'
+import './root.css'
 
 function App() {
   let time = new Date().toLocaleTimeString()
