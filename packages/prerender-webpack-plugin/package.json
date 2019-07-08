@@ -1,0 +1,15 @@
+{
+  "name": "prerender-webpack-plugin",
+  "version": "0.0.1",
+  "description": "Prerender for web applications built with Preact",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "10.14.12",
+    "ts-node-dev": "1.0.0-pre.40",
+    "typescript": "3.5.2"
+  }
+}
