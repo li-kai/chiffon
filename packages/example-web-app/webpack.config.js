@@ -5,10 +5,12 @@ const PrerenderWebpackPlugin = require('@chiffon/prerender-webpack-plugin')
   .default
 const TerserPlugin = require('terser-webpack-plugin')
 
-const IS_DEV = process.env.NODE_ENV === 'development'
-const IS_PROD = process.env.NODE_ENV === 'production'
+const NODE_ENV = process.env.NODE_ENV
+const IS_DEV = NODE_ENV === 'development'
+const IS_PROD = NODE_ENV === 'production'
 
 const config = {
+  mode: NODE_ENV,
   entry: {
     app: './src/root.js',
   },
