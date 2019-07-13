@@ -1,10 +1,12 @@
 import path from 'path'
-import webpack from 'webpack'
+import webpack, { SingleEntryPlugin } from 'webpack'
+import { safeEval } from './utils'
+
+const PLUGIN_NAME = 'prerender-webpack-plugin'
 
 interface Options {
-  filename?: string
-  template?: string | ((input: TemplateInput) => string),
-  context?: { [key: string]: any }
+  filename: string
+  template: string
 }
 
 /**
@@ -13,48 +15,96 @@ interface Options {
  * https://github.com/rasmuskl/simple-html-webpack-plugin
  * https://github.com/zaaack/htmls-webpack-plugin
  */
-class PrerenderWebpackPlugin implements webpack.Plugin { // extend causes cyclic dependencies
+class PrerenderWebpackPlugin implements webpack.Plugin {
+  // extend causes cyclic dependencies
   private options: Options
 
-  constructor(options: Options = {}) {
+  constructor(options: Options) {
     this.options = options
-    this.plugin = this.plugin.bind(this)
   }
 
-  plugin(compilation: webpack.compilation.Compilation, callback: () => void) {
-    // @ts-ignore options does exist on compilation
-    const { publicPath } = compilation.options.output
-    const { filename = 'index.html', template, context } = this.options
-
-    let templateFn = defaultTemplate;
-    if (typeof template === 'string') {
-      templateFn = require(template);
-    } else if (template) {
-      templateFn = template;
-    }
-
-    const files = getFiles(normalizeEntrypoints(compilation.entrypoints))
-
-    const source = templateFn(
-      Object.assign({}, { publicPath }, context, files),
-    )
-
-    compilation.assets[filename] = {
-      size: () => source.length,
-      source: () => source,
-    }
-
-    callback()
-  }
-
+  /**
+   * Entrypoint that webpack calls at the start
+   *
+   * @param compiler webpack.Compiler
+   */
   apply(compiler: webpack.Compiler) {
-    if (compiler.hooks) {
-      // Webpack 4
-      compiler.hooks.emit.tapAsync('MiniHtmlWebpackPlugin', this.plugin)
-    } else {
-      // Webpack 3
-      compiler.plugin('emit', this.plugin)
-    }
+    compiler.hooks.make.tap(PLUGIN_NAME, compilation => {
+      const outputOptions = {
+        ...compiler.options.output,
+        filename: this.options.filename,
+      }
+
+      const childCompiler = compilation.createChildCompiler(
+        PLUGIN_NAME,
+        outputOptions,
+        [],
+      )
+
+      // childCompiler.context = compiler.context
+      // childCompiler.inputFileSystem = compiler.inputFileSystem
+      // childCompiler.outputFileSystem = compiler.outputFileSystem
+
+      // Add SingleEntryPlugin to make all this work
+      const entryName = path.parse(this.options.template).name
+      new SingleEntryPlugin(
+        compiler.context,
+        this.options.template,
+        entryName,
+      ).apply(childCompiler)
+
+      // Needed for HMR. Even if your plugin don't support HMR,
+      // this code seems to be always needed just in case to prevent possible errors
+      // childCompiler.hooks.compilation.tap(
+      //   PLUGIN_NAME,
+      //   (compilation: webpack.compilation.Compilation) => {
+      //     if (compilation.cache) {
+      //       if (!compilation.cache[name]) {
+      //         compilation.cache[name] = {}
+      //       }
+
+      //       compilation.cache = compilation.cache[name]
+      //     }
+      //   },
+      // )
+
+      compilation.hooks.additionalAssets.tapAsync(PLUGIN_NAME, callback => {
+        const files = getFiles(compilation.entrypoints)
+
+        // Run child compilation
+        childCompiler.runAsChild((err, entries) => {
+          if (err) {
+            compilation.errors.push(err)
+            return
+          }
+
+          entries.forEach(entry => {
+            const filenames = Array.isArray(entry.files)
+              ? entry.files
+              : [entry.files]
+            if (filenames.length > 1) {
+              throw new Error(
+                'Unexpected condition: more than one filename found.',
+              )
+            }
+
+            const filename = filenames[0]
+            const source = compilation.assets[filename].source()
+            delete compilation.assets[filename]
+
+            const fn = safeEval(source)
+            const output = fn(files)
+
+            compilation.assets[filename] = {
+              size: () => output.length,
+              source: () => output,
+            }
+          })
+
+          callback()
+        })
+      })
+    })
   }
 }
 
@@ -77,62 +127,10 @@ function getFiles(entrypoints: webpack.compilation.Compilation['entrypoints']) {
   return ret
 }
 
-function normalizeEntrypoints(
-  entrypoints: webpack.compilation.Compilation['entrypoints'],
-) {
-  // Webpack 4
-  if (entrypoints.forEach) {
-    return entrypoints
-  }
-
-  // Webpack 3
-  return new Map(Object.entries(entrypoints))
-}
-
-interface TemplateInput {
+export interface TemplateInput {
   css?: string[] | null | undefined
   js?: string[] | null | undefined
-  title?: string | null | undefined
-  publicPath?: string | null | undefined
-  htmlAttributes?: { [key: string]: string } | null
   [key: string]: any
 }
 
-function defaultTemplate({
-  css,
-  js,
-  title,
-  htmlAttributes = { lang: 'en' },
-  publicPath,
-}: TemplateInput) {
-  const normalizedPublicPath = publicPath || ''
-  return `<!DOCTYPE html>
-  <html ${Object.entries(htmlAttributes || {})
-    .map(attribute => `${attribute[0]}="${attribute[1]}"`)
-    .join(' ')}>
-    <head>
-      <meta charset="UTF-8">
-      <title>${title || ''}</title>
-
-      ${generateCSSReferences(css || [], normalizedPublicPath)}
-    </head>
-    <body>
-      ${generateJSReferences(js || [], normalizedPublicPath)}
-    </body>
-  </html>`
-}
-
-function generateCSSReferences(files: string[] = [], publicPath: string = '') {
-  return files
-    .map(file => `<link href="${publicPath}${file}" rel="stylesheet">`)
-    .join('')
-}
-
-function generateJSReferences(files: string[] = [], publicPath: string = '') {
-  return files
-    .map(file => `<script src="${publicPath}${file}"></script>`)
-    .join('')
-}
-
 export default PrerenderWebpackPlugin
-export { defaultTemplate, generateCSSReferences, generateJSReferences }

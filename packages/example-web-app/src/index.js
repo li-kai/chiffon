@@ -1,7 +1,15 @@
-const {
-  generateCSSReferences,
-  generateJSReferences,
-} = require('@chiffon/prerender-webpack-plugin')
+
+function generateCSSReferences(files = [], publicPath = '') {
+  return files
+    .map(file => `<link href="${publicPath}${file}" rel="stylesheet">`)
+    .join('')
+}
+
+function generateJSReferences(files = [], publicPath = '') {
+  return files
+    .map(file => `<script src="${publicPath}${file}"></script>`)
+    .join('')
+}
 
 function defaultTemplate({
   css,
