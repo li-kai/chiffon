@@ -1,6 +1,7 @@
-import path from 'path'
-import webpack, { SingleEntryPlugin } from 'webpack'
-import { safeEval } from './utils'
+import path from 'path';
+import webpack, { SingleEntryPlugin } from 'webpack';
+import { RawSource } from 'webpack-sources';
+import { safeEval } from './utils';
 
 const PLUGIN_NAME = 'prerender-webpack-plugin'
 
@@ -100,10 +101,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
               }
               const output = fn(files)
 
-              compilation.assets[filename] = {
-                size: () => output.length,
-                source: () => output,
-              }
+              compilation.assets[filename] = new RawSource(output)
             })
 
             callback()
