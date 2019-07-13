@@ -1,7 +1,7 @@
-import path from 'path';
-import webpack, { SingleEntryPlugin } from 'webpack';
-import { RawSource } from 'webpack-sources';
-import { safeEval } from './utils';
+import path from 'path'
+import webpack, { SingleEntryPlugin } from 'webpack'
+import { RawSource } from 'webpack-sources'
+import { safeEval } from './utils'
 
 const PLUGIN_NAME = 'prerender-webpack-plugin'
 
@@ -81,28 +81,35 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
               return
             }
 
-            entries.forEach((entry): void => {
-              const filenames = Array.isArray(entry.files)
-                ? entry.files
-                : [entry.files]
-              if (filenames.length > 1) {
-                throw new Error(
-                  'Unexpected condition: more than one filename found.',
-                )
+            for (const entry of entries) {
+              let filename: string
+              if (Array.isArray(entry.files)) {
+                if (entry.files.length > 1) {
+                  compilation.errors.push(new Error("More than one file per entry found"))
+                  callback()
+                  return
+                }
+                filename = entry.files[0]
+              } else {
+                filename = entry.files;
               }
-
-              const filename = filenames[0]
+  
               const source = compilation.assets[filename].source()
               delete compilation.assets[filename]
-
-              const fn = safeEval(source)
-              if (typeof fn !== 'function') {
-                throw new Error('No function was exported')
+  
+              try {
+                const fn = safeEval(source)
+                if (typeof fn !== 'function') {
+                  throw new Error('No function was exported')
+                }
+                const output = fn(files)
+                compilation.assets[filename] = new RawSource(output)
+              } catch (error) {
+                compilation.errors.push(error)
+                callback()
+                return;
               }
-              const output = fn(files)
-
-              compilation.assets[filename] = new RawSource(output)
-            })
+            }
 
             callback()
           })
@@ -136,7 +143,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
 export interface TemplateInput {
   css?: string[] | undefined
   js?: string[] | undefined
-  [key: string]:  string[] | undefined
+  [key: string]: string[] | undefined
 }
 
 export default PrerenderWebpackPlugin
