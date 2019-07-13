@@ -85,18 +85,20 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
               let filename: string
               if (Array.isArray(entry.files)) {
                 if (entry.files.length > 1) {
-                  compilation.errors.push(new Error("More than one file per entry found"))
+                  compilation.errors.push(
+                    new Error('More than one file per entry found'),
+                  )
                   callback()
                   return
                 }
                 filename = entry.files[0]
               } else {
-                filename = entry.files;
+                filename = entry.files
               }
-  
+
               const source = compilation.assets[filename].source()
               delete compilation.assets[filename]
-  
+
               try {
                 const fn = safeEval(source)
                 if (typeof fn !== 'function') {
@@ -107,7 +109,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
               } catch (error) {
                 compilation.errors.push(error)
                 callback()
-                return;
+                return
               }
             }
 
