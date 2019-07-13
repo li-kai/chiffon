@@ -1,3 +1,7 @@
+import render from 'preact-render-to-string'
+import { h } from 'preact'
+import App from './App.js'
+
 function generateCSSReferences(files = [], publicPath = '') {
   return files
     .map(file => `<link href="${publicPath}${file}" rel="stylesheet">`)
@@ -34,6 +38,7 @@ function defaultTemplate({
     </head>
     <body>
     <div id="root"></div>
+      ${render(<App />)}
       ${generateJSReferences(js, normalizedPublicPath)}
     </body>
   </html>`

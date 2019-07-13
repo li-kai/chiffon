@@ -1,14 +1,5 @@
 import { h, render } from 'preact'
+import App from './App.js'
 import './root.css'
-
-function App() {
-  let time = new Date().toLocaleTimeString()
-  return (
-    <div>
-      <h1>Example Web App</h1>
-      <span>{time}</span>
-    </div>
-  )
-}
 
 render(<App />, document.getElementById('root'))
