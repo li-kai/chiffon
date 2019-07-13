@@ -1,11 +1,11 @@
 import program from 'commander'
 import packageJson from '../package.json'
 
-program.command('start <file>').action(function(dir, cmd) {
+program.command('start <file>').action(function(dir, cmd): void {
   console.log('remove ' + dir + (cmd.recursive ? ' recursively' : ''))
 })
 
-program.command('build <file>').action(function(dir, cmd) {
+program.command('build <file>').action(function(dir, cmd): void {
   console.log('remove ' + dir + (cmd.recursive ? ' recursively' : ''))
 })
 

@@ -19,7 +19,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
   // extend causes cyclic dependencies
   private options: Options
 
-  constructor(options: Options) {
+  public constructor(options: Options) {
     this.options = options
   }
 
@@ -28,8 +28,8 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
    *
    * @param compiler webpack.Compiler
    */
-  apply(compiler: webpack.Compiler) {
-    compiler.hooks.make.tap(PLUGIN_NAME, compilation => {
+  public apply(compiler: webpack.Compiler): void {
+    compiler.hooks.make.tap(PLUGIN_NAME, (compilation): void => {
       const outputOptions = {
         ...compiler.options.output,
         filename: this.options.filename,
@@ -68,69 +68,77 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
       //   },
       // )
 
-      compilation.hooks.additionalAssets.tapAsync(PLUGIN_NAME, callback => {
-        const files = getFiles(compilation.entrypoints)
+      compilation.hooks.additionalAssets.tapAsync(
+        PLUGIN_NAME,
+        (callback): void => {
+          const files = PrerenderWebpackPlugin.getFiles(compilation.entrypoints)
 
-        // Run child compilation
-        childCompiler.runAsChild((err, entries) => {
-          if (err) {
-            compilation.errors.push(err)
-            return
-          }
-
-          entries.forEach(entry => {
-            const filenames = Array.isArray(entry.files)
-              ? entry.files
-              : [entry.files]
-            if (filenames.length > 1) {
-              throw new Error(
-                'Unexpected condition: more than one filename found.',
-              )
+          // Run child compilation
+          childCompiler.runAsChild((err, entries): void => {
+            if (err) {
+              compilation.errors.push(err)
+              return
             }
 
-            const filename = filenames[0]
-            const source = compilation.assets[filename].source()
-            delete compilation.assets[filename]
+            entries.forEach((entry): void => {
+              const filenames = Array.isArray(entry.files)
+                ? entry.files
+                : [entry.files]
+              if (filenames.length > 1) {
+                throw new Error(
+                  'Unexpected condition: more than one filename found.',
+                )
+              }
 
-            const fn = safeEval(source)
-            const output = fn(files)
+              const filename = filenames[0]
+              const source = compilation.assets[filename].source()
+              delete compilation.assets[filename]
 
-            compilation.assets[filename] = {
-              size: () => output.length,
-              source: () => output,
-            }
+              const fn = safeEval(source)
+              if (typeof fn !== 'function') {
+                throw new Error('No function was exported')
+              }
+              const output = fn(files)
+
+              compilation.assets[filename] = {
+                size: () => output.length,
+                source: () => output,
+              }
+            })
+
+            callback()
           })
+        },
+      )
+    })
+  }
 
-          callback()
-        })
+  private static getFiles(
+    entrypoints: webpack.compilation.Compilation['entrypoints'],
+  ): TemplateInput {
+    const ret: { [key: string]: string[] } = {}
+
+    entrypoints.forEach((entry): void => {
+      entry.getFiles().forEach((file: string): void => {
+        const extension = path.extname(file).replace(/\./, '')
+        if (!extension) return
+
+        if (ret[extension] == null) {
+          ret[extension] = []
+        }
+
+        ret[extension].push(file)
       })
     })
+
+    return ret
   }
 }
 
-function getFiles(entrypoints: webpack.compilation.Compilation['entrypoints']) {
-  const ret: { [key: string]: string[] } = {}
-
-  entrypoints.forEach(entry => {
-    entry.getFiles().forEach((file: string) => {
-      const extension = path.extname(file).replace(/\./, '')
-      if (!extension) return
-
-      if (!ret[extension]) {
-        ret[extension] = []
-      }
-
-      ret[extension].push(file)
-    })
-  })
-
-  return ret
-}
-
 export interface TemplateInput {
-  css?: string[] | null | undefined
-  js?: string[] | null | undefined
-  [key: string]: any
+  css?: string[] | undefined
+  js?: string[] | undefined
+  [key: string]:  string[] | undefined
 }
 
 export default PrerenderWebpackPlugin

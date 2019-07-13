@@ -1,4 +1,3 @@
-
 function generateCSSReferences(files = [], publicPath = '') {
   return files
     .map(file => `<link href="${publicPath}${file}" rel="stylesheet">`)

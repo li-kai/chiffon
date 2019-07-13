@@ -1,15 +1,28 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'prettier',
-    'prettier/@typescript-eslint',
+  extends: ['plugin:prettier/recommended', 'prettier'],
+  overrides: [
+    {
+      files: ['*.ts'],
+      parser: '@typescript-eslint/parser',
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:prettier/recommended',
+        'prettier',
+        'prettier/@typescript-eslint',
+      ],
+      plugins: ['@typescript-eslint'],
+    },
+    {
+      files: ['*.js'],
+      parser: 'babel-eslint',
+      parserOptions: {
+        sourceType: 'module',
+      },
+      extends: ['plugin:prettier/recommended', 'prettier', 'prettier/babel'],
+    },
   ],
-  plugins: ['@typescript-eslint'],
   env: {
     es6: true,
-    node: true,
   },
   rules: {
     'prettier/prettier': 'error',
