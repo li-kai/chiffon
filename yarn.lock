@@ -5241,10 +5241,17 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.16, postcss@^7.0.1
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-preact@10.0.0-beta.3:
-  version "10.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.0.0-beta.3.tgz#dabd0628d941f9e7908f68bb008e012ddff1b28f"
-  integrity sha512-JDeA+CVFBlv+r+v/tScG8hzOcOedXfBLUA5IhStqpfc7rPGY3T85pdlu4aGo2tV0AoZzQfO4LTnKkQEnKJ3UxQ==
+preact-render-to-string@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-4.1.0.tgz#70d98a8385cb86558366c558aad7311ebecb881d"
+  integrity sha512-FlFBJRxo8z4cp6VsDmeYjIEx4ZK2clFJnKIvIj8K1IQCRm7ZgJ/SZ1+BotT86/Nc+V1pNtFabHoUi6gpjx5Pug==
+  dependencies:
+    pretty-format "^3.8.0"
+
+preact@8.4.2:
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.4.2.tgz#1263b974a17d1ea80b66590e41ef786ced5d6a23"
+  integrity sha512-TsINETWiisfB6RTk0wh3/mvxbGRvx+ljeBccZ4Z6MPFKgu/KFGyf2Bmw3Z/jlXhL5JlNKY6QAbA9PVyzIy9//A==
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -5275,6 +5282,11 @@ pretty-error@^2.0.2:
   dependencies:
     renderkid "^2.0.1"
     utila "~0.4"
+
+pretty-format@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
+  integrity sha1-v77VbV6ad2ZF9LH/eqGjrE+jw4U=
 
 private@^0.1.6:
   version "0.1.8"
