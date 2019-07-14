@@ -2,7 +2,6 @@ const path = require('path')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const PrerenderWebpackPlugin = require('@chiffon/prerender-webpack-plugin')
-  .default
 const TerserPlugin = require('terser-webpack-plugin')
 
 const NODE_ENV = process.env.NODE_ENV

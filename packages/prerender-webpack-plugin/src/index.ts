@@ -122,7 +122,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
 
   private static getFiles(
     entrypoints: webpack.compilation.Compilation['entrypoints'],
-  ): TemplateInput {
+  ): PrerenderWebpackPlugin.TemplateInput {
     const ret: { [key: string]: string[] } = {}
 
     entrypoints.forEach((entry): void => {
@@ -142,10 +142,12 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
   }
 }
 
-export interface TemplateInput {
-  css?: string[] | undefined
-  js?: string[] | undefined
-  [key: string]: string[] | undefined
+namespace PrerenderWebpackPlugin {
+  export interface TemplateInput {
+    css?: string[] | undefined
+    js?: string[] | undefined
+    [key: string]: string[] | undefined
+  }
 }
 
-export default PrerenderWebpackPlugin
+export = PrerenderWebpackPlugin
