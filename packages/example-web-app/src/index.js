@@ -37,8 +37,9 @@ function defaultTemplate({
       ${generateCSSReferences(css, normalizedPublicPath)}
     </head>
     <body>
-    <div id="root"></div>
-      ${render(<App />)}
+      <div id="root">
+        ${render(<App />)}
+      </div>
       ${generateJSReferences(js, normalizedPublicPath)}
     </body>
   </html>`
