@@ -2,6 +2,7 @@ const path = require('path')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const PrerenderWebpackPlugin = require('@chiffon/prerender-webpack-plugin')
+const BabelWebpackPlugin = require('@chiffon/babel-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 const NODE_ENV = process.env.NODE_ENV
@@ -39,7 +40,7 @@ const config = {
       {
         test: /\.(js|ts)$/,
         exclude: /(node_modules)/,
-        loader: 'babel-loader',
+        use: BabelWebpackPlugin.loader,
       },
       {
         test: /\.(png|gif|jpg|jpeg)$/,
@@ -75,6 +76,22 @@ const config = {
         ],
       },
   plugins: [
+    new BabelWebpackPlugin({
+      targets: [
+        {
+          target: 'js',
+          filename: '[name].js',
+          chunkFilename: '[id].js',
+          excludedPlugins: [PrerenderWebpackPlugin],
+        },
+        IS_PROD && {
+          target: 'mjs',
+          filename: '[name].mjs',
+          chunkFilename: '[id].mjs',
+          excludedPlugins: [PrerenderWebpackPlugin],
+        },
+      ].filter(Boolean),
+    }),
     new PrerenderWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, 'src', 'index.js'),
