@@ -16,19 +16,13 @@ const babelLoader: webpack.loader.Loader = function(
   source: string | Buffer,
   sourceMap?: RawSourceMap,
 ) {
-  let loaderOptions = { ...loaderUtils.getOptions(this) }
+  const loaderOptions = { ...loaderUtils.getOptions(this) }
 
   // Standardize on 'sourceMaps' as the key passed through to Webpack, so that
   // users may safely use either one alongside our default use of
   // 'this.sourceMap' below without getting error about conflicting aliases.
-  if (
-    Object.prototype.hasOwnProperty.call(loaderOptions, 'sourceMap') &&
-    !Object.prototype.hasOwnProperty.call(loaderOptions, 'sourceMaps')
-  ) {
-    loaderOptions = {
-      ...loaderOptions,
-      sourceMaps: loaderOptions.sourceMap,
-    }
+  if (loaderOptions.sourceMap && !loaderOptions.sourceMaps) {
+    loaderOptions.sourceMaps = loaderOptions.sourceMap
     delete loaderOptions.sourceMap
   }
 
@@ -50,8 +44,6 @@ const babelLoader: webpack.loader.Loader = function(
     sourceFileName: filename,
     caller: {
       name: LOADER_NAME,
-      // @ts-ignore add caller information
-      target,
       supportsStaticESM: true,
       // @ts-ignore supportsDynamicImport may be used by babel plugins
       supportsDynamicImport: true,
@@ -61,7 +53,10 @@ const babelLoader: webpack.loader.Loader = function(
   const callback = this.async()
   if (!callback) throw new Error('No callback found')
 
+  const previousTarget = process.env.TARGET
+  process.env.TARGET = target || this.target
   const config = babel.loadPartialConfig(babelOptions)
+  process.env.TARGET = previousTarget
   if (!config) {
     // If the file was ignored, pass through the original source.
     callback(null, source, sourceMap)

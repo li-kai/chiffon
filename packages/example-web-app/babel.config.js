@@ -1,10 +1,9 @@
-function isBabelRegister(caller) {
-  console.log(caller)
-  return !!(caller && caller.name === '@babel/register')
-}
-
 module.exports = function(api) {
-  const isRegister = api.caller(isBabelRegister)
+  const nodeEnv = process.env.NODE_ENV
+  const babelEnv = process.env.BABEL_ENV
+  const env = nodeEnv || babelEnv
+  const target = process.env.TARGET
+  api.cache.using(() => `${target}~${env}`)
 
   return {
     presets: [

@@ -79,13 +79,13 @@ const config = {
     new BabelWebpackPlugin({
       targets: [
         {
-          target: 'js',
+          target: 'client-legacy',
           filename: '[name].js',
           chunkFilename: '[id].js',
           excludedPlugins: [PrerenderWebpackPlugin],
         },
         IS_PROD && {
-          target: 'mjs',
+          target: 'client-modern',
           filename: '[name].mjs',
           chunkFilename: '[id].mjs',
           excludedPlugins: [PrerenderWebpackPlugin],
