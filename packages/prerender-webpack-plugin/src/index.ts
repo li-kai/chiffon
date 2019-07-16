@@ -41,6 +41,10 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
         outputOptions,
         [],
       )
+      // TODO: visit if putting node_modules into externals improve perf
+      childCompiler.options.mode = 'none'
+      childCompiler.options.target = 'node'
+      childCompiler.options.node = false
 
       // childCompiler.context = compiler.context
       // childCompiler.inputFileSystem = compiler.inputFileSystem
