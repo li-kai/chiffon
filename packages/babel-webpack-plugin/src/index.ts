@@ -1,8 +1,8 @@
-import webpack, { SingleEntryPlugin } from 'webpack'
-import MultiEntryPlugin from 'webpack/lib/MultiEntryPlugin'
+import webpack from 'webpack'
 import JsonpTemplatePlugin from 'webpack/lib/web/JsonpTemplatePlugin'
 import SplitChunksPlugin from 'webpack/lib/optimize/SplitChunksPlugin'
 import RuntimeChunkPlugin from 'webpack/lib/optimize/RuntimeChunkPlugin'
+import EntryConfigPlugin from './EntryConfigPlugin'
 
 const PLUGIN_NAME = 'babel-webpack-plugin'
 
@@ -94,7 +94,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
     })
   }
 
-  private static async buildTargetAssets(
+  private static buildTargetAssets(
     compiler: webpack.Compiler,
     compilation: webpack.compilation.Compilation,
     targetOptions: PrivateTargetOptions,
@@ -162,21 +162,9 @@ class BabelWebpackPlugin implements webpack.Plugin {
         plugin.apply(childCompiler)
       })
 
-    const entries = await BabelWebpackPlugin.normalizeEntries(
-      compiler.options.entry,
+    new EntryConfigPlugin(compiler.context, compiler.options.entry).apply(
+      childCompiler,
     )
-
-    for (const [entry, entryFiles] of Object.entries(entries)) {
-      if (Array.isArray(entryFiles)) {
-        new MultiEntryPlugin(compiler.context, entryFiles, entry).apply(
-          childCompiler,
-        )
-      } else {
-        new SingleEntryPlugin(compiler.context, entryFiles, entry).apply(
-          childCompiler,
-        )
-      }
-    }
 
     // Convert entry chunk to entry file
     new JsonpTemplatePlugin().apply(childCompiler)
@@ -206,32 +194,6 @@ class BabelWebpackPlugin implements webpack.Plugin {
         })
       })
     })
-  }
-
-  private static async normalizeEntries(
-    entries: webpack.Configuration['entry'],
-  ): Promise<webpack.Entry> {
-    let normalizedEntries: webpack.Entry
-
-    if (entries == null) {
-      throw new Error('No entry found')
-    } else if (typeof entries === 'function') {
-      entries = await entries()
-    }
-
-    if (typeof entries === 'string') {
-      normalizedEntries = {
-        index: entries,
-      }
-    } else if (Array.isArray(entries)) {
-      normalizedEntries = {
-        index: entries,
-      }
-    } else {
-      normalizedEntries = entries
-    }
-
-    return normalizedEntries
   }
 }
 
