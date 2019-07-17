@@ -44,6 +44,8 @@ const babelLoader: webpack.loader.Loader = function(
     sourceFileName: filename,
     caller: {
       name: LOADER_NAME,
+      // @ts-ignore
+      target: target || this.target,
       supportsStaticESM: true,
       // @ts-ignore supportsDynamicImport may be used by babel plugins
       supportsDynamicImport: true,
@@ -53,10 +55,7 @@ const babelLoader: webpack.loader.Loader = function(
   const callback = this.async()
   if (!callback) throw new Error('No callback found')
 
-  const previousTarget = process.env.TARGET
-  process.env.TARGET = target || this.target
   const config = babel.loadPartialConfig(babelOptions)
-  process.env.TARGET = previousTarget
   if (!config) {
     // If the file was ignored, pass through the original source.
     callback(null, source, sourceMap)

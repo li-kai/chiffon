@@ -65,13 +65,27 @@ class BabelWebpackPlugin implements webpack.Plugin {
     compiler: webpack.Compiler,
     compilation: webpack.compilation.Compilation,
   ) {
+    const [primaryTarget, ...additionalTargets] = this.options.targets
+
     let targetAssetsPromises: Promise<{
       entries: webpack.Entry[]
       childCompilation: webpack.compilation.Compilation
-    }>[]
-    targetAssetsPromises = this.options.targets.map(options =>
+    }>[] = additionalTargets.map(options =>
       BabelWebpackPlugin.buildTargetAssets(compiler, compilation, options),
     )
+
+    compilation.hooks.normalModuleLoader.tap(PLUGIN_NAME, (context, module) => {
+      // @ts-ignore property loaders does exist but is not typed
+      const newLoaders = module.loaders as webpack.NewLoader[]
+      for (let i = 0; i < newLoaders.length; i++) {
+        const newLoader = newLoaders[i]
+        if (newLoader.loader !== BabelWebpackPlugin.loader) return
+        newLoader.options = {
+          ...newLoader.options,
+          target: primaryTarget.target,
+        }
+      }
+    })
 
     compilation.hooks.additionalAssets.tapPromise(PLUGIN_NAME, async () => {
       try {
@@ -133,7 +147,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
     childCompiler.hooks.normalModuleFactory.tap(PLUGIN_NAME, nmf => {
       nmf.hooks.afterResolve.tap(PLUGIN_NAME, module => {
         if (
-          !module.loaders.includes(
+          !module.loaders.some(
             (newLoader: webpack.NewLoader) =>
               newLoader.loader === BabelWebpackPlugin.loader,
           )
@@ -146,7 +160,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
     childCompiler.hooks.contextModuleFactory.tap(PLUGIN_NAME, cmf => {
       cmf.hooks.afterResolve.tap(PLUGIN_NAME, module => {
         if (
-          !module.loaders.includes(
+          !module.loaders.some(
             (newLoader: webpack.NewLoader) =>
               newLoader.loader === BabelWebpackPlugin.loader,
           )
@@ -170,24 +184,20 @@ class BabelWebpackPlugin implements webpack.Plugin {
         },
       )
     })
-    // await BabelWebpackPlugin.injectTarget(target, childCompiler.options.module)
 
     const plugins = compiler.options.plugins || []
-    plugins
-      // Only copy over mini-extract-text-plugin (excluding it breaks extraction entirely)
-      .filter(
-        plugin =>
-          !excludedPlugins.some(
-            // @ts-ignore webpack.Plugin is extended and not implemented
-            excludedPlugin => plugin instanceof excludedPlugin,
-          ),
+    for (const plugin of plugins) {
+      const isIncluded = !excludedPlugins.some(
+        // @ts-ignore webpack.Plugin is extended and not implemented
+        excludedPlugin => plugin instanceof excludedPlugin,
       )
-      // Add the additionalPlugins
-      .concat(additionalPlugins)
-      // Call the `apply` method of all plugins by ourselves.
-      .forEach(plugin => {
+      if (isIncluded) {
         plugin.apply(childCompiler)
-      })
+      }
+    }
+    for (const plugin of additionalPlugins) {
+      plugin.apply(childCompiler)
+    }
 
     new EntryConfigPlugin(compiler.context, compiler.options.entry).apply(
       childCompiler,
