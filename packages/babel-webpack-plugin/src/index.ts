@@ -33,7 +33,8 @@ interface PrivateOptions {
 class BabelWebpackPlugin implements webpack.Plugin {
   // extend causes cyclic dependencies
   private options: PrivateOptions
-  public static loader = require.resolve('./loader.js')
+  public static loader = require.resolve('./babel-loader.js')
+  private static nullLoader = require.resolve('./null-loader.js')
 
   public constructor(options: PublicOptions) {
     const targets = options.targets.map(option => {
@@ -43,7 +44,6 @@ class BabelWebpackPlugin implements webpack.Plugin {
         additionalPlugins: option.additionalPlugins || [],
       }
       newOptions.excludedPlugins.push(BabelWebpackPlugin)
-      newOptions.additionalPlugins.push(new webpack.IgnorePlugin(/\.css$/))
       return newOptions
     })
     this.options = { targets }
@@ -129,6 +129,33 @@ class BabelWebpackPlugin implements webpack.Plugin {
     childCompiler.context = compiler.context
     childCompiler.inputFileSystem = compiler.inputFileSystem
     childCompiler.outputFileSystem = compiler.outputFileSystem
+
+    childCompiler.hooks.normalModuleFactory.tap(PLUGIN_NAME, nmf => {
+      nmf.hooks.afterResolve.tap(PLUGIN_NAME, module => {
+        if (
+          !module.loaders.includes(
+            (newLoader: webpack.NewLoader) =>
+              newLoader.loader === BabelWebpackPlugin.loader,
+          )
+        ) {
+          module.loaders = [{ loader: BabelWebpackPlugin.nullLoader }]
+        }
+      })
+    })
+
+    childCompiler.hooks.contextModuleFactory.tap(PLUGIN_NAME, cmf => {
+      cmf.hooks.afterResolve.tap(PLUGIN_NAME, module => {
+        if (
+          !module.loaders.includes(
+            (newLoader: webpack.NewLoader) =>
+              newLoader.loader === BabelWebpackPlugin.loader,
+          )
+        ) {
+          module.loaders = [{ loader: BabelWebpackPlugin.nullLoader }]
+        }
+      })
+    })
+
     childCompiler.hooks.compilation.tap(PLUGIN_NAME, compilation => {
       compilation.hooks.normalModuleLoader.tap(
         PLUGIN_NAME,
