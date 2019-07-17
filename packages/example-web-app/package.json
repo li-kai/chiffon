@@ -11,7 +11,7 @@
     "fmt": "prettier \"*.{js,ts,json,md}\" \"src/**/*.{js,ts,json,md}\" --write"
   },
   "dependencies": {
-    "preact": "8.4.2"
+    "preact": "10.0.0-rc.0"
   },
   "devDependencies": {
     "@babel/core": "7.5.4",

@@ -3,6 +3,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const PrerenderWebpackPlugin = require('@chiffon/prerender-webpack-plugin')
 const BabelWebpackPlugin = require('@chiffon/babel-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 const NODE_ENV = process.env.NODE_ENV
@@ -16,6 +17,7 @@ const config = {
   },
   output: {
     filename: '[name].js',
+    chunkFilename: '[id].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
@@ -38,8 +40,7 @@ const config = {
         ].filter(Boolean),
       },
       {
-        test: /\.(js|ts)$/,
-        exclude: /(node_modules)/,
+        test: /\.(js|mjs|ts)$/,
         use: BabelWebpackPlugin.loader,
       },
       {
@@ -80,22 +81,21 @@ const config = {
       targets: [
         {
           target: 'client-legacy',
-          filename: '[name].js',
-          chunkFilename: '[id].js',
-          excludedPlugins: [PrerenderWebpackPlugin],
+          excludedPlugins: [PrerenderWebpackPlugin, HtmlWebpackPlugin],
         },
         IS_PROD && {
           target: 'client-modern',
           filename: '[name].mjs',
           chunkFilename: '[id].mjs',
-          excludedPlugins: [PrerenderWebpackPlugin],
+          excludedPlugins: [PrerenderWebpackPlugin, HtmlWebpackPlugin],
         },
       ].filter(Boolean),
     }),
-    new PrerenderWebpackPlugin({
-      filename: 'index.html',
-      template: path.resolve(__dirname, 'src', 'index.js'),
-    }),
+    new HtmlWebpackPlugin(),
+    // new PrerenderWebpackPlugin({
+    //   filename: 'index.html',
+    //   template: path.resolve(__dirname, 'src', 'index.js'),
+    // }),
     IS_PROD &&
       new MiniCssExtractPlugin({
         filename: '[name].css',
