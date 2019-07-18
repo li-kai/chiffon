@@ -91,11 +91,11 @@ const config = {
         },
       ].filter(Boolean),
     }),
-    new HtmlWebpackPlugin(),
-    // new PrerenderWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: path.resolve(__dirname, 'src', 'index.js'),
-    // }),
+    // new HtmlWebpackPlugin(),
+    new PrerenderWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve(__dirname, 'src', 'index.js'),
+    }),
     IS_PROD &&
       new MiniCssExtractPlugin({
         filename: '[name].css',

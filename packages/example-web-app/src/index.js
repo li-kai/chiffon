@@ -1,6 +1,11 @@
-import render from 'preact-render-to-string'
+// import render from 'preact-render-to-string'
 import { h } from 'preact'
 import App from './App.js'
+
+// TODO: fix prerendering when preactX support lands
+function render(comp) {
+  return JSON.stringify(comp)
+}
 
 function generateCSSReferences(files = [], publicPath = '') {
   return files
@@ -38,7 +43,7 @@ function defaultTemplate({
     </head>
     <body>
       <div id="root">
-        ${render(<App />)}
+      ${render(<App />)}
       </div>
       ${generateJSReferences(js, normalizedPublicPath)}
     </body>
