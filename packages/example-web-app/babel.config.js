@@ -4,14 +4,16 @@ function getTarget(caller) {
 
 module.exports = function(api) {
   const nodeEnv = process.env.NODE_ENV
+  api.cache.using(() => ['production', 'development'].indexOf(nodeEnv))
+  // using api.caller automatically adds it to the cache
   const target = api.caller(getTarget)
-  api.cache.using(() => `${target}-${nodeEnv}`)
 
-  const presetEnvConfig = {
-    modules: 'commonjs',
-  }
-  if (target === 'server' || target === 'node') {
-    presetEnvConfig.targets = { node: 'current' }
+  // Assume by default we are running in node
+  const presetEnvConfig = { modules: 'commonjs', targets: { node: 'current' } }
+
+  // config changes only when web targets are specified
+  if (target === 'client-legacy') {
+    presetEnvConfig.targets = {}
   } else if (target === 'client-modern') {
     presetEnvConfig.targets = { esmodules: true }
     presetEnvConfig.modules = false
