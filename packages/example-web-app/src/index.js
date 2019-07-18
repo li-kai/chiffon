@@ -15,13 +15,20 @@ function generateCSSReferences(files = [], publicPath = '') {
 
 function generateJSReferences(files = [], publicPath = '') {
   return files
-    .map(file => `<script src="${publicPath}${file}"></script>`)
+    .map(file => `<script src="${publicPath}${file}" nomodule></script>`)
+    .join('')
+}
+
+function generateMJSReferences(files = [], publicPath = '') {
+  return files
+    .map(file => `<script src="${publicPath}${file}" type=module></script>`)
     .join('')
 }
 
 function defaultTemplate({
   css,
   js,
+  mjs,
   title = 'Example Web App',
   htmlAttributes = { lang: 'en' },
   publicPath,
@@ -45,6 +52,7 @@ function defaultTemplate({
       <div id="root">
       ${render(<App />)}
       </div>
+      ${generateMJSReferences(mjs, normalizedPublicPath)}
       ${generateJSReferences(js, normalizedPublicPath)}
     </body>
   </html>`
