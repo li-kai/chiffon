@@ -2,6 +2,7 @@ import webpack from 'webpack'
 import JsonpTemplatePlugin from 'webpack/lib/web/JsonpTemplatePlugin'
 import SplitChunksPlugin from 'webpack/lib/optimize/SplitChunksPlugin'
 import RuntimeChunkPlugin from 'webpack/lib/optimize/RuntimeChunkPlugin'
+import RawModule from 'webpack/lib/RawModule'
 import EntryConfigPlugin from './EntryConfigPlugin'
 
 const PLUGIN_NAME = 'babel-webpack-plugin'
@@ -34,7 +35,6 @@ class BabelWebpackPlugin implements webpack.Plugin {
   // extend causes cyclic dependencies
   private options: PrivateOptions
   public static loader = require.resolve('./babel-loader.js')
-  private static nullLoader = require.resolve('./null-loader.js')
 
   public constructor(options: PublicOptions) {
     const targets = options.targets.map(option => {
@@ -145,28 +145,19 @@ class BabelWebpackPlugin implements webpack.Plugin {
     childCompiler.outputFileSystem = compiler.outputFileSystem
 
     childCompiler.hooks.normalModuleFactory.tap(PLUGIN_NAME, nmf => {
-      nmf.hooks.afterResolve.tap(PLUGIN_NAME, module => {
-        if (
-          !module.loaders.some(
-            (newLoader: webpack.NewLoader) =>
-              newLoader.loader === BabelWebpackPlugin.loader,
-          )
-        ) {
-          module.loaders = [{ loader: BabelWebpackPlugin.nullLoader }]
-        }
-      })
-    })
+      // TODO: webpack v5 bail out in afterResolve hook instead
+      nmf.hooks.createModule.tap(PLUGIN_NAME, module => {
+        // @ts-ignore property loaders does exist but is not typed
+        const newLoaders = module.loaders as webpack.NewLoader[]
+        const ownLoader = BabelWebpackPlugin.loader
+        if (newLoaders.some(newLoader => newLoader.loader === ownLoader)) return
 
-    childCompiler.hooks.contextModuleFactory.tap(PLUGIN_NAME, cmf => {
-      cmf.hooks.afterResolve.tap(PLUGIN_NAME, module => {
-        if (
-          !module.loaders.some(
-            (newLoader: webpack.NewLoader) =>
-              newLoader.loader === BabelWebpackPlugin.loader,
-          )
-        ) {
-          module.loaders = [{ loader: BabelWebpackPlugin.nullLoader }]
-        }
+        const { context, request, rawRequest } = module
+        return new RawModule(
+          '/* (ignored) */',
+          `ignored ${context} ${request}`,
+          `${rawRequest} (ignored)`,
+        )
       })
     })
 
