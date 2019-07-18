@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs'
 import webpack, { SingleEntryPlugin } from 'webpack'
 import { RawSource } from 'webpack-sources'
 import { safeEval } from './utils'
@@ -41,14 +42,6 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
         outputOptions,
         [],
       )
-      // TODO: visit if putting node_modules into externals improve perf
-      childCompiler.options.mode = 'none'
-      childCompiler.options.target = 'node'
-      childCompiler.options.node = false
-
-      // childCompiler.context = compiler.context
-      // childCompiler.inputFileSystem = compiler.inputFileSystem
-      // childCompiler.outputFileSystem = compiler.outputFileSystem
 
       // Add SingleEntryPlugin to make all this work
       const entryName = path.parse(this.options.template).name
@@ -79,7 +72,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
           const files = PrerenderWebpackPlugin.getFiles(compilation.entrypoints)
 
           // Run child compilation
-          childCompiler.runAsChild((err, entries): void => {
+          childCompiler.runAsChild((err, entries, childCompilation): void => {
             if (err) {
               compilation.errors.push(err)
               return
@@ -102,9 +95,10 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
 
               const source = compilation.assets[filename].source()
               delete compilation.assets[filename]
+              delete childCompilation.assets[filename]
 
               try {
-                const fn = safeEval(source)
+                const fn = safeEval(filename, source)
                 if (typeof fn !== 'function') {
                   throw new Error('No function was exported')
                 }
