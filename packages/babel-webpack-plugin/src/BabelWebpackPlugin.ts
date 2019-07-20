@@ -74,7 +74,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
   ) {
     const [primaryTarget, ...additionalTargets] = this.options.targets
 
-    const targetAssetsPromises: Promise<{
+    const childCompilerOutputs: Promise<{
       entries: webpack.Entry[]
       childCompilation: webpack.compilation.Compilation
     }>[] = additionalTargets.map(options =>
@@ -112,9 +112,9 @@ class BabelWebpackPlugin implements webpack.Plugin {
         parentChunkByName[chunk.name] = chunk
       }
 
-      return Promise.all(targetAssetsPromises)
-        .then(targetAssets => {
-          for (const { childCompilation } of targetAssets) {
+      return Promise.all(childCompilerOutputs)
+        .then(childCompilerOutputs => {
+          for (const { childCompilation } of childCompilerOutputs) {
             for (const chunk of childCompilation.chunks as webpack.compilation.Chunk[]) {
               const parentChunk = parentChunkByName[chunk.name]
               if (!parentChunk) return
