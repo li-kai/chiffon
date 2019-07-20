@@ -7,8 +7,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug example-web-app build",
-      "cwd": "${workspaceFolder}/packages/example-web-app",
+      "name": "Debug preact-web-app build",
+      "cwd": "${workspaceFolder}/examples/preact-web-app",
       "program": "${cwd}/node_modules/webpack/bin/webpack.js",
       "args": ["--config", "./webpack.config.js"],
       "env": { "NODE_ENV": "production" }

@@ -6,7 +6,8 @@
   "author": "Li Kai <hello+github@lik.ai>",
   "license": "MIT",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "private": true,
   "scripts": {
