@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack, { SingleEntryPlugin } from 'webpack'
 import { RawSource } from 'webpack-sources'
+import { minify, Options as HtmlMinifierOptions } from 'html-minifier'
 import { safeEval } from './utils'
 
 const PLUGIN_NAME = 'prerender-webpack-plugin'
@@ -8,6 +9,7 @@ const PLUGIN_NAME = 'prerender-webpack-plugin'
 interface Options {
   filename: string
   template: string
+  minify?: boolean | HtmlMinifierOptions
 }
 
 /**
@@ -46,6 +48,33 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
     compiler: webpack.Compiler,
     compilation: webpack.compilation.Compilation,
   ) {
+    let htmlMinifierOptions: HtmlMinifierOptions | undefined
+    if (this.options.minify == null) {
+      this.options.minify = compiler.options.mode === 'production'
+    }
+    if (this.options.minify === true) {
+      // default html minifier options following
+      // https://github.com/jantimon/html-webpack-plugin#minification
+      htmlMinifierOptions = {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+      }
+    } else if (this.options.minify === false) {
+      htmlMinifierOptions = undefined
+    } else {
+      htmlMinifierOptions = this.options.minify
+    }
+
+    const childCompilerPromise = PrerenderWebpackPlugin.runChildCompiler(
+      compiler,
+      compilation,
+      this.options,
+    )
+
     /**
      * Adds the generated html file as an additional asset.
      * see: https://webpack.js.org/api/compilation-hooks/#additionalassets
@@ -53,11 +82,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
     compilation.hooks.additionalAssets.tapPromise(PLUGIN_NAME, () => {
       const files = PrerenderWebpackPlugin.getFiles(compilation.entrypoints)
 
-      return PrerenderWebpackPlugin.runChildCompiler(
-        compiler,
-        compilation,
-        this.options,
-      )
+      return childCompilerPromise
         .then(childCompilerOutput => {
           const { entries, childCompilation } = childCompilerOutput
           for (const entry of entries) {
@@ -81,7 +106,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
             if (typeof fn !== 'function') {
               throw new Error('No function was exported')
             }
-            const output = fn(files)
+            const output = minify(fn(files), htmlMinifierOptions)
             compilation.assets[filename] = new RawSource(output)
           }
         })
