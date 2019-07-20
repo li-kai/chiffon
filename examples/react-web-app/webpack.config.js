@@ -16,8 +16,8 @@ const config = {
     app: './src/root.js',
   },
   output: {
-    filename: '[name].js',
-    chunkFilename: '[id].js',
+    filename: IS_DEV ? '[name].js' : '[name].[contenthash].js',
+    chunkFilename: IS_DEV ? '[name].js' : '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
@@ -48,7 +48,10 @@ const config = {
         use: [
           {
             loader: 'url-loader',
-            options: { name: '[name].[ext]', limit: 8192 },
+            options: {
+              name: IS_DEV ? '[name].[ext]' : '[name].[contenthash].[ext]',
+              limit: 8192,
+            },
           },
         ],
       },
@@ -57,7 +60,10 @@ const config = {
         use: [
           {
             loader: 'url-loader',
-            options: { name: '[name].[ext]', limit: 8192 },
+            options: {
+              name: IS_DEV ? '[name].[ext]' : '[name].[contenthash].[ext]',
+              limit: 8192,
+            },
           },
         ],
       },
@@ -69,12 +75,25 @@ const config = {
   optimization: IS_DEV
     ? {}
     : {
+        moduleIds: 'hashed',
         minimizer: [
           new TerserPlugin({
             parallel: true,
           }),
           new OptimizeCssAssetsPlugin({}),
         ],
+        runtimeChunk: {
+          name: 'runtime',
+        },
+        splitChunks: {
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+            },
+          },
+        },
       },
   plugins: [
     new BabelWebpackPlugin({
@@ -85,8 +104,8 @@ const config = {
         },
         IS_PROD && {
           target: 'client-modern',
-          filename: '[name].mjs',
-          chunkFilename: '[id].mjs',
+          filename: IS_DEV ? '[name].mjs' : '[name].[contenthash].mjs',
+          chunkFilename: IS_DEV ? '[name].mjs' : '[name].[contenthash].mjs',
           excludedPlugins: [PrerenderWebpackPlugin, HtmlWebpackPlugin],
         },
       ].filter(Boolean),
@@ -98,7 +117,7 @@ const config = {
     }),
     IS_PROD &&
       new MiniCssExtractPlugin({
-        filename: '[name].css',
+        filename: IS_DEV ? '[name].css' : '[name].[contenthash].css',
       }),
   ].filter(Boolean),
 }
