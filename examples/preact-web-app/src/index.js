@@ -15,7 +15,7 @@ function generateCSSReferences(files = [], publicPath = '') {
 
 function generateJSReferences(files = [], publicPath = '') {
   return files
-    .map(file => `<script src="${publicPath}${file}" nomodule></script>`)
+    .map(file => `<script src="${publicPath}${file}" nomodule defer></script>`)
     .join('')
 }
 
@@ -29,7 +29,7 @@ function defaultTemplate({
   css,
   js,
   mjs,
-  title = 'Example Web App',
+  title = 'Example Preact Web App',
   htmlAttributes = { lang: 'en' },
   publicPath,
 }) {
@@ -47,13 +47,13 @@ function defaultTemplate({
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       <link rel="manifest" href="/site.webmanifest" />
       ${generateCSSReferences(css, normalizedPublicPath)}
+      ${generateMJSReferences(mjs, normalizedPublicPath)}
+      ${generateJSReferences(js, normalizedPublicPath)}
     </head>
     <body>
       <div id="root">
       ${render(<App />)}
       </div>
-      ${generateMJSReferences(mjs, normalizedPublicPath)}
-      ${generateJSReferences(js, normalizedPublicPath)}
     </body>
   </html>`
 }
