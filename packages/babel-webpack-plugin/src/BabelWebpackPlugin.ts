@@ -283,4 +283,4 @@ class BabelWebpackPlugin implements webpack.Plugin {
   }
 }
 
-export = BabelWebpackPlugin
+export default BabelWebpackPlugin

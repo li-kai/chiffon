@@ -184,4 +184,4 @@ namespace PrerenderWebpackPlugin {
   }
 }
 
-export = PrerenderWebpackPlugin
+export default PrerenderWebpackPlugin
