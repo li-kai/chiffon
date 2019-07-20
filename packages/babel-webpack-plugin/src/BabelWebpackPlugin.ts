@@ -107,7 +107,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
      * see: https://webpack.js.org/api/compilation-hooks/#additionalassets
      */
     compilation.hooks.additionalAssets.tapPromise(PLUGIN_NAME, () => {
-      const parentChunkByName: { [key: string]: { files: string[] } } = {}
+      const parentChunkByName: { [key: string]: webpack.compilation.Chunk } = {}
       for (const chunk of compilation.chunks) {
         parentChunkByName[chunk.name] = chunk
       }
@@ -115,7 +115,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
       return Promise.all(targetAssetsPromises)
         .then(targetAssets => {
           for (const { childCompilation } of targetAssets) {
-            for (const chunk of childCompilation.chunks) {
+            for (const chunk of childCompilation.chunks as webpack.compilation.Chunk[]) {
               const parentChunk = parentChunkByName[chunk.name]
               if (!parentChunk) return
               parentChunk.files.push(...chunk.files)
