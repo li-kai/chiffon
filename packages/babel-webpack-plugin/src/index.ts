@@ -33,8 +33,8 @@ interface PrivateOptions {
  */
 class BabelWebpackPlugin implements webpack.Plugin {
   // extend causes cyclic dependencies
-  private options: PrivateOptions
-  public static loader = require.resolve('./babel-loader.js')
+  private readonly options: PrivateOptions
+  public static readonly loader = require.resolve('./babel-loader.js')
 
   public constructor(options: PublicOptions) {
     const targets = options.targets.map(option => {
@@ -51,7 +51,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
   }
 
   /**
-   * Entrypoint that webpack calls at the start
+   * Entrypoint that webpack calls at the start.
    *
    * @param compiler webpack.Compiler
    */
@@ -78,7 +78,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
       entries: webpack.Entry[]
       childCompilation: webpack.compilation.Compilation
     }>[] = additionalTargets.map(options =>
-      BabelWebpackPlugin.buildTargetAssets(compiler, compilation, options),
+      BabelWebpackPlugin.runChildCompiler(compiler, compilation, options),
     )
 
     /**
@@ -140,14 +140,15 @@ class BabelWebpackPlugin implements webpack.Plugin {
   }
 
   /**
-   * Compiles the same compilation but with a different target.
+   * Runs a child compiler that returns output of the entry,
+   * which in this case, is the same compilation but with a different target.
    *
    * @param compiler webpack.Compiler
    * @param compilation webpack.compilation.Compilation
    * @param targetOptions PrivateTargetOptions
    * @returns Promise<entries, childCompilation>
    */
-  private static buildTargetAssets(
+  private static runChildCompiler(
     compiler: webpack.Compiler,
     compilation: webpack.compilation.Compilation,
     targetOptions: PrivateTargetOptions,
