@@ -2,10 +2,10 @@
   "name": "@chiffon/babel-webpack-plugin",
   "version": "0.0.1",
   "description": "webpack plugin for compiling multiple JavaScript bundles with babel",
-  "main": "dist/index.js",
+  "main": "dist/BabelWebpackPlugin.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev src/index.ts",
+    "dev": "ts-node-dev src/BabelWebpackPlugin.ts",
     "build": "tsc",
     "fmt": "prettier \"*.{js,ts,json,md}\" \"src/**/*.{js,ts,json,md}\" --write"
   },
