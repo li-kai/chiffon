@@ -87,24 +87,36 @@ class BabelWebpackPlugin implements webpack.Plugin {
       }
     })
 
-    compilation.hooks.additionalAssets.tapPromise(PLUGIN_NAME, async () => {
-      try {
-        const targetAssets = await Promise.all(targetAssetsPromises)
-        for (const { childCompilation } of targetAssets) {
-          const assetKeys = Object.keys(childCompilation.assets)
-          for (let i = 0; i < assetKeys.length; i++) {
-            const key = assetKeys[i]
-            compilation.assets[key] = childCompilation.assets[key]
-          }
-          childCompilation.assets = {}
-          for (const [key, value] of childCompilation.namedChunkGroups) {
-            compilation.namedChunkGroups.set(key, value)
-          }
-          childCompilation.namedChunkGroups.clear()
-        }
-      } catch (error) {
-        compilation.errors.push(error)
+    compilation.hooks.additionalAssets.tapPromise(PLUGIN_NAME, () => {
+      const parentChunkByName: { [key: string]: { files: string[] } } = {}
+      for (const chunk of compilation.chunks) {
+        parentChunkByName[chunk.name] = chunk
       }
+
+      return Promise.all(targetAssetsPromises)
+        .then(targetAssets => {
+          for (const { childCompilation } of targetAssets) {
+            for (const chunk of childCompilation.chunks) {
+              const parentChunk = parentChunkByName[chunk.name]
+              if (!parentChunk) return
+              parentChunk.files.push(...chunk.files)
+            }
+
+            const assetKeys = Object.keys(childCompilation.assets)
+            for (let i = 0; i < assetKeys.length; i++) {
+              const key = assetKeys[i]
+              compilation.assets[key] = childCompilation.assets[key]
+            }
+            childCompilation.assets = {}
+            for (const [key, value] of childCompilation.namedChunkGroups) {
+              compilation.namedChunkGroups.set(key, value)
+            }
+            childCompilation.namedChunkGroups.clear()
+          }
+        })
+        .catch(error => {
+          compilation.errors.push(error)
+        })
     })
   }
 
