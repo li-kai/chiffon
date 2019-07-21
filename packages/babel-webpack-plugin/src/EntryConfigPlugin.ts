@@ -8,7 +8,11 @@ import MultiEntryPlugin from 'webpack/lib/MultiEntryPlugin'
  * @param {string} name entry key name
  * @returns {SingleEntryPlugin | MultiEntryPlugin} returns either a single or multi entry plugin
  */
-function itemToPlugin(context: string, item: string | string[], name: string) {
+function itemToPlugin(
+  context: string,
+  item: string | string[],
+  name: string,
+): SingleEntryPlugin | MultiEntryPlugin {
   if (Array.isArray(item)) {
     return new MultiEntryPlugin(context, item, name)
   }
@@ -21,16 +25,19 @@ function itemToPlugin(context: string, item: string | string[], name: string) {
  * than applying when the entryOption hook is called.
  */
 export default class EntryConfigPlugin {
-  constructor(
-    private context: string,
-    private entry: webpack.Configuration['entry'],
-  ) {}
+  private context: string
+  private entry: webpack.Configuration['entry']
+
+  public constructor(context: string, entry: webpack.Configuration['entry']) {
+    this.context = context
+    this.entry = entry
+  }
 
   /**
    * @param {Compiler} compiler the compiler instance one is tapping into
    * @returns {void}
    */
-  apply(compiler: webpack.Compiler): void {
+  public apply(compiler: webpack.Compiler): void {
     const context = this.context
     const entry = this.entry
     if (typeof entry === 'string' || Array.isArray(entry)) {

@@ -71,7 +71,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
   private compilerMakeHook(
     compiler: webpack.Compiler,
     compilation: webpack.compilation.Compilation,
-  ) {
+  ): void {
     const [primaryTarget, ...additionalTargets] = this.options.targets
 
     const childCompilerOutputs: Promise<{

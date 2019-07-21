@@ -12,6 +12,12 @@ interface Options {
   minify?: boolean | HtmlMinifierOptions
 }
 
+interface TemplateInput {
+  css?: string[] | undefined
+  js?: string[] | undefined
+  [key: string]: string[] | undefined
+}
+
 /**
  * Adopted from
  * https://github.com/styleguidist/mini-html-webpack-plugin
@@ -47,7 +53,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
   private compilerMakeHook(
     compiler: webpack.Compiler,
     compilation: webpack.compilation.Compilation,
-  ) {
+  ): void {
     let htmlMinifierOptions: HtmlMinifierOptions | undefined
     if (this.options.minify == null) {
       this.options.minify = compiler.options.mode === 'production'
@@ -181,7 +187,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
 
   private static getFiles(
     entrypoints: webpack.compilation.Compilation['entrypoints'],
-  ): PrerenderWebpackPlugin.TemplateInput {
+  ): TemplateInput {
     const ret: { [key: string]: string[] } = {}
 
     entrypoints.forEach((entry): void => {
@@ -198,14 +204,6 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
     })
 
     return ret
-  }
-}
-
-namespace PrerenderWebpackPlugin {
-  export interface TemplateInput {
-    css?: string[] | undefined
-    js?: string[] | undefined
-    [key: string]: string[] | undefined
   }
 }
 
