@@ -12,7 +12,7 @@
   "private": true,
   "scripts": {
     "fmt": "prettier \"*.{js,ts,json,md}\" --write",
-    "lint": "eslint packages --ext .js,.ts  --ignore-path .gitignore"
+    "lint": "eslint examples packages --ext .js,.ts  --ignore-path .gitignore"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "1.12.0",
