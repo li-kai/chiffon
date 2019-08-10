@@ -9,7 +9,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "commander": "2.20.0"
+    "commander": "3.0.0"
   },
   "devDependencies": {
     "@types/commander": "2.12.2",
