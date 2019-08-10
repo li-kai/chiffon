@@ -168,7 +168,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
       ...targetOutputOptions,
     }
     /**
-     * We do not passing plugins in createChildCompiler until additional options
+     * We do not pass plugins in createChildCompiler until additional options
      * has been added, such as file systems and loader modifications.
      * Since all webpack does with plugins is call the `apply` method on them,
      * we can do that ourselves later.
