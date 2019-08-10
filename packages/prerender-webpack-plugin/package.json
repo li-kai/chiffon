@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/html-minifier": "3.5.3",
     "@types/node": "10.14.13",
-    "@types/webpack": "4.32.0",
+    "@types/webpack": "4.32.1",
     "@types/webpack-sources": "0.1.5",
     "eslint": "6.1.0",
     "eslint-plugin-prettier": "3.1.0",
