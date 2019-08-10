@@ -2,7 +2,10 @@
   "name": "@chiffon/prerender-webpack-plugin",
   "version": "0.0.1",
   "description": "Prerender for web applications built with Preact",
+  "source": "src/index.ts",
+  "ts:main": "src/index.ts",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "dev": "tsc",
