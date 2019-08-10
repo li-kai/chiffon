@@ -34,7 +34,7 @@ interface PrivateOptions {
 class BabelWebpackPlugin implements webpack.Plugin {
   // extend causes cyclic dependencies
   private readonly options: PrivateOptions
-  public static readonly loader = require.resolve('./babel-loader.js')
+  public static readonly loader = require.resolve('../dist/babel-loader.js')
 
   public constructor(options: PublicOptions) {
     const targets = options.targets.map(option => {
