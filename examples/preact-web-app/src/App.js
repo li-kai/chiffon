@@ -1,7 +1,11 @@
-import { h } from 'preact'
+import { h, useState, useLayoutEffect } from 'preact'
 
 export default function App() {
-  let time = new Date().toLocaleTimeString()
+  const [time, setTime] = useState('')
+  useLayoutEffect(() => {
+    setTime(new Date().toLocaleTimeString())
+  })
+
   return (
     <div>
       <h1>Example Web App</h1>

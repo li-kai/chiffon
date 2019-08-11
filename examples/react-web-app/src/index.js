@@ -74,4 +74,4 @@ function defaultTemplate({
   )}`
 }
 
-module.exports = defaultTemplate
+export default defaultTemplate

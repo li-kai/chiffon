@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 
 export default function App() {
-  let time = new Date().toLocaleTimeString()
+  const [time, setTime] = useState('')
+  useLayoutEffect(() => {
+    setTime(new Date().toLocaleTimeString())
+  })
+
   return (
     <div>
       <h1>Example Web App</h1>
