@@ -28,3 +28,28 @@ export function safeEval(filename: string, code: string): unknown {
 
   return result
 }
+
+interface ESModule {
+  __esModule: boolean
+  default?: unknown
+}
+
+function isESModule(input: unknown): input is ESModule {
+  if (typeof input === 'object' && input != null) {
+    const obj = input as { [key: string]: unknown }
+    if (obj.__esModule) return true
+  }
+  return false
+}
+
+export function getFunctionFromModule(input: unknown): Function {
+  let fn: unknown
+  if (isESModule(input) && typeof input.default === 'function') {
+    fn = input.default
+  }
+
+  if (typeof fn === 'function') {
+    return fn
+  }
+  throw new Error('No function was exported')
+}

@@ -2,7 +2,7 @@ import path from 'path'
 import webpack, { SingleEntryPlugin } from 'webpack'
 import { RawSource } from 'webpack-sources'
 import { minify, Options as HtmlMinifierOptions } from 'html-minifier'
-import { safeEval } from './utils'
+import { safeEval, getFunctionFromModule } from './utils'
 
 const PLUGIN_NAME = 'prerender-webpack-plugin'
 
@@ -108,10 +108,8 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
             delete compilation.assets[filename]
             delete childCompilation.assets[filename]
 
-            const fn = safeEval(filename, source)
-            if (typeof fn !== 'function') {
-              throw new Error('No function was exported')
-            }
+            const code = safeEval(filename, source)
+            const fn = getFunctionFromModule(code)
             const output = minify(fn(files), htmlMinifierOptions)
             compilation.assets[filename] = new RawSource(output)
           }
