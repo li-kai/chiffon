@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "include": ["./src"],
+  "exclude": ["./src/**/*.test.ts", "src/__*"],
   "compilerOptions": {
     "lib": ["es2017"],
     "module": "commonjs",

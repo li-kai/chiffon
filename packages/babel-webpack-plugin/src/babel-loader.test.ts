@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import webpack from 'webpack'
-import TestDirectory from './test-utils/TestDirectory'
+import TestDirectory from './__test-utils__/TestDirectory'
 
 const inputFile = path.resolve(__dirname, '__fixtures__/basic.js')
 

@@ -6,6 +6,9 @@
   "ts:main": "src/index.ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "{src,dist}/{,!(__*)}/!(*.test)*.{js,ts}"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "tsc",
@@ -47,7 +50,7 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "test-utils"
+      "__test-utils__"
     ]
   }
 }
