@@ -54,31 +54,11 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
     compiler: webpack.Compiler,
     compilation: webpack.compilation.Compilation,
   ): void {
-    let htmlMinifierOptions: HtmlMinifierOptions | undefined
-    if (this.options.minify == null) {
-      this.options.minify = compiler.options.mode === 'production'
-    }
-    if (this.options.minify === true) {
-      // default html minifier options following
-      // https://github.com/jantimon/html-webpack-plugin#minification
-      htmlMinifierOptions = {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true,
-      }
-    } else if (this.options.minify === false) {
-      htmlMinifierOptions = undefined
-    } else {
-      htmlMinifierOptions = this.options.minify
-    }
-
     const childCompilerPromise = PrerenderWebpackPlugin.runChildCompiler(
       compiler,
       compilation,
-      this.options,
+      this.options.template,
+      this.options.filename,
     )
 
     /**
@@ -87,6 +67,10 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
      */
     compilation.hooks.additionalAssets.tapPromise(PLUGIN_NAME, () => {
       const files = PrerenderWebpackPlugin.getFiles(compilation.entrypoints)
+      const htmlMinify = PrerenderWebpackPlugin.getHtmlMinifier(
+        compiler,
+        this.options.minify,
+      )
 
       return childCompilerPromise
         .then(childCompilerOutput => {
@@ -110,7 +94,11 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
 
             const code = safeEval(filename, source)
             const fn = getFunctionFromModule(code)
-            const output = minify(fn(files), htmlMinifierOptions)
+            const html = fn(files)
+            if (typeof html !== 'string') {
+              throw new Error('Prerender did not result in a string')
+            }
+            const output = htmlMinify(html)
             compilation.assets[filename] = new RawSource(output)
           }
         })
@@ -132,14 +120,15 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
   private static runChildCompiler(
     compiler: webpack.Compiler,
     compilation: webpack.compilation.Compilation,
-    options: Options,
+    template: Options['template'],
+    filename: Options['filename'],
   ): Promise<{
     entries: webpack.Entry[]
     childCompilation: webpack.compilation.Compilation
   }> {
     const outputOptions = {
       ...compiler.options.output,
-      filename: options.filename,
+      filename,
     }
 
     const childCompiler = compilation.createChildCompiler(
@@ -163,8 +152,8 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
     //   },
     // )
 
-    const entryName = path.parse(options.template).name
-    new SingleEntryPlugin(compiler.context, options.template, entryName).apply(
+    const entryName = path.parse(template).name
+    new SingleEntryPlugin(compiler.context, template, entryName).apply(
       childCompiler,
     )
 
@@ -181,6 +170,36 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
         })
       })
     })
+  }
+
+  private static getHtmlMinifier(
+    compiler: webpack.Compiler,
+    minifyOptions: Options['minify'],
+  ): (htmlString: string) => string {
+    let htmlMinifierOptions: HtmlMinifierOptions | undefined
+
+    let minifyConfig = minifyOptions
+    if (minifyOptions == null) {
+      minifyConfig = compiler.options.mode === 'production'
+    }
+    if (minifyConfig === true) {
+      // default html minifier options following
+      // https://github.com/jantimon/html-webpack-plugin#minification
+      htmlMinifierOptions = {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+      }
+    } else if (minifyConfig === false) {
+      htmlMinifierOptions = undefined
+    } else {
+      htmlMinifierOptions = minifyConfig
+    }
+
+    return text => minify(text, htmlMinifierOptions)
   }
 
   private static getFiles(
