@@ -37,25 +37,28 @@ function defaultTemplate({
           rel="manifest"
           href={`${__webpack_public_path__}site.webmanifest`}
         />
-        {css.map(cssResourceUrl => (
-          <link
-            href={`${__webpack_public_path__}${cssResourceUrl}`}
-            rel="stylesheet"
-          />
-        ))}
-        {js.map(jsResourceUrl => (
-          <script
-            src={`${__webpack_public_path__}${jsResourceUrl}`}
-            nomodule
-            defer
-          />
-        ))}
-        {mjs.map(mjsResourceUrl => (
-          <script
-            src={`${__webpack_public_path__}${mjsResourceUrl}`}
-            type="module"
-          />
-        ))}
+        {css &&
+          css.map(cssResourceUrl => (
+            <link
+              href={`${__webpack_public_path__}${cssResourceUrl}`}
+              rel="stylesheet"
+            />
+          ))}
+        {js &&
+          js.map(jsResourceUrl => (
+            <script
+              src={`${__webpack_public_path__}${jsResourceUrl}`}
+              nomodule
+              defer
+            />
+          ))}
+        {mjs &&
+          mjs.map(mjsResourceUrl => (
+            <script
+              src={`${__webpack_public_path__}${mjsResourceUrl}`}
+              type="module"
+            />
+          ))}
       </head>
       <body>
         <div id="root">
@@ -66,4 +69,4 @@ function defaultTemplate({
   )}`
 }
 
-module.exports = defaultTemplate
+export default defaultTemplate
