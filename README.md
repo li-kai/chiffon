@@ -1,4 +1,16 @@
 <h1 align="center">
 	chiffon
 </h1>
-<p align="center">The solution to writing packages, powered by <a href="https://github.com/rollup/rollup">Rollup</a>.</p>
+<p align="center">A collection of packages to make web apps faster</p>
+
+## Packages
+
+- [@chiffon/babel-webpack-plugin](/packages/babel-webpack-plugin)
+- [@chiffon/prerender-webpack-plugin](/packages/prerender-webpack-plugin)
+
+### Examples
+
+Usage of the above plugins for building an web app:
+
+- [react-web-app](/examples/react-web-app)
+- [preact-web-app](/examples/preact-web-app)
