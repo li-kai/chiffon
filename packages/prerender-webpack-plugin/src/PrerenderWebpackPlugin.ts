@@ -41,6 +41,9 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
     compiler.hooks.make.tap(PLUGIN_NAME, (compilation): void => {
       this.compilerMakeHook(compiler, compilation)
     })
+    compiler.hooks.afterCompile.tap(PLUGIN_NAME, (compilation): void => {
+      this.compilerAfterCompileHook(compiler, compilation)
+    })
   }
 
   /**
@@ -106,6 +109,20 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
           compilation.errors.push(error)
         })
     })
+  }
+
+  /**
+   * Entrypoint that webpack calls during the `afterCompile` phase.
+   * see: https://webpack.js.org/api/compiler-hooks/#aftercompile
+   *
+   * @param compiler webpack.Compiler
+   * @param compilation webpack.compilation.Compilation
+   */
+  private compilerAfterCompileHook(
+    compiler: webpack.Compiler,
+    compilation: webpack.compilation.Compilation,
+  ): void {
+    compilation.fileDependencies.add(this.options.template)
   }
 
   /**
