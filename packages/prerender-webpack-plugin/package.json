@@ -6,11 +6,17 @@
   "ts:main": "src/index.ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "{src,dist}/{,!(__*)}/!(*.test)*.{js,ts}"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
   "license": "MIT",
   "scripts": {
-    "dev": "tsc",
     "build": "tsc",
-    "fmt": "prettier \"*.{js,ts,json,md}\" \"src/**/*.{js,ts,json,md}\" --write"
+    "fmt": "prettier \"*.{js,ts,json,md}\" \"src/**/*.{js,ts,json,md}\" --write",
+    "prepublishOnly": "rm -rf dist && yarn build"
   },
   "devDependencies": {
     "@types/html-minifier": "3.5.3",
@@ -25,5 +31,8 @@
   "dependencies": {
     "html-minifier": "4.0.0",
     "webpack-sources": "1.4.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

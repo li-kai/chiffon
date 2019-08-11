@@ -9,12 +9,15 @@
   "files": [
     "{src,dist}/{,!(__*)}/!(*.test)*.{js,ts}"
   ],
+  "engines": {
+    "node": ">=10"
+  },
   "license": "MIT",
   "scripts": {
-    "dev": "tsc",
     "test": "jest",
     "build": "tsc",
-    "fmt": "prettier \"*.{js,ts,json,md}\" \"src/**/*.{js,ts,json,md}\" --write"
+    "fmt": "prettier \"*.{js,ts,json,md}\" \"src/**/*.{js,ts,json,md}\" --write",
+    "prepublishOnly": "rm -rf dist && yarn build && yarn test"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
@@ -41,6 +44,9 @@
   },
   "peerDependencies": {
     "@babel/core": "^7.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "jest": {
     "preset": "ts-jest",
