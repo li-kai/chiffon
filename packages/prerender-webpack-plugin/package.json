@@ -1,6 +1,6 @@
 {
   "name": "@chiffon/prerender-webpack-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Prerender for web applications built with Preact",
   "source": "src/index.ts",
   "ts:main": "src/index.ts",

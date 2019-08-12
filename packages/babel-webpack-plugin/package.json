@@ -1,6 +1,6 @@
 {
   "name": "@chiffon/babel-webpack-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "webpack plugin for compiling multiple JavaScript bundles with babel",
   "source": "src/index.ts",
   "ts:main": "src/index.ts",
