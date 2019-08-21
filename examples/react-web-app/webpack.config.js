@@ -13,14 +13,15 @@ const IS_PROD = NODE_ENV === 'production'
 const config = {
   mode: NODE_ENV,
   entry: {
-    app: './src/root.js',
+    main: './src/root.js',
   },
   output: {
-    filename: IS_DEV ? '[name].js' : '[name].[contenthash].js',
-    chunkFilename: IS_DEV ? '[name].js' : '[name].[contenthash].js',
+    filename: IS_DEV ? '[name].mjs' : '[name].[contenthash].mjs',
+    chunkFilename: IS_DEV ? '[name].mjs' : '[name].[contenthash].mjs',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
+  devtool: IS_DEV ? 'eval-source-map' : 'source-map',
   module: {
     rules: [
       {
@@ -99,13 +100,13 @@ const config = {
     new BabelWebpackPlugin({
       targets: [
         {
-          target: 'client-legacy',
+          target: 'client-modern',
           excludedPlugins: [PrerenderWebpackPlugin, HtmlWebpackPlugin],
         },
         IS_PROD && {
-          target: 'client-modern',
-          filename: IS_DEV ? '[name].mjs' : '[name].[contenthash].mjs',
-          chunkFilename: IS_DEV ? '[name].mjs' : '[name].[contenthash].mjs',
+          target: 'client-legacy',
+          filename: IS_DEV ? '[name].js' : '[name].[contenthash].js',
+          chunkFilename: IS_DEV ? '[name].js' : '[name].[contenthash].js',
           excludedPlugins: [PrerenderWebpackPlugin, HtmlWebpackPlugin],
         },
       ].filter(Boolean),
