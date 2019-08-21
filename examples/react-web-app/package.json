@@ -20,7 +20,7 @@
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
     "@babel/plugin-transform-react-jsx": "7.3.0",
     "@babel/preset-env": "7.5.5",
-    "@chiffon/prerender-webpack-plugin": "0.0.2",
+    "@chiffon/prerender-webpack-plugin": "0.0.3",
     "autoprefixer": "9.6.1",
     "babel-loader": "8.0.6",
     "css-loader": "3.0.0",
