@@ -1,4 +1,5 @@
-import { h, useState, useLayoutEffect } from 'preact'
+import { h } from 'preact'
+import { useState, useLayoutEffect } from 'preact/hooks'
 
 export default function App() {
   const [time, setTime] = useState('')
