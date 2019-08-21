@@ -94,6 +94,9 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
             const source = compilation.assets[filename].source()
             delete compilation.assets[filename]
             delete childCompilation.assets[filename]
+            for (const fileDependency of childCompilation.fileDependencies) {
+              compilation.fileDependencies.add(fileDependency)
+            }
 
             const code = safeEval(filename, source)
             const fn = getFunctionFromModule(code)
