@@ -36,7 +36,7 @@
     "memory-fs": "0.4.1",
     "prettier": "1.18.2",
     "ts-jest": "24.0.2",
-    "typescript": "3.5.3"
+    "typescript": "3.7.5"
   },
   "dependencies": {
     "loader-utils": "1.2.3",
