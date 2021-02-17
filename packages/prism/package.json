@@ -1,0 +1,46 @@
+{
+  "name": "@chiffon/prism",
+  "version": "0.0.1",
+  "description": "Lightweight, robust, elegant syntax highlighting. A spin-off project from Dabblet.",
+  "source": "src/index.ts",
+  "ts:main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "{src,dist}/{,!(__*)}/!(*.test)*.{js,ts}"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "gulp",
+    "start": "http-server -c-1",
+    "test:aliases": "mocha tests/aliases-test.js",
+    "test:core": "mocha tests/core/**/*.js",
+    "test:dependencies": "mocha tests/dependencies-test.js",
+    "test:examples": "mocha tests/examples-test.js",
+    "test:identifiers": "mocha tests/identifier-test.js",
+    "test:languages": "mocha tests/run.js",
+    "test:patterns": "mocha tests/pattern-tests.js",
+    "test:plugins": "mocha tests/plugins/**/*.js",
+    "test:runner": "mocha tests/testrunner-tests.js",
+    "test": "npm run test:runner && npm run test:core && npm run test:dependencies && npm run test:languages && npm run test:plugins && npm run test:aliases && npm run test:patterns && npm run test:examples && npm run test:identifiers"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "danger": "^10.5.0",
+    "del": "^4.1.1",
+    "docdash": "^1.2.0",
+    "htmlparser2": "^4.0.0",
+    "http-server": "^0.12.3",
+    "jsdom": "^13.0.0",
+    "mocha": "^6.2.0",
+    "pump": "^3.0.0",
+    "refa": "0.5.0",
+    "regexpp": "^2.0.1",
+    "scslre": "^0.1.1",
+    "simple-git": "^1.107.0",
+    "webfont": "^9.0.0",
+  }
+}
