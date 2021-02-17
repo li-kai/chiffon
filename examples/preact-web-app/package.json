@@ -14,11 +14,11 @@
     "preact": "10.0.0-rc.1"
   },
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/plugin-proposal-class-properties": "7.5.5",
-    "@babel/plugin-syntax-dynamic-import": "7.2.0",
-    "@babel/plugin-transform-react-jsx": "7.3.0",
-    "@babel/preset-env": "7.5.5",
+    "@babel/core": "7.12.16",
+    "@babel/plugin-proposal-class-properties": "7.12.13",
+    "@babel/plugin-syntax-dynamic-import": "7.8.3",
+    "@babel/plugin-transform-react-jsx": "7.12.16",
+    "@babel/preset-env": "7.12.16",
     "@chiffon/prerender-webpack-plugin": "0.0.3",
     "autoprefixer": "9.6.1",
     "babel-loader": "8.0.6",
