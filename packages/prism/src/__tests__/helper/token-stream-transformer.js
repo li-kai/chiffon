@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * @typedef TokenStreamItem
  * @property {string} type

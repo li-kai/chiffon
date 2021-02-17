@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * @typedef {Object<string, ComponentCategory>} Components
  * @typedef {Object<string, ComponentEntry | string>} ComponentCategory

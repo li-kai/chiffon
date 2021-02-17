@@ -1,6 +1,3 @@
-'use strict'
-
-const { assert } = require('chai')
 const PrismLoader = require('../helper/prism-loader')
 const TestCase = require('../helper/test-case')
 const TokenStreamTransformer = require('../helper/token-stream-transformer')

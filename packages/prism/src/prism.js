@@ -145,8 +145,7 @@ var Prism = (function (_self) {
             }
             clone = []
             visited[id] = clone
-
-            ;/** @type {Array} */ (/** @type {any} */ (o)).forEach(function (
+            /** @type {Array} */ ;(/** @type {any} */ (o)).forEach(function (
               v,
               i,
             ) {
@@ -1410,7 +1409,6 @@ Prism.languages.rss = Prism.languages.xml
 /* **********************************************
      Begin prism-css.js
 ********************************************** */
-
 ;(function (Prism) {
   var string = /("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/
 
@@ -1655,7 +1653,6 @@ Prism.languages.js = Prism.languages.javascript
 /* **********************************************
      Begin prism-file-highlight.js
 ********************************************** */
-
 ;(function () {
   if (typeof self === 'undefined' || !self.Prism || !self.document) {
     return
