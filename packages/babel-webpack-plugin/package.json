@@ -27,7 +27,7 @@
     "@types/memory-fs": "0.3.2",
     "@types/node": "10.17.52",
     "@types/webpack": "4.41.26",
-    "@types/webpack-sources": "0.1.5",
+    "@types/webpack-sources": "0.1.8",
     "babel-preset-env": "1.7.0",
     "del": "6.0.0",
     "eslint": "6.1.0",
