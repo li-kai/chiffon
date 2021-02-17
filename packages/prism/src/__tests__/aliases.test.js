@@ -1,8 +1,5 @@
-'use strict'
-
-const { assert } = require('chai')
 const PrismLoader = require('./helper/prism-loader')
-const { languages } = require('./../components.json')
+const { languages } = require('../components.json')
 
 function toArray(value) {
   if (Array.isArray(value)) {
@@ -29,9 +26,7 @@ for (const lang in languages) {
         Object.keys(languages[lang].aliasTitles).forEach((id) => {
           if (!aliases.has(id)) {
             const titleJson = JSON.stringify(languages[lang].aliasTitles[id])
-            assert.fail(
-              `The alias '${id}' with the title ${titleJson} is not registered as an alias.`,
-            )
+            expect(false).toBe(true)
           }
         })
       })
@@ -44,10 +39,7 @@ for (const lang in languages) {
 
       // check that all aliases are defined
       toArray(languages[lang].alias).forEach((alias) => {
-        assert.isTrue(
-          loadedLanguages.has(alias),
-          `The registered alias '${alias}' is not present.`,
-        )
+        expect(loadedLanguages.has(alias)).toBe(true)
       })
 
       // remove ignore keys
@@ -70,7 +62,7 @@ for (const lang in languages) {
         const unregisteredAliases = `(${
           loadedLanguages.size
         }) ${JSON.stringify([...loadedLanguages])}`
-        assert.fail(`There are unregistered aliases: ${unregisteredAliases}`)
+        expect(false).toBe(true)
       }
     })
   })

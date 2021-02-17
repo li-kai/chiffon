@@ -266,7 +266,6 @@
       },
     },
   })
-
   ;['url', 'bold', 'italic', 'strike'].forEach(function (token) {
     ;['url', 'bold', 'italic', 'strike'].forEach(function (inside) {
       if (token !== inside) {

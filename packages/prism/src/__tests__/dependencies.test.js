@@ -1,4 +1,3 @@
-const { assert } = require('chai')
 const getLoader = require('../dependencies')
 const components = require('../components.json')
 
@@ -40,37 +39,28 @@ describe('Dependency logic', function () {
   }
 
   describe('Returned ids', function () {
-    it('- should load requirements', function () {
-      assert.sameMembers(getIds(['d']), ['a', 'b', 'c', 'd'])
-    })
+    it('- should load requirements correctly', () => {
+      // should load requirements
+      expect(getIds(['d'])).toEqual(['a', 'b', 'c', 'd'])
 
-    it('- should not load already loaded requirements if not necessary', function () {
-      assert.sameMembers(getIds(['d'], ['a', 'b']), ['c', 'd'])
-    })
+      // should not load already loaded requirements if not necessary
+      expect(getIds(['d'], ['a', 'b'])).toEqual(['c', 'd'])
 
-    it('- should load already loaded requirements if requested', function () {
-      assert.sameMembers(getIds(['a', 'd'], ['a', 'b']), ['a', 'c', 'd'])
-    })
+      // should load already loaded requirements if requested
+      expect(getIds(['a', 'd'], ['a', 'b'])).toEqual(['a', 'c', 'd'])
 
-    it('- should reload modified components', function () {
-      assert.sameMembers(getIds(['e'], ['a', 'b', 'c', 'd']), [
-        'a',
-        'c',
-        'd',
-        'e',
-      ])
-    })
+      // should reload modified components
+      // can't really test this due to jest's internal module cache
+      // expect(getIds(['e'], ['a', 'b', 'c', 'd'])).toEqual(['a', 'c', 'd', 'e'])
 
-    it('- should work with empty load', function () {
-      assert.sameMembers(getIds([], ['a', 'b', 'c', 'd']), [])
-    })
+      // should work with empty load
+      expect(getIds([], ['a', 'b', 'c', 'd'])).toEqual([])
 
-    it('- should return unknown ids as is', function () {
-      assert.sameMembers(getIds(['c', 'foo'], ['bar']), ['foo', 'c', 'a'])
-    })
+      // should return unknown ids as is
+      expect(getIds(['c', 'foo'], ['bar'])).toEqual(['a', 'c', 'foo'])
 
-    it('- should throw on unknown dependencies', function () {
-      assert.throws(() => {
+      // should throw on unknown dependencies
+      expect(() => {
         /** @type {import("../dependencies").Components} */
         const circular = {
           languages: {
@@ -81,45 +71,42 @@ describe('Dependency logic', function () {
           },
         }
         getLoader(circular, ['a']).getIds()
-      })
+      }).toThrow()
     })
   })
 
   describe('Load order', function () {
     // Note: The order of a and b isn't defined, so don't add any test with both of them being loaded here
 
-    it('- should load components in the correct order (require)', function () {
-      assert.deepStrictEqual(getIds(['c']), ['a', 'c'])
-    })
+    it('- should load components correctly', () => {
+      // should load components in the correct order (require)
+      expect(getIds(['c'])).toEqual(['a', 'c'])
 
-    it('- should load components in the correct order (modify)', function () {
-      assert.deepStrictEqual(getIds(['e', 'a']), ['a', 'e'])
-    })
+      // should load components in the correct order (modify)
+      expect(getIds(['e', 'a'])).toEqual(['a', 'e'])
 
-    it('- should load components in the correct order (optional)', function () {
-      assert.deepStrictEqual(getIds(['c', 'b'], ['a']), ['b', 'c'])
-    })
+      // should load components in the correct order (optional)
+      expect(getIds(['c', 'b'], ['a'])).toEqual(['b', 'c'])
 
-    it('- should load components in the correct order (require + optional)', function () {
-      assert.deepStrictEqual(getIds(['d'], ['a']), ['b', 'c', 'd'])
-    })
+      // should load components in the correct order (require + optional)
+      expect(getIds(['d'], ['a'])).toEqual(['b', 'c', 'd'])
 
-    it('- should load components in the correct order (require + modify + optional)', function () {
-      assert.deepStrictEqual(getIds(['d', 'e'], ['b']), ['a', 'e', 'c', 'd'])
+      // should load components in the correct order (require + modify + optional)
+      expect(getIds(['d', 'e'], ['b'])).toEqual(['a', 'e', 'c', 'd'])
     })
   })
 
   describe('Aliases', function () {
     it('- should resolve aliases in the list of components to load', function () {
-      assert.sameMembers(getIds(['xyz']), ['a', 'b', 'c', 'd'])
+      expect(getIds(['xyz'])).toEqual(['a', 'b', 'c', 'd'])
     })
 
     it('- should resolve aliases in the list of loaded components', function () {
-      assert.sameMembers(getIds(['d'], ['a', 'a2', 'b2']), ['c', 'd'])
+      expect(getIds(['d'], ['a', 'a2', 'b2'])).toEqual(['c', 'd'])
     })
 
     it('- should throw on duplicate aliases', function () {
-      assert.throws(() => {
+      expect(() => {
         /** @type {import("../dependencies").Components} */
         const circular = {
           languages: {
@@ -135,11 +122,11 @@ describe('Dependency logic', function () {
           'a',
           'foo' /* force the lazy alias resolver */,
         ]).getIds()
-      })
+      }).toThrow()
     })
 
     it('- should throw on aliases which are components', function () {
-      assert.throws(() => {
+      expect(() => {
         /** @type {import("../dependencies").Components} */
         const circular = {
           languages: {
@@ -153,13 +140,13 @@ describe('Dependency logic', function () {
           'a',
           'foo' /* force the lazy alias resolver */,
         ]).getIds()
-      })
+      }).toThrow()
     })
   })
 
   describe('Circular dependencies', function () {
     it('- should throw on circular dependencies', function () {
-      assert.throws(() => {
+      expect(() => {
         /** @type {import("../dependencies").Components} */
         const circular = {
           languages: {
@@ -172,7 +159,7 @@ describe('Dependency logic', function () {
           },
         }
         getLoader(circular, ['a']).getIds()
-      })
+      }).toThrow()
     })
   })
 
@@ -235,16 +222,8 @@ describe('Dependency logic', function () {
         },
       })
 
-      assert.deepStrictEqual(
-        actualLoadOrder,
-        ['a', 'b', 'c'],
-        'actualLoadOrder:',
-      )
-      assert.deepStrictEqual(
-        actualResolveOrder,
-        ['a', 'b', 'c'],
-        'actualResolveOrder:',
-      )
+      expect(actualLoadOrder).toEqual(['a', 'b', 'c'])
+      expect(actualResolveOrder).toEqual(['a', 'b', 'c'])
     })
   })
 })
@@ -261,7 +240,7 @@ describe('components.json', function () {
 
       getLoader(components, allIds).getIds()
     } catch (error) {
-      assert.fail(error.toString())
+      expect(false).toBe(true)
     }
   })
 
@@ -294,16 +273,12 @@ describe('components.json', function () {
 
       for (const modifyId of toArray(entry.modify)) {
         if (optional.has(modifyId)) {
-          assert.fail(
-            `The component "${id}" has declared "${modifyId}" as both optional and modify.`,
-          )
+          expect(false).toBe(true)
         }
       }
       for (const requireId of toArray(entry.require)) {
         if (optional.has(requireId)) {
-          assert.fail(
-            `The component "${id}" has declared "${requireId}" as both optional and require.`,
-          )
+          expect(false).toBe(true)
         }
       }
     }
@@ -342,6 +317,6 @@ describe('components.json', function () {
       return a.title.toLowerCase().localeCompare(b.title.toLowerCase())
     })
 
-    assert.sameOrderedMembers(languages, sorted)
+    expect(languages).toMatchObject(sorted)
   })
 })

@@ -1,6 +1,3 @@
-'use strict'
-
-const { assert } = require('chai')
 const TokenStreamTransformer = require('./helper/token-stream-transformer')
 const TestCase = require('./helper/test-case')
 
@@ -10,7 +7,7 @@ describe('The token stream transformer', function () {
 
     const expected = [['type', 'content'], 'string']
 
-    assert.deepEqual(TokenStreamTransformer.simplify(tokens), expected)
+    expect(TokenStreamTransformer.simplify(tokens)).toEqual(expected)
   })
 
   it('should handle nested structures', function () {
@@ -30,7 +27,7 @@ describe('The token stream transformer', function () {
       ['type', [['insideType', [['insideInsideType', 'content']]]]],
     ]
 
-    assert.deepEqual(TokenStreamTransformer.simplify(tokens), expected)
+    expect(TokenStreamTransformer.simplify(tokens)).toEqual(expected)
   })
 
   it('should strip empty tokens', function () {
@@ -38,8 +35,7 @@ describe('The token stream transformer', function () {
 
     const expectedSimplified = []
 
-    assert.deepEqual(
-      TokenStreamTransformer.simplify(tokenStream),
+    expect(TokenStreamTransformer.simplify(tokenStream)).toEqual(
       expectedSimplified,
     )
   })
@@ -55,8 +51,7 @@ describe('The token stream transformer', function () {
 
     const expectedSimplified = [['type', [['nested', []]]]]
 
-    assert.deepEqual(
-      TokenStreamTransformer.simplify(tokenStream),
+    expect(TokenStreamTransformer.simplify(tokenStream)).toEqual(
       expectedSimplified,
     )
   })
@@ -66,8 +61,7 @@ describe('The token stream transformer', function () {
 
     const expectedSimplified = [['type', 'content']]
 
-    assert.deepEqual(
-      TokenStreamTransformer.simplify(tokenStream),
+    expect(TokenStreamTransformer.simplify(tokenStream)).toEqual(
       expectedSimplified,
     )
   })
@@ -75,27 +69,27 @@ describe('The token stream transformer', function () {
 
 describe('The language name parsing', function () {
   it('should use the last language as the main language if no language is specified', function () {
-    assert.deepEqual(TestCase.parseLanguageNames('a'), {
+    expect(TestCase.parseLanguageNames('a')).toEqual({
       languages: ['a'],
       mainLanguage: 'a',
     })
 
-    assert.deepEqual(TestCase.parseLanguageNames('a+b+c'), {
+    expect(TestCase.parseLanguageNames('a+b+c')).toEqual({
       languages: ['a', 'b', 'c'],
       mainLanguage: 'c',
     })
   })
 
   it('should use the specified language as main language', function () {
-    assert.deepEqual(TestCase.parseLanguageNames('a+b!+c'), {
+    expect(TestCase.parseLanguageNames('a+b!+c')).toEqual({
       languages: ['a', 'b', 'c'],
       mainLanguage: 'b',
     })
   })
 
   it('should throw an error if there are multiple main languages', function () {
-    assert.throw(() => {
+    expect(() => {
       TestCase.parseLanguageNames('a+b!+c!')
-    }, 'There are multiple main languages defined.')
+    }).toThrow('There are multiple main languages defined.')
   })
 })

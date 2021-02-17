@@ -1,6 +1,3 @@
-'use strict'
-
-const { assert } = require('chai')
 const PrismLoader = require('./helper/prism-loader')
 const { BFS, parseRegex } = require('./helper/util')
 const { languages } = require('../components.json')
@@ -262,13 +259,7 @@ function testPatterns(Prism) {
   it('- should not match the empty string', function () {
     forEachPattern(({ pattern, tokenPath }) => {
       // test for empty string
-      assert.notMatch(
-        '',
-        pattern,
-        `${tokenPath}: ${pattern} should not match the empty string.\n\n` +
-          `Patterns that do match the empty string can potentially cause infinitely many empty tokens. ` +
-          `Make sure that all patterns always consume at least one character.`,
-      )
+      expect('').not.toMatch(pattern)
     })
   })
 
@@ -281,12 +272,7 @@ function testPatterns(Prism) {
         })
 
         if (!hasCapturingGroup) {
-          assert.fail(
-            `${tokenPath}: The pattern is set to 'lookbehind: true' but does not have a capturing group.\n\n` +
-              `Prism lookbehind groups use the captured text of the first capturing group to simulate a lookbehind. ` +
-              `Without a capturing group, a lookbehind is not possible.\n` +
-              `To fix this, either add a capturing group for the lookbehind or remove the 'lookbehind' property.`,
-          )
+          expect(false).toBe(true)
         }
       }
     })
@@ -299,12 +285,7 @@ function testPatterns(Prism) {
       }
       forEachCapturingGroup(ast.pattern, ({ group, number }) => {
         if (number === 1 && !isFirstMatch(group)) {
-          assert.fail(
-            `${tokenPath}: The lookbehind group ${group.raw} might be preceded by some characters.\n\n` +
-              `Prism assumes that the lookbehind group, if captured, is the first thing matched by the regex. ` +
-              `If characters might precede the lookbehind group (e.g. /a?(b)c/), then Prism cannot correctly apply the lookbehind correctly in all cases.\n` +
-              `To fix this, either remove the preceding characters or include them in the lookbehind group.`,
-          )
+          expect(false).toBe(true)
         }
       })
     })
@@ -370,10 +351,7 @@ function testPatterns(Prism) {
     const niceName = /^[a-z][a-z\d]*(?:-[a-z\d]+)*$/
     function testName(name, desc = 'token name') {
       if (!niceName.test(name)) {
-        assert.fail(
-          `The ${desc} '${name}' does not match ${niceName}.\n\n` +
-            `To fix this, choose a name that matches the above regular expression.`,
-        )
+        expect(false).toBe(true)
       }
     }
 
@@ -465,20 +443,7 @@ function testPatterns(Prism) {
           current.withoutEmptyWord()
 
           if (!total.isDisjointWith(current)) {
-            assert.fail(
-              `${tokenPath}: The alternative \`${a.raw}\` is not disjoint with at least one previous alternative.` +
-                ` This will cause exponential backtracking.` +
-                `\n\nTo fix this issue, you have to rewrite the ${node.type} \`${node.raw}\`.` +
-                ` The goal is that all of its alternatives are disjoint.` +
-                ` This means that if a (sub-)string is matched by the ${node.type}, then only one of its alternatives can match the (sub-)string.` +
-                `\n\nExample: \`(?:[ab]|\\w|::)+\`` +
-                `\nThe alternatives of the group are not disjoint because the string "a" can be matched by both \`[ab]\` and \`\\w\`.` +
-                ` In this example, the pattern can easily be fixed because the \`[ab]\` is a subset of the \`\\w\`, so its enough to remove the \`[ab]\` alternative to get \`(?:\\w|::)+\` as the fixed pattern.` +
-                `\nIn the real world, patterns can be a lot harder to fix.` +
-                ` If you are trying to make the tests pass for a pull request but can\'t fix the issue yourself, then make the pull request (or commit) anyway.` +
-                ` A maintainer will help you.` +
-                `\n\nFull pattern:\n${pattern}`,
-            )
+            expect(false).toBe(true)
           } else if (i !== l - 1) {
             total.union(current)
           }
@@ -529,32 +494,7 @@ function testPatterns(Prism) {
               firstOf(nfa.intersectionWordSets(twoStar)),
             )
             const example = Words.fromUnicodeToString(word)
-            assert.fail(
-              `${tokenPath}: The quantifier \`${
-                node.raw
-              }\` ambiguous for all words ${JSON.stringify(
-                example,
-              )}.repeat(n) for any n>1.` +
-                ` This will cause exponential backtracking.` +
-                `\n\nTo fix this issue, you have to rewrite the element (let's call it E) of the quantifier.` +
-                ` The goal is modify E such that it is disjoint with repetitions of itself.` +
-                ` This means that if a (sub-)string is matched by E, then it must not be possible for E{2}, E{3}, E{4}, etc. to match that (sub-)string.` +
-                `\n\nExample 1: \`(?:\\w+|::)+\`` +
-                `\nThe problem lies in \`\\w+\` because \`\\w+\` and \`(?:\\w+){2}\` are not disjoint as the string "aa" is fully matched by both.` +
-                ` In this example, the pattern can easily be fixed by changing \`\\w+\` to \`\\w\`.` +
-                `\nExample 2: \`(?:\\w|Foo)+\`` +
-                `\nThe problem lies in \`\\w\` and \`Foo\` because the string "Foo" can be matched as either repeating \`\\w\` 3 times or by using the \`Foo\` alternative once.` +
-                ` In this example, the pattern can easily be fixed because the \`Foo\` alternative is redundant can can be removed.` +
-                `\nExample 3: \`(?:\\.\\w+(?:<.*?>)?)+\`` +
-                `\nThe problem lies in \`<.*?>\`. The string ".a<>.a<>" can be matched as either \`\\. \\w < . . . . >\` or \`\\. \\w < > \\. \\w < >\`.` +
-                ` When it comes to exponential backtracking, it doesn't matter whether a quantifier is greedy or lazy.` +
-                ` This means that the lazy \`.*?\` can jump over \`>\`.` +
-                ` In this example, the pattern can easily be fixed because we just have to prevent \`.*?\` jumping over \`>\`.` +
-                ` This can done by replacing \`<.*?>\` with \`<[^\\r\\n>]*>\`.` +
-                `\n\nIn the real world, patterns can be a lot harder to fix.` +
-                ` If you are trying to make this test pass for a pull request but can\'t fix the issue yourself, then make the pull request (or commit) anyway, a maintainer will help you.` +
-                `\n\nFull pattern:\n${pattern}`,
-            )
+            expect(false).toBe(true)
           }
         },
       })
@@ -629,24 +569,7 @@ function testPatterns(Prism) {
         const attackChar = `/${report.character.literal.source}/${report.character.literal.flags}`
         const fixed = report.fix()
 
-        assert.fail(
-          `${tokenPath}: ${
-            report.exponential ? 'Exponential' : 'Polynomial'
-          } backtracking. ` +
-            `By repeating any character that matches ${attackChar}, an attack string can be created.` +
-            `\n` +
-            `\n${indent(rangeStr)}` +
-            `\n${indent(rangeHighlight)}` +
-            `\n` +
-            `\nFull pattern:` +
-            `\n${patternStr}` +
-            `\n${indent(rangeHighlight, ' '.repeat(rangeOffset))}` +
-            `\n` +
-            `\n` +
-            (fixed
-              ? `Fixed:\n/${fixed.source}/${fixed.flags}`
-              : `Fix not available.`),
-        )
+        expect(false).toBe(true)
       }
 
       polySafeRegexes.add(patternStr)

@@ -141,8 +141,7 @@ var Prism = (function (_self) {
             }
             clone = []
             visited[id] = clone
-
-            ;/** @type {Array} */ (/** @type {any} */ (o)).forEach(function (
+            /** @type {Array} */ ;(/** @type {any} */ (o)).forEach(function (
               v,
               i,
             ) {

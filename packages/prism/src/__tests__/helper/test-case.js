@@ -1,7 +1,4 @@
-'use strict'
-
 const fs = require('fs')
-const { assert } = require('chai')
 const PrismLoader = require('./prism-loader')
 const TokenStreamTransformer = require('./token-stream-transformer')
 
@@ -136,11 +133,7 @@ module.exports = {
         columnNumber +
         '\n\n'
 
-      assert.deepEqual(
-        simplifiedTokenStream,
-        testCase.expectedTokenStream,
-        testCase.comment + message,
-      )
+      expect(simplifiedTokenStream).toEqual(testCase.expectedTokenStream)
     }
   },
 
@@ -275,7 +268,7 @@ module.exports = {
         env.element.innerHTML = env.highlightedCode
         Prism.hooks.run('after-highlight', env)
         Prism.hooks.run('complete', env)
-        assert.equal(env.highlightedCode, codes[code])
+        expect(env.highlightedCode).toEqual(codes[code])
       }
     }
   },

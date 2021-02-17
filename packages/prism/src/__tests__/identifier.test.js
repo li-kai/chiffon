@@ -1,6 +1,3 @@
-'use strict'
-
-const { assert } = require('chai')
 const PrismLoader = require('./helper/prism-loader')
 const { languages } = require('../components.json')
 const TokenStreamTransformer = require('./helper/token-stream-transformer')
@@ -173,22 +170,7 @@ function testLiterals(Prism, lang) {
         const tokens = Prism.tokenize(ident, grammar)
 
         if (!isNotBroken(tokens)) {
-          assert.fail(
-            `${name}: Failed to tokenize the ${identifierType} '${ident}' as one or no token.\n` +
-              'Actual token stream:\n\n' +
-              TokenStreamTransformer.prettyprint(tokens) +
-              '\n\n' +
-              'How to fix this:\n' +
-              'If your language failed any of the identifier tests then some patterns in your language can break identifiers. ' +
-              "An identifier is broken if it is split into two different token (e.g. the identifier 'foo123' (this could be a variable name) but '123' is tokenized as a number). " +
-              'This is usually a bug and means that some patterns need more boundary checking.\n' +
-              'This test defines an identifier as /[A-Za-z_][A-Za-z_0-9]*/ so you can use \\b boundary assertions.\n\n' +
-              'If the syntactic concept of an identifier is not applicable to your language, you can exclude your language from this test (or parts of it). ' +
-              "Open '" +
-              __filename +
-              "' and follow the instructions to exclude a language. " +
-              '(This is usually not what you should do. Only very few language do not have the concept of identifiers.)',
-          )
+          expect(false).toBe(true)
         }
       }
     }

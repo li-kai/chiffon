@@ -26,7 +26,7 @@
     "test:patterns": "mocha tests/pattern-tests.js",
     "test:plugins": "mocha tests/plugins/**/*.js",
     "test:runner": "mocha tests/testrunner-tests.js",
-    "test": "npm run test:runner && npm run test:core && npm run test:dependencies && npm run test:languages && npm run test:plugins && npm run test:aliases && npm run test:patterns && npm run test:examples && npm run test:identifiers"
+    "test": "jest"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -46,5 +46,10 @@
     "scslre": "^0.1.1",
     "simple-git": "^1.107.0",
     "webfont": "^9.0.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ]
   }
 }

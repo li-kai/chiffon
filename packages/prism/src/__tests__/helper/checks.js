@@ -1,5 +1,3 @@
-'use strict'
-
 function testFunction(name, object, tester) {
   const func = object[name]
 
