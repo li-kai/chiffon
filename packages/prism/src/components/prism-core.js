@@ -1,13 +1,3 @@
-/// <reference lib="WebWorker"/>
-
-var _self =
-  typeof window !== 'undefined'
-    ? window // if in browser
-    : typeof WorkerGlobalScope !== 'undefined' &&
-      self instanceof WorkerGlobalScope
-    ? self // if in worker
-    : {} // if in node js
-
 /**
  * Prism: Lightweight, robust, elegant syntax highlighting
  *
@@ -16,37 +6,12 @@ var _self =
  * @namespace
  * @public
  */
-var Prism = (function (_self) {
+var Prism = (function () {
   // Private helper vars
   var lang = /\blang(?:uage)?-([\w-]+)\b/i
   var uniqueId = 0
 
   var _ = {
-    /**
-     * By default, Prism will attempt to highlight all code elements (by calling {@link Prism.highlightAll}) on the
-     * current page after the page finished loading. This might be a problem if e.g. you wanted to asynchronously load
-     * additional languages or plugins yourself.
-     *
-     * By setting this value to `true`, Prism will not automatically highlight all code elements on the page.
-     *
-     * You obviously have to change this value before the automatic highlighting started. To do this, you can add an
-     * empty Prism object into the global scope before loading the Prism script like this:
-     *
-     * ```js
-     * window.Prism = window.Prism || {};
-     * Prism.manual = true;
-     * // add a new <script> to load Prism's script
-     * ```
-     *
-     * @default false
-     * @type {boolean}
-     * @memberof Prism
-     * @public
-     */
-    manual: _self.Prism && _self.Prism.manual,
-    disableWorkerMessageHandler:
-      _self.Prism && _self.Prism.disableWorkerMessageHandler,
-
     /**
      * A namespace for utility methods.
      *
@@ -141,10 +106,8 @@ var Prism = (function (_self) {
             }
             clone = []
             visited[id] = clone
-            /** @type {Array} */ ;(/** @type {any} */ (o)).forEach(function (
-              v,
-              i,
-            ) {
+            /** @type {Array} */
+            ;/** @type {any} */ (o).forEach(function (v, i) {
               clone[i] = deepClone(v, visited)
             })
 
@@ -574,23 +537,7 @@ var Prism = (function (_self) {
         return
       }
 
-      if (async && _self.Worker) {
-        var worker = new Worker(_.filename)
-
-        worker.onmessage = function (evt) {
-          insertHighlightedCode(evt.data)
-        }
-
-        worker.postMessage(
-          JSON.stringify({
-            language: env.language,
-            code: env.code,
-            immediateClose: true,
-          }),
-        )
-      } else {
-        insertHighlightedCode(_.highlight(env.code, env.grammar, env.language))
-      }
+      insertHighlightedCode(_.highlight(env.code, env.grammar, env.language))
     },
 
     /**
@@ -719,7 +666,6 @@ var Prism = (function (_self) {
 
     Token: Token,
   }
-  _self.Prism = _
 
   // Typescript note:
   // The following can be used to import the Token type in JSDoc:
@@ -1129,86 +1075,11 @@ var Prism = (function (_self) {
     return array
   }
 
-  if (!_self.document) {
-    if (!_self.addEventListener) {
-      // in Node.js
-      return _
-    }
-
-    if (!_.disableWorkerMessageHandler) {
-      // In worker
-      _self.addEventListener(
-        'message',
-        function (evt) {
-          var message = JSON.parse(evt.data),
-            lang = message.language,
-            code = message.code,
-            immediateClose = message.immediateClose
-
-          _self.postMessage(_.highlight(code, _.languages[lang], lang))
-          if (immediateClose) {
-            _self.close()
-          }
-        },
-        false,
-      )
-    }
-
-    return _
-  }
-
-  // Get current script and highlight
-  var script = _.util.currentScript()
-
-  if (script) {
-    _.filename = script.src
-
-    if (script.hasAttribute('data-manual')) {
-      _.manual = true
-    }
-  }
-
-  function highlightAutomaticallyCallback() {
-    if (!_.manual) {
-      _.highlightAll()
-    }
-  }
-
-  if (!_.manual) {
-    // If the document state is "loading", then we'll use DOMContentLoaded.
-    // If the document state is "interactive" and the prism.js script is deferred, then we'll also use the
-    // DOMContentLoaded event because there might be some plugins or languages which have also been deferred and they
-    // might take longer one animation frame to execute which can create a race condition where only some plugins have
-    // been loaded when Prism.highlightAll() is executed, depending on how fast resources are loaded.
-    // See https://github.com/PrismJS/prism/issues/2102
-    var readyState = document.readyState
-    if (
-      readyState === 'loading' ||
-      (readyState === 'interactive' && script && script.defer)
-    ) {
-      document.addEventListener(
-        'DOMContentLoaded',
-        highlightAutomaticallyCallback,
-      )
-    } else {
-      if (window.requestAnimationFrame) {
-        window.requestAnimationFrame(highlightAutomaticallyCallback)
-      } else {
-        window.setTimeout(highlightAutomaticallyCallback, 16)
-      }
-    }
-  }
-
   return _
-})(_self)
+})()
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Prism
-}
-
-// hack for components to work correctly in node.js
-if (typeof global !== 'undefined') {
-  global.Prism = Prism
 }
 
 // some additional documentation/types
