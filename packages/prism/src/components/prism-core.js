@@ -6,12 +6,17 @@
  * @namespace
  * @public
  */
-var Prism = (function () {
+const Prism = (() => {
   // Private helper vars
-  var lang = /\blang(?:uage)?-([\w-]+)\b/i
-  var uniqueId = 0
+  const lang = /\blang(?:uage)?-([\w-]+)\b/i
+  let uniqueId = 0
 
-  var _ = {
+  // Typescript note:
+  // The following can be used to import the Token type in JSDoc:
+  //
+  //   @typedef {InstanceType<import("./prism-core")["Token"]>} Token
+
+  const _ = {
     /**
      * A namespace for utility methods.
      *
@@ -51,7 +56,7 @@ var Prism = (function () {
        * type(String)    === 'Function'
        * type(/abc+/)    === 'RegExp'
        */
-      type: function (o) {
+      type(o) {
         return Object.prototype.toString.call(o).slice(8, -1)
       },
 
@@ -61,7 +66,7 @@ var Prism = (function () {
        * @param {Object} obj
        * @returns {number}
        */
-      objId: function (obj) {
+      objId(obj) {
         if (!obj['__id']) {
           Object.defineProperty(obj, '__id', { value: ++uniqueId })
         }
@@ -81,7 +86,8 @@ var Prism = (function () {
       clone: function deepClone(o, visited) {
         visited = visited || {}
 
-        var clone, id
+        let clone
+        let id
         switch (_.util.type(o)) {
           case 'Object':
             id = _.util.objId(o)
@@ -91,7 +97,7 @@ var Prism = (function () {
             clone = /** @type {Record<string, any>} */ ({})
             visited[id] = clone
 
-            for (var key in o) {
+            for (const key in o) {
               if (o.hasOwnProperty(key)) {
                 clone[key] = deepClone(o[key], visited)
               }
@@ -107,7 +113,8 @@ var Prism = (function () {
             clone = []
             visited[id] = clone
             /** @type {Array} */
-            ;/** @type {any} */ (o).forEach(function (v, i) {
+            /** @type {any} */
+            o.forEach((v, i) => {
               clone[i] = deepClone(v, visited)
             })
 
@@ -126,7 +133,7 @@ var Prism = (function () {
        * @param {Element} element
        * @returns {string}
        */
-      getLanguage: function (element) {
+      getLanguage(element) {
         while (element && !lang.test(element.className)) {
           element = element.parentElement
         }
@@ -143,7 +150,7 @@ var Prism = (function () {
        *
        * @returns {HTMLScriptElement | null}
        */
-      currentScript: function () {
+      currentScript() {
         if (typeof document === 'undefined') {
           return null
         }
@@ -168,10 +175,10 @@ var Prism = (function () {
           //    at _.util.currentScript (http://localhost/components/prism-core.js:119:5)
           //    at Global code (http://localhost/components/prism-core.js:606:1)
 
-          var src = (/at [^(\r\n]*\((.*):.+:.+\)$/i.exec(err.stack) || [])[1]
+          const src = (/at [^(\r\n]*\((.*):.+:.+\)$/i.exec(err.stack) || [])[1]
           if (src) {
-            var scripts = document.getElementsByTagName('script')
-            for (var i in scripts) {
+            const scripts = document.getElementsByTagName('script')
+            for (const i in scripts) {
               if (scripts[i].src == src) {
                 return scripts[i]
               }
@@ -200,11 +207,11 @@ var Prism = (function () {
        * @param {boolean} [defaultActivation=false]
        * @returns {boolean}
        */
-      isActive: function (element, className, defaultActivation) {
-        var no = 'no-' + className
+      isActive(element, className, defaultActivation) {
+        const no = `no-${className}`
 
         while (element) {
-          var classList = element.classList
+          const classList = element.classList
           if (classList.contains(className)) {
             return true
           }
@@ -253,10 +260,10 @@ var Prism = (function () {
        *     'color': /\b(?:red|green|blue)\b/
        * });
        */
-      extend: function (id, redef) {
-        var lang = _.util.clone(_.languages[id])
+      extend(id, redef) {
+        const lang = _.util.clone(_.languages[id])
 
-        for (var key in redef) {
+        for (const key in redef) {
           lang[key] = redef[key]
         }
 
@@ -320,8 +327,8 @@ var Prism = (function () {
        * you hold the target object in a variable, then the value of the variable will not change.
        *
        * ```js
-       * var oldMarkup = Prism.languages.markup;
-       * var newMarkup = Prism.languages.insertBefore('markup', 'comment', { ... });
+       * const oldMarkup = Prism.languages.markup;
+       * const newMarkup = Prism.languages.insertBefore('markup', 'comment', { ... });
        *
        * assert(oldMarkup !== Prism.languages.markup);
        * assert(newMarkup === Prism.languages.markup);
@@ -338,16 +345,16 @@ var Prism = (function () {
        * @returns {Grammar} The new grammar object.
        * @public
        */
-      insertBefore: function (inside, before, insert, root) {
+      insertBefore(inside, before, insert, root) {
         root = root || /** @type {any} */ (_.languages)
-        var grammar = root[inside]
+        const grammar = root[inside]
         /** @type {Grammar} */
-        var ret = {}
+        const ret = {}
 
-        for (var token in grammar) {
+        for (const token in grammar) {
           if (grammar.hasOwnProperty(token)) {
             if (token == before) {
-              for (var newToken in insert) {
+              for (const newToken in insert) {
                 if (insert.hasOwnProperty(newToken)) {
                   ret[newToken] = insert[newToken]
                 }
@@ -361,7 +368,7 @@ var Prism = (function () {
           }
         }
 
-        var old = root[inside]
+        const old = root[inside]
         root[inside] = ret
 
         // Update references in other language definitions
@@ -378,14 +385,14 @@ var Prism = (function () {
       DFS: function DFS(o, callback, type, visited) {
         visited = visited || {}
 
-        var objId = _.util.objId
+        const objId = _.util.objId
 
-        for (var i in o) {
+        for (const i in o) {
           if (o.hasOwnProperty(i)) {
             callback.call(o, i, o[i], type || i)
 
-            var property = o[i],
-              propertyType = _.util.type(property)
+            const property = o[i]
+            const propertyType = _.util.type(property)
 
             if (propertyType === 'Object' && !visited[objId(property)]) {
               visited[objId(property)] = true
@@ -413,7 +420,7 @@ var Prism = (function () {
      * @memberof Prism
      * @public
      */
-    highlightAll: function (async, callback) {
+    highlightAll(async, callback) {
       _.highlightAllUnder(document, async, callback)
     },
 
@@ -432,10 +439,10 @@ var Prism = (function () {
      * @memberof Prism
      * @public
      */
-    highlightAllUnder: function (container, async, callback) {
-      var env = {
-        callback: callback,
-        container: container,
+    highlightAllUnder(container, async, callback) {
+      const env = {
+        callback,
+        container,
         selector:
           'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code',
       }
@@ -448,7 +455,7 @@ var Prism = (function () {
 
       _.hooks.run('before-all-elements-highlight', env)
 
-      for (var i = 0, element; (element = env.elements[i++]); ) {
+      for (let i = 0, element; (element = env.elements[i++]); ) {
         _.highlightElement(element, async === true, env.callback)
       }
     },
@@ -481,33 +488,31 @@ var Prism = (function () {
      * @memberof Prism
      * @public
      */
-    highlightElement: function (element, async, callback) {
+    highlightElement(element, async, callback) {
       // Find language
-      var language = _.util.getLanguage(element)
-      var grammar = _.languages[language]
+      const language = _.util.getLanguage(element)
+      const grammar = _.languages[language]
 
       // Set language on the element, if not present
-      element.className =
-        element.className.replace(lang, '').replace(/\s+/g, ' ') +
-        ' language-' +
-        language
+      element.className = `${element.className
+        .replace(lang, '')
+        .replace(/\s+/g, ' ')} language-${language}`
 
       // Set language on the parent, for styling
-      var parent = element.parentElement
+      const parent = element.parentElement
       if (parent && parent.nodeName.toLowerCase() === 'pre') {
-        parent.className =
-          parent.className.replace(lang, '').replace(/\s+/g, ' ') +
-          ' language-' +
-          language
+        parent.className = `${parent.className
+          .replace(lang, '')
+          .replace(/\s+/g, ' ')} language-${language}`
       }
 
-      var code = element.textContent
+      const code = element.textContent
 
-      var env = {
-        element: element,
-        language: language,
-        grammar: grammar,
-        code: code,
+      const env = {
+        element,
+        language,
+        grammar,
+        code,
       }
 
       function insertHighlightedCode(highlightedCode) {
@@ -558,13 +563,13 @@ var Prism = (function () {
      * @memberof Prism
      * @public
      * @example
-     * Prism.highlight('var foo = true;', Prism.languages.javascript, 'javascript');
+     * Prism.highlight('const foo = true;', Prism.languages.javascript, 'javascript');
      */
-    highlight: function (text, grammar, language) {
-      var env = {
+    highlight(text, grammar, language) {
+      const env = {
         code: text,
-        grammar: grammar,
-        language: language,
+        grammar,
+        language,
       }
       _.hooks.run('before-tokenize', env)
       env.tokens = _.tokenize(env.code, env.grammar)
@@ -588,7 +593,7 @@ var Prism = (function () {
      * @memberof Prism
      * @public
      * @example
-     * let code = `var foo = 0;`;
+     * let code = `const foo = 0;`;
      * let tokens = Prism.tokenize(code, Prism.languages.javascript);
      * tokens.forEach(token => {
      *     if (token instanceof Prism.Token && token.type === 'number') {
@@ -596,17 +601,17 @@ var Prism = (function () {
      *     }
      * });
      */
-    tokenize: function (text, grammar) {
-      var rest = grammar.rest
+    tokenize(text, grammar) {
+      const rest = grammar.rest
       if (rest) {
-        for (var token in rest) {
+        for (const token in rest) {
           grammar[token] = rest[token]
         }
 
         delete grammar.rest
       }
 
-      var tokenList = new LinkedList()
+      const tokenList = new LinkedList()
       addAfter(tokenList, tokenList.head, text)
 
       matchGrammar(text, tokenList, grammar, tokenList.head, 0)
@@ -634,8 +639,8 @@ var Prism = (function () {
        * @param {HookCallback} callback The callback function which is given environment variables.
        * @public
        */
-      add: function (name, callback) {
-        var hooks = _.hooks.all
+      add(name, callback) {
+        const hooks = _.hooks.all
 
         hooks[name] = hooks[name] || []
 
@@ -651,26 +656,21 @@ var Prism = (function () {
        * @param {Object<string, any>} env The environment variables of the hook passed to all callbacks registered.
        * @public
        */
-      run: function (name, env) {
-        var callbacks = _.hooks.all[name]
+      run(name, env) {
+        const callbacks = _.hooks.all[name]
 
         if (!callbacks || !callbacks.length) {
           return
         }
 
-        for (var i = 0, callback; (callback = callbacks[i++]); ) {
+        for (let i = 0, callback; (callback = callbacks[i++]); ) {
           callback(env)
         }
       },
     },
 
-    Token: Token,
+    Token,
   }
-
-  // Typescript note:
-  // The following can be used to import the Token type in JSDoc:
-  //
-  //   @typedef {InstanceType<import("./prism-core")["Token"]>} Token
 
   /**
    * Creates a new token.
@@ -748,23 +748,23 @@ var Prism = (function () {
       return o
     }
     if (Array.isArray(o)) {
-      var s = ''
-      o.forEach(function (e) {
+      let s = ''
+      o.forEach((e) => {
         s += stringify(e, language)
       })
       return s
     }
 
-    var env = {
+    const env = {
       type: o.type,
       content: stringify(o.content, language),
       tag: 'span',
       classes: ['token', o.type],
       attributes: {},
-      language: language,
+      language,
     }
 
-    var aliases = o.alias
+    const aliases = o.alias
     if (aliases) {
       if (Array.isArray(aliases)) {
         Array.prototype.push.apply(env.classes, aliases)
@@ -775,29 +775,17 @@ var Prism = (function () {
 
     _.hooks.run('wrap', env)
 
-    var attributes = ''
-    for (var name in env.attributes) {
-      attributes +=
-        ' ' +
-        name +
-        '="' +
-        (env.attributes[name] || '').replace(/"/g, '&quot;') +
-        '"'
+    let attributes = ''
+    for (const name in env.attributes) {
+      attributes += ` ${name}="${(env.attributes[name] || '').replace(
+        /"/g,
+        '&quot;',
+      )}"`
     }
 
-    return (
-      '<' +
-      env.tag +
-      ' class="' +
-      env.classes.join(' ') +
-      '"' +
-      attributes +
-      '>' +
-      env.content +
-      '</' +
-      env.tag +
-      '>'
-    )
+    return `<${env.tag} class="${env.classes.join(' ')}"${attributes}>${
+      env.content
+    }</${env.tag}>`
   }
 
   /**
@@ -809,10 +797,10 @@ var Prism = (function () {
    */
   function matchPattern(pattern, pos, text, lookbehind) {
     pattern.lastIndex = pos
-    var match = pattern.exec(text)
+    const match = pattern.exec(text)
     if (match && lookbehind && match[1]) {
       // change the match to remove the text matched by the Prism lookbehind group
-      var lookbehindLength = match[1].length
+      const lookbehindLength = match[1].length
       match.index += lookbehindLength
       match[0] = match[0].slice(lookbehindLength)
     }
@@ -841,37 +829,37 @@ var Prism = (function () {
     startPos,
     rematch,
   ) {
-    for (var token in grammar) {
+    for (const token in grammar) {
       if (!grammar.hasOwnProperty(token) || !grammar[token]) {
         continue
       }
 
-      var patterns = grammar[token]
+      let patterns = grammar[token]
       patterns = Array.isArray(patterns) ? patterns : [patterns]
 
-      for (var j = 0; j < patterns.length; ++j) {
-        if (rematch && rematch.cause == token + ',' + j) {
+      for (let j = 0; j < patterns.length; ++j) {
+        if (rematch && rematch.cause == `${token},${j}`) {
           return
         }
 
-        var patternObj = patterns[j],
-          inside = patternObj.inside,
-          lookbehind = !!patternObj.lookbehind,
-          greedy = !!patternObj.greedy,
-          alias = patternObj.alias
+        const patternObj = patterns[j]
+        const inside = patternObj.inside
+        const lookbehind = !!patternObj.lookbehind
+        const greedy = !!patternObj.greedy
+        const alias = patternObj.alias
 
         if (greedy && !patternObj.pattern.global) {
           // Without the global flag, lastIndex won't work
-          var flags = patternObj.pattern.toString().match(/[imsuy]*$/)[0]
-          patternObj.pattern = RegExp(patternObj.pattern.source, flags + 'g')
+          const flags = patternObj.pattern.toString().match(/[imsuy]*$/)[0]
+          patternObj.pattern = RegExp(patternObj.pattern.source, `${flags}g`)
         }
 
         /** @type {RegExp} */
-        var pattern = patternObj.pattern || patternObj
+        const pattern = patternObj.pattern || patternObj
 
         for (
           // iterate the token list and keep track of the current token/string position
-          var currentNode = startNode.next, pos = startPos;
+          let currentNode = startNode.next, pos = startPos;
           currentNode !== tokenList.tail;
           pos += currentNode.value.length, currentNode = currentNode.next
         ) {
@@ -879,7 +867,7 @@ var Prism = (function () {
             break
           }
 
-          var str = currentNode.value
+          let str = currentNode.value
 
           if (tokenList.length > text.length) {
             // Something went terribly wrong, ABORT, ABORT!
@@ -890,8 +878,8 @@ var Prism = (function () {
             continue
           }
 
-          var removeCount = 1 // this is the to parameter of removeBetween
-          var match
+          let removeCount = 1 // this is the to parameter of removeBetween
+          let match
 
           if (greedy) {
             match = matchPattern(pattern, pos, text, lookbehind)
@@ -899,9 +887,9 @@ var Prism = (function () {
               break
             }
 
-            var from = match.index
-            var to = match.index + match[0].length
-            var p = pos
+            const from = match.index
+            const to = match.index + match[0].length
+            let p = pos
 
             // find the node that contains the match
             p += currentNode.value.length
@@ -920,7 +908,7 @@ var Prism = (function () {
 
             // find the last node which is affected by this match
             for (
-              var k = currentNode;
+              let k = currentNode;
               k !== tokenList.tail && (p < to || typeof k.value === 'string');
               k = k.next
             ) {
@@ -939,17 +927,17 @@ var Prism = (function () {
             }
           }
 
-          var from = match.index,
-            matchStr = match[0],
-            before = str.slice(0, from),
-            after = str.slice(from + matchStr.length)
+          const from = match.index
+          const matchStr = match[0]
+          const before = str.slice(0, from)
+          const after = str.slice(from + matchStr.length)
 
-          var reach = pos + str.length
+          const reach = pos + str.length
           if (rematch && reach > rematch.reach) {
             rematch.reach = reach
           }
 
-          var removeFrom = currentNode.prev
+          let removeFrom = currentNode.prev
 
           if (before) {
             removeFrom = addAfter(tokenList, removeFrom, before)
@@ -958,7 +946,7 @@ var Prism = (function () {
 
           removeRange(tokenList, removeFrom, removeCount)
 
-          var wrapped = new Token(
+          const wrapped = new Token(
             token,
             inside ? _.tokenize(matchStr, inside) : matchStr,
             alias,
@@ -975,9 +963,9 @@ var Prism = (function () {
             // this can only happen if the current pattern is greedy
 
             /** @type {RematchOptions} */
-            var nestedRematch = {
-              cause: token + ',' + j,
-              reach: reach,
+            const nestedRematch = {
+              cause: `${token},${j}`,
+              reach,
             }
             matchGrammar(
               text,
@@ -1013,9 +1001,9 @@ var Prism = (function () {
    */
   function LinkedList() {
     /** @type {LinkedListNode<T>} */
-    var head = { value: null, prev: null, next: null }
+    const head = { value: null, prev: null, next: null }
     /** @type {LinkedListNode<T>} */
-    var tail = { value: null, prev: head, next: null }
+    const tail = { value: null, prev: head, next: null }
     head.next = tail
 
     /** @type {LinkedListNode<T>} */
@@ -1035,9 +1023,9 @@ var Prism = (function () {
    */
   function addAfter(list, node, value) {
     // assumes that node != list.tail && values.length >= 0
-    var next = node.next
+    const next = node.next
 
-    var newNode = { value: value, prev: node, next: next }
+    const newNode = { value, prev: node, next }
     node.next = newNode
     next.prev = newNode
     list.length++
@@ -1052,8 +1040,9 @@ var Prism = (function () {
    * @template T
    */
   function removeRange(list, node, count) {
-    var next = node.next
-    for (var i = 0; i < count && next !== list.tail; i++) {
+    let next = node.next
+    let i
+    for (i = 0; i < count && next !== list.tail; i++) {
       next = next.next
     }
     node.next = next
@@ -1066,8 +1055,8 @@ var Prism = (function () {
    * @template T
    */
   function toArray(list) {
-    var array = []
-    var node = list.head.next
+    const array = []
+    let node = list.head.next
     while (node !== list.tail) {
       array.push(node.value)
       node = node.next
@@ -1078,9 +1067,7 @@ var Prism = (function () {
   return _
 })()
 
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Prism
-}
+module.exports = Prism
 
 // some additional documentation/types
 

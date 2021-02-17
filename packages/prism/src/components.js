@@ -1,4 +1,4 @@
-var components = {
+const components = {
   core: {
     meta: { path: 'components/prism-core.js', option: 'mandatory' },
     core: 'Core',
@@ -843,6 +843,5 @@ var components = {
     },
   },
 }
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = components
-}
+
+module.exports = components
