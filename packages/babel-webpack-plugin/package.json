@@ -22,7 +22,7 @@
   "devDependencies": {
     "@babel/core": "7.12.16",
     "@types/babel__core": "7.1.12",
-    "@types/jest": "24.9.0",
+    "@types/jest": "24.9.1",
     "@types/loader-utils": "1.1.4",
     "@types/memory-fs": "0.3.2",
     "@types/node": "10.17.13",
