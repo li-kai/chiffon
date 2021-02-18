@@ -292,18 +292,6 @@ function loadComponentsInOrder(
 }
 
 /**
- * Returns whether the given object has any keys.
- *
- * @param {object} obj
- */
-function hasKeys(obj) {
-  for (const key in obj) {
-    return true
-  }
-  return false
-}
-
-/**
  * Returns an object which provides methods to get the ids of the components which have to be loaded (`getIds`) and
  * a way to efficiently load them in synchronously and asynchronous contexts (`load`).
  *
@@ -385,7 +373,7 @@ function getLoader(components, load, loaded) {
   let loadAdditions = loadSet
   /** @type {StringSet} */
   let newIds
-  while (hasKeys(loadAdditions)) {
+  while (Object.keys(loadAdditions).length) {
     newIds = {}
 
     // condition 1)
