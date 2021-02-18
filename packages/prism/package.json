@@ -2,10 +2,8 @@
   "name": "@chiffon/prism",
   "version": "0.0.1",
   "description": "Lightweight, robust, elegant syntax highlighting. A spin-off project from Dabblet.",
-  "source": "src/index.ts",
-  "ts:main": "src/index.ts",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "source": "src/components/prism-core.js",
+  "main": "dist/components/prism-core.js",
   "files": [
     "{src,dist}/{,!(__*)}/!(*.test)*.{js,ts}"
   ],
@@ -14,16 +12,22 @@
   },
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "fmt": "prettier \"*.{js,ts,json,md}\" \"src/**/*.{js,ts,json,md}\" --write",
     "test": "jest"
   },
   "devDependencies": {
     "eslint": "7.20.0",
     "eslint-plugin-prettier": "3.3.1",
+    "jest": "24.9.0",
     "prettier": "2.2.1",
     "refa": "0.5.0",
     "regexpp": "3.1.0",
-    "scslre": "0.1.1"
+    "scslre": "0.1.1",
+    "typescript": "3.7.5"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "jest": {
     "testMatch": [
