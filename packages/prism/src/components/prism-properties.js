@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.properties = {
   comment: /^[ \t]*[#!].*$/m,
   'attr-value': {

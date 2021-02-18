@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.vala = Prism.languages.extend('clike', {
   // Classes copied from prism-csharp
   'class-name': [

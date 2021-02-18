@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages['splunk-spl'] = {
   comment: /`comment\("(?:\\.|[^\\"])*"\)`/,
   string: {

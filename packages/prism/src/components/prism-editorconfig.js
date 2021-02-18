@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.editorconfig = {
   // https://editorconfig-specification.readthedocs.io/en/latest/
   comment: /[;#].*/,

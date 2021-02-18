@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.ini = {
   comment: /^[ \t]*[;#].*$/m,
   selector: /^[ \t]*\[.*?\]/m,

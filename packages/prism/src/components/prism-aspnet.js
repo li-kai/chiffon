@@ -1,3 +1,7 @@
+import Prism from './prism-core'
+import './prism-markup'
+import './prism-clike'
+import './prism-csharp'
 Prism.languages.aspnet = Prism.languages.extend('markup', {
   'page-directive': {
     pattern: /<%\s*@.*%>/i,

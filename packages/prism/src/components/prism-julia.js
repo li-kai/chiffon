@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.julia = {
   comment: {
     // support one level of nested comments

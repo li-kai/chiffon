@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.bbcode = {
   tag: {
     pattern: /\[\/?[^\s=\]]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'"\]=]+))?(?:\s+[^\s=\]]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'"\]=]+))*\s*\]/,

@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 // ABNF grammar:
 // https://github.com/dhall-lang/dhall-lang/blob/master/standard/dhall.abnf
 

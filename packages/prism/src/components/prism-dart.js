@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.dart = Prism.languages.extend('clike', {
   string: [
     {

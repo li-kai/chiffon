@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.gedcom = {
   'line-value': {
     // Preceded by level, optional pointer, and tag

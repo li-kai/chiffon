@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.nim = {
   comment: /#.*/,
   // Double-quoted strings can be prefixed by an identifier (Generalized raw string literals)

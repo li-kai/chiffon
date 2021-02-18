@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.haskell = {
   comment: {
     pattern: /(^|[^-!#$%*+=?&@|~.:<>^\\\/])(?:--(?:(?=.)[^-!#$%*+=?&@|~.:<>^\\\/].*|$)|{-[\s\S]*?-})/m,

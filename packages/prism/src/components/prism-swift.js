@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 // issues: nested multiline comments
 Prism.languages.swift = Prism.languages.extend('clike', {
   string: {

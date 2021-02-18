@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.git = {
   /*
    * A simple one line comment like in a git status command

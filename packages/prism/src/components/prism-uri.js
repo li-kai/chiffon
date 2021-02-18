@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 // https://tools.ietf.org/html/rfc3986#appendix-A
 
 Prism.languages.uri = {

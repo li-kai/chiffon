@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.monkey = {
   string: /"[^"\r\n]*"/,
   comment: [

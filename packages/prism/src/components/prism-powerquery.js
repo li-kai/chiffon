@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 // https://docs.microsoft.com/en-us/powerquery-m/power-query-m-language-specification
 
 Prism.languages.powerquery = {

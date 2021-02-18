@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.birb = Prism.languages.extend('clike', {
   string: {
     pattern: /r?("|')(?:\\.|(?!\1)[^\\])*\1/,

@@ -1,3 +1,6 @@
+import Prism from './prism-core'
+import './prism-clike'
+import './prism-c'
 Prism.languages.hlsl = Prism.languages.extend('c', {
   // Regarding keywords and class names:
   // The list of all keywords was split into 'keyword' and 'class-name' tokens based on whether they are capitalized.

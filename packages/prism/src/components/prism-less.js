@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-css'
 /* FIXME :
  :extend() is not handled specifically : its highlighting is buggy.
  Mixin usage must be inside a ruleset to be highlighted.

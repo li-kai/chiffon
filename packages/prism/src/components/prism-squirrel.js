@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.squirrel = Prism.languages.extend('clike', {
   comment: [
     Prism.languages.clike['comment'][0],

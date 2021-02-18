@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages['excel-formula'] = {
   comment: {
     pattern: /(\bN\(\s*)"(?:[^"]|"")*"(?=\s*\))/i,

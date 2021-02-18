@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.markup = {
   comment: /<!--[\s\S]*?-->/,
   prolog: /<\?[\s\S]+?\?>/,

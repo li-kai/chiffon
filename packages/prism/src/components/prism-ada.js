@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.ada = {
   comment: /--.*/,
   string: /"(?:""|[^"\r\f\n])*"/i,

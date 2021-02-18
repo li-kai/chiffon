@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.elixir = {
   comment: /#.*/m,
   // ~r"""foo""" (multi-line), ~r'''foo''' (multi-line), ~r/foo/, ~r|foo|, ~r"foo", ~r'foo', ~r(foo), ~r[foo], ~r{foo}, ~r<foo>

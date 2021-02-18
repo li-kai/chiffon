@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 // Specification:
 // https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Throwable.html#printStackTrace()
 

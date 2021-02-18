@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.bnf = {
   string: {
     pattern: /"[^\r\n"]*"|'[^\r\n']*'/,

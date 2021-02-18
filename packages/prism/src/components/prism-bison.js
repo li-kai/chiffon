@@ -1,3 +1,6 @@
+import Prism from './prism-core'
+import './prism-clike'
+import './prism-c'
 Prism.languages.bison = Prism.languages.extend('c', {})
 
 Prism.languages.insertBefore('bison', 'comment', {

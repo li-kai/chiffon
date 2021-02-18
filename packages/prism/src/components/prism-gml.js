@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.gamemakerlanguage = Prism.languages.gml = Prism.languages.extend(
   'clike',
   {

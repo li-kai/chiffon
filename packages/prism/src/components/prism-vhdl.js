@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.vhdl = {
   comment: /--.+/,
   // support for all logic vectors

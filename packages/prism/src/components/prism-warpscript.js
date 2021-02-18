@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.warpscript = {
   comment: /#.*|\/\/.*|\/\*[\s\S]*?\*\//,
   string: {

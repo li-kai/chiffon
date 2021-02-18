@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-markup'
 Prism.languages.twig = {
   comment: /\{#[\s\S]*?#\}/,
   tag: {

@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 // https://mc-stan.org/docs/2_24/reference-manual/bnf-grammars.html
 
 Prism.languages.stan = {
