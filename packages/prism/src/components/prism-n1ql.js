@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.n1ql = {
   comment: /\/\*[\s\S]*?(?:$|\*\/)/,
   parameter: /\$[\w.]+/,

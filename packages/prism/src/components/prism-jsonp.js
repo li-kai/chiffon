@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-json'
 Prism.languages.jsonp = Prism.languages.extend('json', {
   punctuation: /[{}[\]();,.]/,
 })

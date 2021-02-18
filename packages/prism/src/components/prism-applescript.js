@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.applescript = {
   comment: [
     // Allow one level of nesting

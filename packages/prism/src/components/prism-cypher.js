@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.cypher = {
   // https://neo4j.com/docs/cypher-manual/current/syntax/comments/
   comment: /\/\/.*/,

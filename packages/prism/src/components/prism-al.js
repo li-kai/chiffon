@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 // based on https://github.com/microsoft/AL/blob/master/grammar/alsyntax.tmlanguage
 
 Prism.languages.al = {

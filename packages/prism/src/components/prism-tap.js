@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-yaml'
 Prism.languages.tap = {
   fail: /not ok[^#{\n\r]*/,
   pass: /ok[^#{\n\r]*/,

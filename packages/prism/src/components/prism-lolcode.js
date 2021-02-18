@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.lolcode = {
   comment: [/\bOBTW\s[\s\S]*?\sTLDR\b/, /\bBTW.+/],
   string: {

@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages['visual-basic'] = {
   comment: {
     pattern: /(?:['‘’]|REM\b)(?:[^\r\n_]|_(?:\r\n?|\n)?)*/i,

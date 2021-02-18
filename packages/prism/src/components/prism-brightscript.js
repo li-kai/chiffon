@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.brightscript = {
   comment: /(?:\brem|').*/i,
   'directive-statement': {

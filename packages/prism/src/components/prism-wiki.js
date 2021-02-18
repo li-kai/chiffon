@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-markup'
 Prism.languages.wiki = Prism.languages.extend('markup', {
   'block-comment': {
     pattern: /(^|[^\\])\/\*[\s\S]*?\*\//,

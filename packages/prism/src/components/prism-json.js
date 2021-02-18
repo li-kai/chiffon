@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 // https://www.json.org/json-en.html
 Prism.languages.json = {
   property: {

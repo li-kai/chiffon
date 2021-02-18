@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.sql = {
   comment: {
     pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|(?:--|\/\/|#).*)/,

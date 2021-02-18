@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.jsstacktrace = {
   'error-message': {
     pattern: /^\S.*/m,

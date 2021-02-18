@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.hcl = {
   comment: /(?:\/\/|#).*|\/\*[\s\S]*?(?:\*\/|$)/,
   heredoc: {

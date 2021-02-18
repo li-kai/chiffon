@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.makefile = {
   comment: {
     pattern: /(^|[^\\])#(?:\\(?:\r\n|[\s\S])|[^\\\r\n])*/,

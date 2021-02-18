@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 /*
 Original Code by Bas Groothedde
 !!MANY THANKS!! I never would have made this, regex and me will never be best friends ;)

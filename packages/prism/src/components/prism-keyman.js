@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.keyman = {
   comment: /\bc\s.*/i,
   function: /\[\s*(?:(?:CTRL|SHIFT|ALT|LCTRL|RCTRL|LALT|RALT|CAPS|NCAPS)\s+)*(?:[TKU]_[\w?]+|".+?"|'.+?')\s*\]/i, // virtual key

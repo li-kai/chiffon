@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.javascript = Prism.languages.extend('clike', {
   'class-name': [
     Prism.languages.clike['class-name'],

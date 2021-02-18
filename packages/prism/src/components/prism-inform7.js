@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.inform7 = {
   string: {
     pattern: /"[^"]*"/,

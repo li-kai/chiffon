@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.yang = {
   // https://tools.ietf.org/html/rfc6020#page-34
   // http://www.yang-central.org/twiki/bin/view/Main/YangExamples

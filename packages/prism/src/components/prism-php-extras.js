@@ -1,3 +1,7 @@
+import Prism from './prism-core'
+import './prism-markup'
+import './prism-markup-templating'
+import './prism-php'
 Prism.languages.insertBefore('php', 'variable', {
   this: /\$this\b/,
   global: /\$(?:_(?:SERVER|GET|POST|FILES|REQUEST|SESSION|ENV|COOKIE)|GLOBALS|HTTP_RAW_POST_DATA|argc|argv|php_errormsg|http_response_header)\b/,

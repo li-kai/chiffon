@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-basic'
 Prism.languages.vbnet = Prism.languages.extend('basic', {
   comment: [
     {

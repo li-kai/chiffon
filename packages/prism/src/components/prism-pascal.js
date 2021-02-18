@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 // Based on Free Pascal
 
 /* TODO

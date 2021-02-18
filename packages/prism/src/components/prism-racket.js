@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-scheme'
 Prism.languages.racket = Prism.languages.extend('scheme', {
   'lambda-parameter': {
     // the racket lambda syntax is a lot more complex, so we won't even attempt to capture it.

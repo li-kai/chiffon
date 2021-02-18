@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.lua = {
   comment: /^#!.+|--(?:\[(=*)\[[\s\S]*?\]\1\]|.*)/m,
   // \z may be used to skip the following space

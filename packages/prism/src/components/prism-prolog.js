@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.prolog = {
   // Syntax depends on the implementation
   comment: [/%.+/, /\/\*[\s\S]*?\*\//],

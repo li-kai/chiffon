@@ -1,3 +1,7 @@
+import Prism from './prism-core'
+import './prism-clike'
+import './prism-c'
+import './prism-cpp'
 Prism.languages.chaiscript = Prism.languages.extend('clike', {
   string: {
     pattern: /(^|[^\\])'(?:[^'\\]|\\[\s\S])*'/,

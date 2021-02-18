@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.nasm = {
   comment: /;.*$/m,
   string: /(["'`])(?:\\.|(?!\1)[^\\\r\n])*\1/,

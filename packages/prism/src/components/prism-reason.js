@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.reason = Prism.languages.extend('clike', {
   string: {
     pattern: /"(?:\\(?:\r\n|[\s\S])|[^\\\r\n"])*"/,

@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.haxe = Prism.languages.extend('clike', {
   // Strings can be multi-line
   string: {

@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.sqf = Prism.languages.extend('clike', {
   string: {
     pattern: /"(?:(?:"")?[^"])*"(?!")|'(?:[^'])*'/,

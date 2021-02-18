@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.xojo = {
   comment: {
     pattern: /(?:'|\/\/|Rem\b).+/i,

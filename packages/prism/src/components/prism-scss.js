@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-css'
 Prism.languages.scss = Prism.languages.extend('css', {
   comment: {
     pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|\/\/.*)/,

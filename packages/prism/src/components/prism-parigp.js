@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 Prism.languages.parigp = {
   comment: /\/\*[\s\S]*?\*\/|\\\\.*/,
   string: {

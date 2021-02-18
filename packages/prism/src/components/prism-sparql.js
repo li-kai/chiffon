@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-turtle'
 Prism.languages.sparql = Prism.languages.extend('turtle', {
   boolean: /\b(?:true|false)\b/i,
   variable: {

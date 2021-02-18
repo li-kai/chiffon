@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+
 /**
  * Original by Jan T. Sott (http://github.com/idleberg)
  *

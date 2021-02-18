@@ -1,3 +1,5 @@
+import Prism from './prism-core'
+import './prism-clike'
 Prism.languages.nginx = Prism.languages.extend('clike', {
   comment: {
     pattern: /(^|[^"{\\])#.*/,
