@@ -1,11 +1,3 @@
-/**
- * Prism: Lightweight, robust, elegant syntax highlighting
- *
- * @license MIT <https://opensource.org/licenses/MIT>
- * @author Lea Verou <https://lea.verou.me>
- * @namespace
- * @public
- */
 // Private helper vars
 const lang = /\blang(?:uage)?-([\w-]+)\b/i
 let uniqueId = 0
@@ -15,6 +7,14 @@ let uniqueId = 0
 //
 //   @typedef {InstanceType<import("./prism-core")["Token"]>} Token
 
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ *
+ * @license MIT <https://opensource.org/licenses/MIT>
+ * @author Lea Verou <https://lea.verou.me>
+ * @namespace
+ * @public
+ */
 const Prism = {
   /**
    * A namespace for utility methods.
