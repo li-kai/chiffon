@@ -28,3 +28,5 @@ jobs:
         run: yarn workspaces run build
       - name: test
         run: yarn workspace @chiffon/babel-webpack-plugin test
+      - name: test
+        run: yarn workspace @chiffon/prism test
