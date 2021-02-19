@@ -587,16 +587,18 @@ const Prism = {
       }
     },
   },
+
+  Token,
 }
 
 /**
  * Creates a new token.
  *
+ * @constructor
  * @param {string} type See {@link Token#type type}
  * @param {string | TokenStream} content See {@link Token#content content}
  * @param {string|string[]} [alias] The alias(es) of the token.
  * @param {string} [matchedStr=""] A copy of the full string this token was created from.
- * @class
  * @public
  */
 function Token(type, content, alias, matchedStr) {
@@ -643,7 +645,6 @@ function Token(type, content, alias, matchedStr) {
  *    The only exception here is the token stream that only contains the empty string and nothing else.
  *
  * @typedef {Array<string | Token>} TokenStream
- * @global
  * @public
  */
 
@@ -973,7 +974,7 @@ function toArray(list) {
   return array
 }
 
-module.exports = Prism
+export default Prism
 
 // some additional documentation/types
 
@@ -994,7 +995,6 @@ module.exports = Prism
  *
  * Note: This can cause infinite recursion. Be careful when you embed different languages or even the same language into
  * each another.
- * @global
  * @public
  */
 
@@ -1002,7 +1002,6 @@ module.exports = Prism
  * @typedef Grammar
  * @type {Object<string, RegExp | GrammarToken | Array<RegExp | GrammarToken>>}
  * @property {Grammar} [rest] An optional grammar object that will be appended to this grammar.
- * @global
  * @public
  */
 
@@ -1012,7 +1011,6 @@ module.exports = Prism
  * @callback HighlightCallback
  * @param {Element} element The element successfully highlighted.
  * @returns {void}
- * @global
  * @public
  */
 
@@ -1020,6 +1018,5 @@ module.exports = Prism
  * @callback HookCallback
  * @param {Object<string, any>} env The environment variables of the hook.
  * @returns {void}
- * @global
  * @public
  */
