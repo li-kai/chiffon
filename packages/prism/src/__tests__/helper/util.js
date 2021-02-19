@@ -1,4 +1,4 @@
-const { RegExpParser } = require('regexpp')
+import { RegExpParser } from 'regexpp'
 
 /**
  * @typedef {import("regexpp/ast").Pattern} Pattern

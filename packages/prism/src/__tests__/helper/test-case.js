@@ -1,6 +1,6 @@
-const fs = require('fs')
-const PrismLoader = require('./prism-loader')
-const TokenStreamTransformer = require('./token-stream-transformer')
+import fs from 'fs'
+import PrismLoader from './prism-loader'
+import TokenStreamTransformer from './token-stream-transformer'
 
 /**
  * @typedef {import("./token-stream-transformer").TokenStream} TokenStream
@@ -34,7 +34,7 @@ const TokenStreamTransformer = require('./token-stream-transformer')
  *
  *
  */
-module.exports = {
+const TestCase = {
   /**
    * Runs the given test case file and asserts the result
    *
@@ -51,11 +51,11 @@ module.exports = {
    * @param {string} filePath
    * @param {boolean} acceptEmpty
    */
-  runTestCase(languageIdentifier, filePath, acceptEmpty) {
+  async runTestCase(languageIdentifier, filePath, acceptEmpty) {
     const testCase = this.parseTestCaseFile(filePath)
     const usedLanguages = this.parseLanguageNames(languageIdentifier)
 
-    const Prism = PrismLoader.createInstance(usedLanguages.languages)
+    const Prism = await PrismLoader.createInstance(usedLanguages.languages)
 
     // the first language is the main language to highlight
     const tokenStream = this.tokenize(
@@ -245,9 +245,9 @@ module.exports = {
    * @param {string} languageIdentifier
    * @param {object} codes
    */
-  runTestsWithHooks(languageIdentifier, codes) {
+  async runTestsWithHooks(languageIdentifier, codes) {
     const usedLanguages = this.parseLanguageNames(languageIdentifier)
-    const Prism = PrismLoader.createInstance(usedLanguages.languages)
+    const Prism = await PrismLoader.createInstance(usedLanguages.languages)
     // the first language is the main language to highlight
 
     for (const code in codes) {
@@ -326,3 +326,5 @@ function translateIndexIgnoreSpaces(spacey, withoutSpaces, withoutSpaceIndex) {
   }
   return undefined
 }
+
+export default TestCase

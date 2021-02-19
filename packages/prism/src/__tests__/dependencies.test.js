@@ -1,5 +1,5 @@
-const getLoader = require('../dependencies')
-const components = require('../components.json')
+import getLoader from '../dependencies'
+import components from '../components.json'
 
 describe('Dependency logic', function () {
   /** @type {import("../dependencies").Components} */
