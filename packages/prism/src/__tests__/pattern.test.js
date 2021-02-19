@@ -1,9 +1,9 @@
-const PrismLoader = require('./helper/prism-loader')
-const { BFS, parseRegex } = require('./helper/util')
-const { languages } = require('../components.json')
-const { visitRegExpAST } = require('regexpp')
-const { JS, Words, NFA } = require('refa')
-const scslre = require('scslre')
+import PrismLoader from './helper/prism-loader'
+import { languages } from '../components.json'
+import { BFS, parseRegex } from './helper/util'
+import { visitRegExpAST } from 'regexpp'
+import { JS, Words, NFA } from 'refa'
+import scslre from 'scslre'
 
 /**
  * A set of all safe (non-exponentially backtracking) RegExp literals (string).

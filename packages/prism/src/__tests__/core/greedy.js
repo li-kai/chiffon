@@ -1,6 +1,6 @@
-const PrismLoader = require('../helper/prism-loader')
-const TestCase = require('../helper/test-case')
-const TokenStreamTransformer = require('../helper/token-stream-transformer')
+import PrismLoader from './helper/prism-loader'
+import TestCase from './helper/test-case'
+import TokenStreamTransformer from '../helper/token-stream-transformer'
 
 function testTokens({ grammar, code, expected }) {
   const Prism = PrismLoader.createEmptyPrism()

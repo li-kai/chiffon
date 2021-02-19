@@ -1,6 +1,6 @@
-const PrismLoader = require('./helper/prism-loader')
-const { languages } = require('../components.json')
-const TokenStreamTransformer = require('./helper/token-stream-transformer')
+import PrismLoader from './helper/prism-loader'
+import { languages } from '../components.json'
+import TokenStreamTransformer from './helper/token-stream-transformer'
 
 // This is where you can exclude a language from the identifier test.
 //
@@ -84,8 +84,8 @@ for (const lang in languages) {
   }
 
   describe(`Test '${lang}'`, function () {
-    const Prism = PrismLoader.createInstance(lang)
-    testLiterals(Prism, lang)
+    const loadPrism = () => PrismLoader.createInstance(lang)
+    testLiterals(loadPrism, lang)
   })
 
   function toArray(value) {
@@ -111,8 +111,9 @@ for (const lang in languages) {
     }
 
     describe(name, function () {
-      const Prism = PrismLoader.createInstance([...optional, ...modify, lang])
-      testLiterals(Prism, lang)
+      const loadPrism = () =>
+        PrismLoader.createInstance([...optional, ...modify, lang])
+      testLiterals(loadPrism, lang)
     })
   }
 }
@@ -146,15 +147,16 @@ function isNotBroken(token) {
 /**
  * Tests all patterns in the given Prism instance.
  *
- * @param {any} Prism
+ * @param {any} loadPrism
  * @param {lang} Prism
  */
-function testLiterals(Prism, lang) {
+function testLiterals(loadPrism, lang) {
   /**
+   * @param {Prism} prism
    * @param {string[]} identifierElements
    * @param {keyof IdentifierTestOptions} identifierType
    */
-  function matchNotBroken(identifierElements, identifierType) {
+  function matchNotBroken(Prism, identifierElements, identifierType) {
     for (const name in Prism.languages) {
       const grammar = Prism.languages[name]
       if (typeof grammar !== 'object') {
@@ -181,8 +183,9 @@ function testLiterals(Prism, lang) {
     const identifierType = /** @type {keyof IdentifierTestOptions} */ (key)
     const element = identifiers[identifierType]
     if (options[identifierType] !== false) {
-      it(`- should not break ${identifierType} identifiers`, function () {
-        matchNotBroken(element, identifierType)
+      it(`- should not break ${identifierType} identifiers`, async () => {
+        const Prism = await loadPrism()
+        matchNotBroken(Prism, element, identifierType)
       })
     }
   }

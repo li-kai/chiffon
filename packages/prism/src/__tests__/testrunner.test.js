@@ -1,5 +1,5 @@
-const TokenStreamTransformer = require('./helper/token-stream-transformer')
-const TestCase = require('./helper/test-case')
+import TokenStreamTransformer from './helper/token-stream-transformer'
+import TestCase from './helper/test-case'
 
 describe('The token stream transformer', function () {
   it('should handle all kinds of simple transformations', function () {
