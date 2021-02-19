@@ -9,7 +9,7 @@ var type = /{(?:[^{}]|{(?:[^{}]|{[^{}]*})*})+}/.source
 var parameterPrefix =
   '(@(?:param|arg|argument|property)\\s+(?:' + type + '\\s+)?)'
 
-Prism.languages.jsdoc = Prism.languages.extend('javadoclike', {
+Prism.languages.jsdoc = Prism.languageUtils.extend('javadoclike', {
   parameter: {
     // @param {string} foo - foo bar
     pattern: RegExp(
@@ -22,7 +22,7 @@ Prism.languages.jsdoc = Prism.languages.extend('javadoclike', {
   },
 })
 
-Prism.languages.insertBefore('jsdoc', 'keyword', {
+Prism.languageUtils.insertBefore('jsdoc', 'keyword', {
   'optional-parameter': {
     // @param {string} [baz.foo="bar"] foo bar
     pattern: RegExp(

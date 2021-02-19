@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.go = Prism.languages.extend('clike', {
+Prism.languages.go = Prism.languageUtils.extend('clike', {
   string: {
     pattern: /(["'`])(?:\\[\s\S]|(?!\1)[^\\])*\1/,
     greedy: true,

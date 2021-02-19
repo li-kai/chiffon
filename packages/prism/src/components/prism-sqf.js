@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.sqf = Prism.languages.extend('clike', {
+Prism.languages.sqf = Prism.languageUtils.extend('clike', {
   string: {
     pattern: /"(?:(?:"")?[^"])*"(?!")|'(?:[^'])*'/,
     greedy: true,
@@ -17,7 +17,7 @@ Prism.languages.sqf = Prism.languages.extend('clike', {
   constant: /\bDIK(?:_[a-z\d]+)+\b/i,
 })
 
-Prism.languages.insertBefore('sqf', 'string', {
+Prism.languageUtils.insertBefore('sqf', 'string', {
   macro: {
     pattern: /(^\s*)#[a-z](?:[^\r\n\\]|\\(?:\r\n|[\s\S]))*/im,
     lookbehind: true,

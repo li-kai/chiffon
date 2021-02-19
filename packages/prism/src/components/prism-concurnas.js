@@ -32,7 +32,7 @@ Prism.languages.concurnas = {
   },
 }
 
-Prism.languages.insertBefore('concurnas', 'langext', {
+Prism.languageUtils.insertBefore('concurnas', 'langext', {
   string: {
     pattern: /[rs]?("|')(?:\\.|(?!\1)[^\\\r\n])*\1/,
     greedy: true,

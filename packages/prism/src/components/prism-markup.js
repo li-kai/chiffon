@@ -125,7 +125,7 @@ Object.defineProperty(Prism.languages.markup.tag, 'addInlined', {
       inside: inside,
     }
 
-    Prism.languages.insertBefore('markup', 'cdata', def)
+    Prism.languageUtils.insertBefore('markup', 'cdata', def)
   },
 })
 
@@ -133,7 +133,7 @@ Prism.languages.html = Prism.languages.markup
 Prism.languages.mathml = Prism.languages.markup
 Prism.languages.svg = Prism.languages.markup
 
-Prism.languages.xml = Prism.languages.extend('markup', {})
+Prism.languages.xml = Prism.languageUtils.extend('markup', {})
 Prism.languages.ssml = Prism.languages.xml
 Prism.languages.atom = Prism.languages.xml
 Prism.languages.rss = Prism.languages.xml

@@ -8,7 +8,7 @@ var comment = /#(?!\{).+/,
     alias: 'variable',
   }
 
-Prism.languages.coffeescript = Prism.languages.extend('javascript', {
+Prism.languages.coffeescript = Prism.languageUtils.extend('javascript', {
   comment: comment,
   string: [
     // Strings are multiline
@@ -33,7 +33,7 @@ Prism.languages.coffeescript = Prism.languages.extend('javascript', {
   },
 })
 
-Prism.languages.insertBefore('coffeescript', 'comment', {
+Prism.languageUtils.insertBefore('coffeescript', 'comment', {
   'multiline-comment': {
     pattern: /###[\s\S]+?###/,
     alias: 'comment',
@@ -50,7 +50,7 @@ Prism.languages.insertBefore('coffeescript', 'comment', {
   },
 })
 
-Prism.languages.insertBefore('coffeescript', 'string', {
+Prism.languageUtils.insertBefore('coffeescript', 'string', {
   'inline-javascript': {
     pattern: /`(?:\\[\s\S]|[^\\`])*`/,
     inside: {
@@ -84,7 +84,7 @@ Prism.languages.insertBefore('coffeescript', 'string', {
   ],
 })
 
-Prism.languages.insertBefore('coffeescript', 'keyword', {
+Prism.languageUtils.insertBefore('coffeescript', 'keyword', {
   // Object property
   property: /(?!\d)\w+(?=\s*:(?!:))/,
 })

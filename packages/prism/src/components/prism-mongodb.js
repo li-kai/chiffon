@@ -260,9 +260,9 @@ operators = operators.map(function (operator) {
 
 var operatorsSource = '(?:' + operators.join('|') + ')\\b'
 
-Prism.languages.mongodb = Prism.languages.extend('javascript', {})
+Prism.languages.mongodb = Prism.languageUtils.extend('javascript', {})
 
-Prism.languages.insertBefore('mongodb', 'string', {
+Prism.languageUtils.insertBefore('mongodb', 'string', {
   property: {
     pattern: /(?:(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1|(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)(?=\s*:)/,
     greedy: true,
@@ -285,7 +285,7 @@ Prism.languages.mongodb.string.inside = {
   },
 }
 
-Prism.languages.insertBefore('mongodb', 'constant', {
+Prism.languageUtils.insertBefore('mongodb', 'constant', {
   builtin: {
     pattern: RegExp('\\b(?:' + builtinFunctions.join('|') + ')\\b'),
     alias: 'keyword',

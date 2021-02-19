@@ -1,7 +1,7 @@
 import Prism from './prism-core'
 import './prism-clike'
 import './prism-ruby'
-Prism.languages.crystal = Prism.languages.extend('ruby', {
+Prism.languages.crystal = Prism.languageUtils.extend('ruby', {
   keyword: [
     /\b(?:abstract|alias|as|asm|begin|break|case|class|def|do|else|elsif|end|ensure|enum|extend|for|fun|if|include|instance_sizeof|lib|macro|module|next|of|out|pointerof|private|protected|rescue|return|require|select|self|sizeof|struct|super|then|type|typeof|uninitialized|union|unless|until|when|while|with|yield|__DIR__|__END_LINE__|__FILE__|__LINE__)\b/,
     {
@@ -13,7 +13,7 @@ Prism.languages.crystal = Prism.languages.extend('ruby', {
   number: /\b(?:0b[01_]*[01]|0o[0-7_]*[0-7]|0x[\da-fA-F_]*[\da-fA-F]|(?:\d(?:[\d_]*\d)?)(?:\.[\d_]*\d)?(?:[eE][+-]?[\d_]*\d)?)(?:_(?:[uif](?:8|16|32|64))?)?\b/,
 })
 
-Prism.languages.insertBefore('crystal', 'string', {
+Prism.languageUtils.insertBefore('crystal', 'string', {
   attribute: {
     pattern: /@\[.+?\]/,
     alias: 'attr-name',

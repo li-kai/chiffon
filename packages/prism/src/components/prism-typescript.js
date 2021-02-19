@@ -1,7 +1,7 @@
 import Prism from './prism-core'
 import './prism-clike'
 import './prism-javascript'
-Prism.languages.typescript = Prism.languages.extend('javascript', {
+Prism.languages.typescript = Prism.languageUtils.extend('javascript', {
   'class-name': {
     pattern: /(\b(?:class|extends|implements|instanceof|interface|new|type)\s+)(?!keyof\b)(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?:\s*<(?:[^<>]|<(?:[^<>]|<[^<>]*>)*>)*>)?/,
     lookbehind: true,
@@ -17,12 +17,12 @@ Prism.languages.typescript = Prism.languages.extend('javascript', {
 delete Prism.languages.typescript['parameter']
 
 // a version of typescript specifically for highlighting types
-var typeInside = Prism.languages.extend('typescript', {})
+var typeInside = Prism.languageUtils.extend('typescript', {})
 delete typeInside['class-name']
 
 Prism.languages.typescript['class-name'].inside = typeInside
 
-Prism.languages.insertBefore('typescript', 'function', {
+Prism.languageUtils.insertBefore('typescript', 'function', {
   'generic-function': {
     // e.g. foo<T extends "bar" | "baz">( ...
     pattern: /#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*\s*<(?:[^<>]|<(?:[^<>]|<[^<>]*>)*>)*>(?=\s*\()/,

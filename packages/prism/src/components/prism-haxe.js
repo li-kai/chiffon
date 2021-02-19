@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.haxe = Prism.languages.extend('clike', {
+Prism.languages.haxe = Prism.languageUtils.extend('clike', {
   // Strings can be multi-line
   string: {
     pattern: /(["'])(?:(?!\1)[^\\]|\\[\s\S])*\1/,
@@ -23,13 +23,13 @@ Prism.languages.haxe = Prism.languages.extend('clike', {
   keyword: /\bthis\b|\b(?:abstract|as|break|case|cast|catch|class|continue|default|do|dynamic|else|enum|extends|extern|from|for|function|if|implements|import|in|inline|interface|macro|new|null|override|public|private|return|static|super|switch|throw|to|try|typedef|using|var|while)(?!\.)\b/,
   operator: /\.{3}|\+\+?|-[->]?|[=!]=?|&&?|\|\|?|<[<=]?|>[>=]?|[*\/%~^]/,
 })
-Prism.languages.insertBefore('haxe', 'class-name', {
+Prism.languageUtils.insertBefore('haxe', 'class-name', {
   regex: {
     pattern: /~\/(?:[^\/\\\r\n]|\\.)+\/[igmsu]*/,
     greedy: true,
   },
 })
-Prism.languages.insertBefore('haxe', 'keyword', {
+Prism.languageUtils.insertBefore('haxe', 'keyword', {
   preprocessor: {
     pattern: /#\w+/,
     alias: 'builtin',

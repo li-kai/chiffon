@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-markup'
-Prism.languages.wiki = Prism.languages.extend('markup', {
+Prism.languages.wiki = Prism.languageUtils.extend('markup', {
   'block-comment': {
     pattern: /(^|[^\\])\/\*[\s\S]*?\*\//,
     lookbehind: true,
@@ -67,7 +67,7 @@ Prism.languages.wiki = Prism.languages.extend('markup', {
   punctuation: /^(?:\{\||\|\}|\|-|[*#:;!|])|\|\||!!/m,
 })
 
-Prism.languages.insertBefore('wiki', 'tag', {
+Prism.languageUtils.insertBefore('wiki', 'tag', {
   // Prevent highlighting inside <nowiki>, <source> and <pre> tags
   nowiki: {
     pattern: /<(nowiki|pre|source)\b[^>]*>[\s\S]*?<\/\1>/i,

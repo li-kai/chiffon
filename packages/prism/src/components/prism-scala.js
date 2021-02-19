@@ -1,7 +1,7 @@
 import Prism from './prism-core'
 import './prism-clike'
 import './prism-java'
-Prism.languages.scala = Prism.languages.extend('java', {
+Prism.languages.scala = Prism.languageUtils.extend('java', {
   'triple-quoted-string': {
     pattern: /"""[\s\S]*?"""/,
     greedy: true,

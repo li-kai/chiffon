@@ -6,7 +6,7 @@ import './prism-clike'
  * Adds the following new token classes:
  *     constant, builtin, variable, symbol, regex
  */
-Prism.languages.ruby = Prism.languages.extend('clike', {
+Prism.languages.ruby = Prism.languageUtils.extend('clike', {
   comment: [
     /#.*/,
     {
@@ -37,7 +37,7 @@ var interpolation = {
 
 delete Prism.languages.ruby.function
 
-Prism.languages.insertBefore('ruby', 'keyword', {
+Prism.languageUtils.insertBefore('ruby', 'keyword', {
   regex: [
     {
       pattern: RegExp(
@@ -79,7 +79,7 @@ Prism.languages.insertBefore('ruby', 'keyword', {
   },
 })
 
-Prism.languages.insertBefore('ruby', 'number', {
+Prism.languageUtils.insertBefore('ruby', 'number', {
   builtin: /\b(?:Array|Bignum|Binding|Class|Continuation|Dir|Exception|FalseClass|File|Stat|Fixnum|Float|Hash|Integer|IO|MatchData|Method|Module|NilClass|Numeric|Object|Proc|Range|Regexp|String|Struct|TMS|Symbol|ThreadGroup|Thread|Time|TrueClass)\b/,
   constant: /\b[A-Z]\w*(?:[?!]|\b)/,
 })

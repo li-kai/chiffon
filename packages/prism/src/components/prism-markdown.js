@@ -31,8 +31,8 @@ var tableRow = /\|?__(?:\|__)+\|?(?:(?:\n|\r\n?)|(?![\s\S]))/.source.replace(
 var tableLine = /\|?[ \t]*:?-{3,}:?[ \t]*(?:\|[ \t]*:?-{3,}:?[ \t]*)+\|?(?:\n|\r\n?)/
   .source
 
-Prism.languages.markdown = Prism.languages.extend('markup', {})
-Prism.languages.insertBefore('markdown', 'prolog', {
+Prism.languages.markdown = Prism.languageUtils.extend('markup', {})
+Prism.languageUtils.insertBefore('markdown', 'prolog', {
   'front-matter-block': {
     pattern: /(^(?:\s*[\r\n])?)---(?!.)[\s\S]*?[\r\n]---(?!.)/,
     lookbehind: true,

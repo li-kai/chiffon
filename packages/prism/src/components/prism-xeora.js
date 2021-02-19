@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-markup'
-Prism.languages.xeora = Prism.languages.extend('markup', {
+Prism.languages.xeora = Prism.languageUtils.extend('markup', {
   constant: {
     pattern: /\$(?:DomainContents|PageRenderDuration)\$/,
     inside: {
@@ -106,7 +106,7 @@ Prism.languages.xeora = Prism.languages.extend('markup', {
   },
 })
 
-Prism.languages.insertBefore(
+Prism.languageUtils.insertBefore(
   'inside',
   'punctuation',
   {

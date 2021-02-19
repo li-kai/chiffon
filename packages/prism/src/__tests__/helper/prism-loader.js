@@ -19,7 +19,7 @@ export default {
     jest.resetModules()
     let context = {
       loaded: new Set(),
-      Prism: await import('../../components/prism-core'),
+      Prism: (await import('../../components/prism-core')).default,
     }
 
     context = await this.loadLanguages(languages, context)

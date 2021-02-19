@@ -3,7 +3,7 @@ import './prism-clike'
 import './prism-c'
 var keyword = /\b(?:alignas|alignof|asm|auto|bool|break|case|catch|char|char8_t|char16_t|char32_t|class|compl|concept|const|consteval|constexpr|constinit|const_cast|continue|co_await|co_return|co_yield|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|float|for|friend|goto|if|inline|int|int8_t|int16_t|int32_t|int64_t|uint8_t|uint16_t|uint32_t|uint64_t|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|requires|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while)\b/
 
-Prism.languages.cpp = Prism.languages.extend('c', {
+Prism.languages.cpp = Prism.languageUtils.extend('c', {
   'class-name': [
     {
       pattern: RegExp(
@@ -37,7 +37,7 @@ Prism.languages.cpp = Prism.languages.extend('c', {
   boolean: /\b(?:true|false)\b/,
 })
 
-Prism.languages.insertBefore('cpp', 'string', {
+Prism.languageUtils.insertBefore('cpp', 'string', {
   'raw-string': {
     pattern: /R"([^()\\ ]{0,16})\([\s\S]*?\)\1"/,
     alias: 'string',
@@ -45,17 +45,17 @@ Prism.languages.insertBefore('cpp', 'string', {
   },
 })
 
-Prism.languages.insertBefore('cpp', 'class-name', {
+Prism.languageUtils.insertBefore('cpp', 'class-name', {
   // the base clause is an optional list of parent classes
   // https://en.cppreference.com/w/cpp/language/class
   'base-clause': {
     pattern: /(\b(?:class|struct)\s+\w+\s*:\s*)[^;{}"'\s]+(?:\s+[^;{}"'\s]+)*(?=\s*[;{])/,
     lookbehind: true,
     greedy: true,
-    inside: Prism.languages.extend('cpp', {}),
+    inside: Prism.languageUtils.extend('cpp', {}),
   },
 })
-Prism.languages.insertBefore(
+Prism.languageUtils.insertBefore(
   'inside',
   'operator',
   {

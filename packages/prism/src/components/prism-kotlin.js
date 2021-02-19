@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.kotlin = Prism.languages.extend('clike', {
+Prism.languages.kotlin = Prism.languageUtils.extend('clike', {
   keyword: {
     // The lookbehind prevents wrong highlighting of e.g. kotlin.properties.get
     pattern: /(^|[^.])\b(?:abstract|actual|annotation|as|break|by|catch|class|companion|const|constructor|continue|crossinline|data|do|dynamic|else|enum|expect|external|final|finally|for|fun|get|if|import|in|infix|init|inline|inner|interface|internal|is|lateinit|noinline|null|object|open|operator|out|override|package|private|protected|public|reified|return|sealed|set|super|suspend|tailrec|this|throw|to|try|typealias|val|var|vararg|when|where|while)\b/,
@@ -23,20 +23,20 @@ Prism.languages.kotlin = Prism.languages.extend('clike', {
 
 delete Prism.languages.kotlin['class-name']
 
-Prism.languages.insertBefore('kotlin', 'string', {
+Prism.languageUtils.insertBefore('kotlin', 'string', {
   'raw-string': {
     pattern: /("""|''')[\s\S]*?\1/,
     alias: 'string',
     // See interpolation below
   },
 })
-Prism.languages.insertBefore('kotlin', 'keyword', {
+Prism.languageUtils.insertBefore('kotlin', 'keyword', {
   annotation: {
     pattern: /\B@(?:\w+:)?(?:[A-Z]\w*|\[[^\]]+\])/,
     alias: 'builtin',
   },
 })
-Prism.languages.insertBefore('kotlin', 'function', {
+Prism.languageUtils.insertBefore('kotlin', 'function', {
   label: {
     pattern: /\w+@|@\w+/,
     alias: 'symbol',

@@ -255,11 +255,11 @@ var string = [
   },
 ]
 
-Prism.languages.insertBefore('php', 'variable', {
+Prism.languageUtils.insertBefore('php', 'variable', {
   string: string,
 })
 
-Prism.languages.insertBefore('php', 'variable', {
+Prism.languageUtils.insertBefore('php', 'variable', {
   attribute: {
     pattern: /#\[(?:[^"'\/#]|\/(?![*/])|\/\/.*$|#(?!\[).*$|\/\*(?:[^*]|\*(?!\/))*\*\/|"(?:\\[\s\S]|[^\\"])*"|'(?:\\[\s\S]|[^\\'])*')+\](?=\s*[a-z$#])/im,
     greedy: true,

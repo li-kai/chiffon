@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.fsharp = Prism.languages.extend('clike', {
+Prism.languages.fsharp = Prism.languageUtils.extend('clike', {
   comment: [
     {
       pattern: /(^|[^\\])\(\*(?!\))[\s\S]*?\*\)/,
@@ -32,7 +32,7 @@ Prism.languages.fsharp = Prism.languages.extend('clike', {
   ],
   operator: /([<>~&^])\1\1|([*.:<>&])\2|<-|->|[!=:]=|<?\|{1,3}>?|\??(?:<=|>=|<>|[-+*/%=<>])\??|[!?^&]|~[+~-]|:>|:\?>?/,
 })
-Prism.languages.insertBefore('fsharp', 'keyword', {
+Prism.languageUtils.insertBefore('fsharp', 'keyword', {
   preprocessor: {
     pattern: /^[^\r\n\S]*#.*/m,
     alias: 'property',
@@ -45,13 +45,13 @@ Prism.languages.insertBefore('fsharp', 'keyword', {
     },
   },
 })
-Prism.languages.insertBefore('fsharp', 'punctuation', {
+Prism.languageUtils.insertBefore('fsharp', 'punctuation', {
   'computation-expression': {
     pattern: /[_a-z]\w*(?=\s*\{)/i,
     alias: 'keyword',
   },
 })
-Prism.languages.insertBefore('fsharp', 'string', {
+Prism.languageUtils.insertBefore('fsharp', 'string', {
   annotation: {
     pattern: /\[<.+?>\]/,
     inside: {

@@ -78,7 +78,7 @@ function joinEnglishList(a) {
 }
 
 module.exports = (Prism) => {
-  // The test for Prism.languages.extend has to be able to tell whether an object is a clone, so we mark it with a
+  // The test for Prism.languageUtils.extend has to be able to tell whether an object is a clone, so we mark it with a
   // special property
   const oldClone = Prism.util.clone
   Prism.util.clone = (obj) => {
@@ -113,7 +113,7 @@ module.exports = (Prism) => {
     }
     const details =
       `\n\nActual method call (nonconforming):` +
-      `\n\n\tPrism.languages.extend('${id}', ${redefStr.replace(
+      `\n\n\tPrism.languageUtils.extend('${id}', ${redefStr.replace(
         /\n/g,
         '\n\t',
       )});` +
@@ -144,7 +144,7 @@ module.exports = (Prism) => {
 
     // redef cannot be a direct reference to a language
     let isReference = false
-    Prism.languages.DFS(Prism.languages, (key, value) => {
+    Prism.languageUtils.DFS(Prism.languages, (key, value) => {
       if (value === redef) {
         isReference = true
       }

@@ -125,7 +125,7 @@ var character = /'(?:[^\r\n'\\]|\\.|\\[Uux][\da-fA-F]{1,8})'/.source // simplifi
 var regularString = /"(?:\\.|[^\\"\r\n])*"/.source
 var verbatimString = /@"(?:""|\\[\s\S]|[^\\"])*"(?!")/.source
 
-Prism.languages.csharp = Prism.languages.extend('clike', {
+Prism.languages.csharp = Prism.languageUtils.extend('clike', {
   string: [
     {
       pattern: re(/(^|[^$\\])<<0>>/.source, [verbatimString]),
@@ -219,14 +219,14 @@ Prism.languages.csharp = Prism.languages.extend('clike', {
   punctuation: /\?\.?|::|[{}[\];(),.:]/,
 })
 
-Prism.languages.insertBefore('csharp', 'number', {
+Prism.languageUtils.insertBefore('csharp', 'number', {
   range: {
     pattern: /\.\./,
     alias: 'operator',
   },
 })
 
-Prism.languages.insertBefore('csharp', 'punctuation', {
+Prism.languageUtils.insertBefore('csharp', 'punctuation', {
   'named-parameter': {
     pattern: re(/([(,]\s*)<<0>>(?=\s*:)/.source, [name]),
     lookbehind: true,
@@ -234,7 +234,7 @@ Prism.languages.insertBefore('csharp', 'punctuation', {
   },
 })
 
-Prism.languages.insertBefore('csharp', 'class-name', {
+Prism.languageUtils.insertBefore('csharp', 'class-name', {
   namespace: {
     // namespace Foo.Bar {}
     // using Foo.Bar;
@@ -356,7 +356,7 @@ var attr = replace(/<<0>>(?:\s*\(<<1>>*\))?/.source, [
   roundExpression,
 ])
 
-Prism.languages.insertBefore('csharp', 'class-name', {
+Prism.languageUtils.insertBefore('csharp', 'class-name', {
   attribute: {
     // Attributes
     // [Foo], [Foo(1), Bar(2, Prop = "foo")], [return: Foo(1), Bar(2)], [assembly: Foo(Bar)]
@@ -441,7 +441,7 @@ function createInterpolationInside(interpolation, interpolationRound) {
   }
 }
 
-Prism.languages.insertBefore('csharp', 'string', {
+Prism.languageUtils.insertBefore('csharp', 'string', {
   'interpolation-string': [
     {
       pattern: re(

@@ -2,7 +2,7 @@ import Prism from './prism-core'
 import './prism-clike'
 var builtinTypes = /\b(?:double|float|[su]?int(?:32|64)|s?fixed(?:32|64)|bool|string|bytes)\b/
 
-Prism.languages.protobuf = Prism.languages.extend('clike', {
+Prism.languages.protobuf = Prism.languageUtils.extend('clike', {
   'class-name': [
     {
       pattern: /(\b(?:enum|extend|message|service)\s+)[A-Za-z_]\w*(?=\s*\{)/,
@@ -17,7 +17,7 @@ Prism.languages.protobuf = Prism.languages.extend('clike', {
   function: /[a-z_]\w*(?=\s*\()/i,
 })
 
-Prism.languages.insertBefore('protobuf', 'operator', {
+Prism.languageUtils.insertBefore('protobuf', 'operator', {
   map: {
     pattern: /\bmap<\s*[\w.]+\s*,\s*[\w.]+\s*>(?=\s+[a-z_]\w*\s*[=;])/i,
     alias: 'class-name',

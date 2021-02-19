@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-sql'
-var plsql = (Prism.languages.plsql = Prism.languages.extend('sql', {
+var plsql = (Prism.languages.plsql = Prism.languageUtils.extend('sql', {
   comment: [/\/\*[\s\S]*?\*\//, /--.*/],
 }))
 

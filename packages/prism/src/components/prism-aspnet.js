@@ -2,7 +2,7 @@ import Prism from './prism-core'
 import './prism-markup'
 import './prism-clike'
 import './prism-csharp'
-Prism.languages.aspnet = Prism.languages.extend('markup', {
+Prism.languages.aspnet = Prism.languageUtils.extend('markup', {
   'page-directive': {
     pattern: /<%\s*@.*%>/i,
     alias: 'tag',
@@ -30,7 +30,7 @@ Prism.languages.aspnet = Prism.languages.extend('markup', {
 Prism.languages.aspnet.tag.pattern = /<(?!%)\/?[^\s>\/]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|[^\s'">=]+))?)*\s*\/?>/i
 
 // match directives of attribute value foo="<% Bar %>"
-Prism.languages.insertBefore(
+Prism.languageUtils.insertBefore(
   'inside',
   'punctuation',
   {
@@ -39,7 +39,7 @@ Prism.languages.insertBefore(
   Prism.languages.aspnet.tag.inside['attr-value'],
 )
 
-Prism.languages.insertBefore('aspnet', 'comment', {
+Prism.languageUtils.insertBefore('aspnet', 'comment', {
   'asp-comment': {
     pattern: /<%--[\s\S]*?--%>/,
     alias: ['asp', 'comment'],
@@ -47,7 +47,7 @@ Prism.languages.insertBefore('aspnet', 'comment', {
 })
 
 // script runat="server" contains csharp, not javascript
-Prism.languages.insertBefore(
+Prism.languageUtils.insertBefore(
   'aspnet',
   Prism.languages.javascript ? 'script' : 'tag',
   {

@@ -59,7 +59,7 @@ var markup = Prism.languages.markup
 if (markup) {
   markup.tag.addInlined('style', 'css')
 
-  Prism.languages.insertBefore(
+  Prism.languageUtils.insertBefore(
     'inside',
     'attr-value',
     {

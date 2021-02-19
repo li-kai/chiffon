@@ -28,8 +28,8 @@ Prism.languages.latte = {
   },
 }
 
-var markupLatte = Prism.languages.extend('markup', {})
-Prism.languages.insertBefore(
+var markupLatte = Prism.languageUtils.extend('markup', {})
+Prism.languageUtils.insertBefore(
   'inside',
   'attr-value',
   {

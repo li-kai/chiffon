@@ -1,9 +1,9 @@
 import Prism from './prism-core'
 import './prism-clike'
 import './prism-c'
-Prism.languages.bison = Prism.languages.extend('c', {})
+Prism.languages.bison = Prism.languageUtils.extend('c', {})
 
-Prism.languages.insertBefore('bison', 'comment', {
+Prism.languageUtils.insertBefore('bison', 'comment', {
   bison: {
     // This should match all the beginning of the file
     // including the prologue(s), the bison declarations and

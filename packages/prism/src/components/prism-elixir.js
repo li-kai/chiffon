@@ -75,7 +75,7 @@ Prism.languages.elixir = {
   punctuation: /<<|>>|[.,%\[\]{}()]/,
 }
 
-Prism.languages.insertBefore('elixir', 'keyword', {
+Prism.languageUtils.insertBefore('elixir', 'keyword', {
   module: {
     pattern: /\b(defmodule\s)[A-Z][\w.\\]+/,
     lookbehind: true,

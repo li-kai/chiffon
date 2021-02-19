@@ -3,8 +3,8 @@ import './prism-clike'
 import './prism-ruby'
 import './prism-markup'
 import './prism-markup-templating'
-Prism.languages.erb = Prism.languages.extend('ruby', {})
-Prism.languages.insertBefore('erb', 'comment', {
+Prism.languages.erb = Prism.languageUtils.extend('ruby', {})
+Prism.languageUtils.insertBefore('erb', 'comment', {
   delimiter: {
     pattern: /^<%=?|%>$/,
     alias: 'punctuation',

@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.gamemakerlanguage = Prism.languages.gml = Prism.languages.extend(
+Prism.languages.gamemakerlanguage = Prism.languages.gml = Prism.languageUtils.extend(
   'clike',
   {
     keyword: /\b(?:if|else|switch|case|default|break|for|repeat|while|do|until|continue|exit|return|globalvar|var|enum)\b/,

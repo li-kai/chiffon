@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.vala = Prism.languages.extend('clike', {
+Prism.languages.vala = Prism.languageUtils.extend('clike', {
   // Classes copied from prism-csharp
   'class-name': [
     {
@@ -43,7 +43,7 @@ Prism.languages.vala = Prism.languages.extend('clike', {
   constant: /\b[A-Z0-9_]+\b/,
 })
 
-Prism.languages.insertBefore('vala', 'string', {
+Prism.languageUtils.insertBefore('vala', 'string', {
   'raw-string': {
     pattern: /"""[\s\S]*?"""/,
     greedy: true,
@@ -68,7 +68,7 @@ Prism.languages.insertBefore('vala', 'string', {
   },
 })
 
-Prism.languages.insertBefore('vala', 'keyword', {
+Prism.languageUtils.insertBefore('vala', 'keyword', {
   regex: {
     pattern: /\/(?:\[(?:[^\]\\\r\n]|\\.)*]|\\.|[^/\\\[\r\n])+\/[imsx]{0,4}(?=\s*(?:$|[\r\n,.;})\]]))/,
     greedy: true,

@@ -150,7 +150,7 @@ const Prism = {
    * @memberof Prism
    * @public
    */
-  languages: {
+  languageUtils: {
     /**
      * Creates a deep copy of the language with the given id and appends the given tokens.
      *
@@ -171,7 +171,7 @@ const Prism = {
      * @returns {Grammar} The new language created.
      * @public
      * @example
-     * Prism.languages['css-with-colors'] = Prism.languages.extend('css', {
+     * Prism.languages['css-with-colors'] = Prism.languageUtils.extend('css', {
      *     // Prism.languages.css already has a 'comment' token, so this token will overwrite CSS' 'comment' token
      *     // at its original position
      *     'comment': { ... },
@@ -210,7 +210,7 @@ const Prism = {
      * before existing tokens. For the CSS example above, you would use it like this:
      *
      * ```js
-     * Prism.languages.insertBefore('markup', 'cdata', {
+     * Prism.languageUtils.insertBefore('markup', 'cdata', {
      *     'style': {
      *         // token
      *     }
@@ -225,7 +225,7 @@ const Prism = {
      * This behavior can be used to insert tokens after `before`:
      *
      * ```js
-     * Prism.languages.insertBefore('markup', 'comment', {
+     * Prism.languageUtils.insertBefore('markup', 'comment', {
      *     'comment': Prism.languages.markup.comment,
      *     // tokens after 'comment'
      * });
@@ -247,7 +247,7 @@ const Prism = {
      *
      * ```js
      * const oldMarkup = Prism.languages.markup;
-     * const newMarkup = Prism.languages.insertBefore('markup', 'comment', { ... });
+     * const newMarkup = Prism.languageUtils.insertBefore('markup', 'comment', { ... });
      *
      * assert(oldMarkup !== Prism.languages.markup);
      * assert(newMarkup === Prism.languages.markup);
@@ -291,7 +291,7 @@ const Prism = {
       root[inside] = ret
 
       // Update references in other language definitions
-      Prism.languages.DFS(Prism.languages, function (key, value) {
+      Prism.languageUtils.DFS(Prism.languages, function (key, value) {
         if (value === old && key != inside) {
           this[key] = ret
         }
@@ -325,6 +325,10 @@ const Prism = {
     },
   },
 
+  /**
+   * @type {{ [key: string]: Grammar }}
+   */
+  languages: {},
   plugins: {},
 
   /**
@@ -592,6 +596,15 @@ const Prism = {
 }
 
 /**
+ * @typedef Token
+ * @property {string} type This is usually the key of a pattern in a {@link Grammar}
+ * @property {string | TokenStream} content The strings or tokens contained by this token.
+ * @property {string|string[]} alias The alias(es) of the token.
+ * @property {number} length
+ * @public
+ */
+
+/**
  * Creates a new token.
  *
  * @constructor
@@ -602,32 +615,8 @@ const Prism = {
  * @public
  */
 function Token(type, content, alias, matchedStr) {
-  /**
-   * The type of the token.
-   *
-   * This is usually the key of a pattern in a {@link Grammar}.
-   *
-   * @type {string}
-   * @see GrammarToken
-   * @public
-   */
   this.type = type
-  /**
-   * The strings or tokens contained by this token.
-   *
-   * This will be a token stream if the pattern matched also defined an `inside` grammar.
-   *
-   * @type {string | TokenStream}
-   * @public
-   */
   this.content = content
-  /**
-   * The alias(es) of the token.
-   *
-   * @type {string|string[]}
-   * @see GrammarToken
-   * @public
-   */
   this.alias = alias
   // Copy of the full string this token was created from
   this.length = (matchedStr || '').length | 0
@@ -974,7 +963,7 @@ function toArray(list) {
   return array
 }
 
-module.exports = Prism
+export default Prism
 
 // some additional documentation/types
 

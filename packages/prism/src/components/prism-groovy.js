@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.groovy = Prism.languages.extend('clike', {
+Prism.languages.groovy = Prism.languageUtils.extend('clike', {
   string: [
     {
       // https://groovy-lang.org/syntax.html#_dollar_slashy_string
@@ -23,18 +23,18 @@ Prism.languages.groovy = Prism.languages.extend('clike', {
   punctuation: /\.+|[{}[\];(),:$]/,
 })
 
-Prism.languages.insertBefore('groovy', 'string', {
+Prism.languageUtils.insertBefore('groovy', 'string', {
   shebang: {
     pattern: /#!.+/,
     alias: 'comment',
   },
 })
 
-Prism.languages.insertBefore('groovy', 'punctuation', {
+Prism.languageUtils.insertBefore('groovy', 'punctuation', {
   'spock-block': /\b(?:setup|given|when|then|and|cleanup|expect|where):/,
 })
 
-Prism.languages.insertBefore('groovy', 'function', {
+Prism.languageUtils.insertBefore('groovy', 'function', {
   annotation: {
     pattern: /(^|[^.])@\w+/,
     lookbehind: true,

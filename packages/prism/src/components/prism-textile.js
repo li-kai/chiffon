@@ -44,7 +44,7 @@ var modifierTokens = {
   punctuation: /[\\\/]\d+|\S/,
 }
 
-var textile = (Prism.languages.textile = Prism.languages.extend('markup', {
+var textile = (Prism.languages.textile = Prism.languageUtils.extend('markup', {
   phrase: {
     pattern: /(^|\r|\n)\S[\s\S]*?(?=$|\r?\n\r?\n|\r\r)/,
     lookbehind: true,

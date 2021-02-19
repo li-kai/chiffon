@@ -5,7 +5,7 @@ import './prism-php'
 import './prism-javadoclike'
 var typeExpression = /(?:\b[a-zA-Z]\w*|[|\\[\]])+/.source
 
-Prism.languages.phpdoc = Prism.languages.extend('javadoclike', {
+Prism.languages.phpdoc = Prism.languageUtils.extend('javadoclike', {
   parameter: {
     pattern: RegExp(
       '(@(?:global|param|property(?:-read|-write)?|var)\\s+(?:' +
@@ -16,7 +16,7 @@ Prism.languages.phpdoc = Prism.languages.extend('javadoclike', {
   },
 })
 
-Prism.languages.insertBefore('phpdoc', 'keyword', {
+Prism.languageUtils.insertBefore('phpdoc', 'keyword', {
   'class-name': [
     {
       pattern: RegExp(

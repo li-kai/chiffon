@@ -21,7 +21,7 @@ var className = {
   },
 }
 
-Prism.languages.java = Prism.languages.extend('clike', {
+Prism.languages.java = Prism.languageUtils.extend('clike', {
   'class-name': [
     className,
     {
@@ -47,7 +47,7 @@ Prism.languages.java = Prism.languages.extend('clike', {
   },
 })
 
-Prism.languages.insertBefore('java', 'string', {
+Prism.languageUtils.insertBefore('java', 'string', {
   'triple-quoted-string': {
     // http://openjdk.java.net/jeps/355#Description
     pattern: /"""[ \t]*[\r\n](?:(?:"|"")?(?:\\.|[^"\\]))*"""/,
@@ -56,7 +56,7 @@ Prism.languages.insertBefore('java', 'string', {
   },
 })
 
-Prism.languages.insertBefore('java', 'class-name', {
+Prism.languageUtils.insertBefore('java', 'class-name', {
   annotation: {
     pattern: /(^|[^.])@\w+(?:\s*\.\s*\w+)*/,
     lookbehind: true,

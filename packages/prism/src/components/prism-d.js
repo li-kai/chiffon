@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.d = Prism.languages.extend('clike', {
+Prism.languages.d = Prism.languageUtils.extend('clike', {
   comment: [
     {
       // Shebang
@@ -77,11 +77,11 @@ Prism.languages.d = Prism.languages.extend('clike', {
   operator: /\|[|=]?|&[&=]?|\+[+=]?|-[-=]?|\.?\.\.|=[>=]?|!(?:i[ns]\b|<>?=?|>=?|=)?|\bi[ns]\b|(?:<[<>]?|>>?>?|\^\^|[*\/%^~])=?/,
 })
 
-Prism.languages.insertBefore('d', 'keyword', {
+Prism.languageUtils.insertBefore('d', 'keyword', {
   property: /\B@\w*/,
 })
 
-Prism.languages.insertBefore('d', 'function', {
+Prism.languageUtils.insertBefore('d', 'function', {
   register: {
     // Iasm registers
     pattern: /\b(?:[ABCD][LHX]|E[ABCD]X|E?(?:BP|SP|DI|SI)|[ECSDGF]S|CR[0234]|DR[012367]|TR[3-7]|X?MM[0-7]|R[ABCD]X|[BS]PL|R[BS]P|[DS]IL|R[DS]I|R(?:[89]|1[0-5])[BWD]?|XMM(?:[89]|1[0-5])|YMM(?:1[0-5]|\d))\b|\bST(?:\([0-7]\)|\b)/,

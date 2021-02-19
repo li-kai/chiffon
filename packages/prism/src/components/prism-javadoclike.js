@@ -38,7 +38,7 @@ function docCommentSupport(lang, callback) {
       alias: 'comment',
     }
 
-    grammar = Prism.languages.insertBefore(lang, 'comment', definition)
+    grammar = Prism.languageUtils.insertBefore(lang, 'comment', definition)
     token = grammar[tokenName]
   }
 

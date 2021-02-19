@@ -1,9 +1,9 @@
 import Prism from './prism-core'
 import './prism-clike'
 import './prism-javascript'
-Prism.languages.flow = Prism.languages.extend('javascript', {})
+Prism.languages.flow = Prism.languageUtils.extend('javascript', {})
 
-Prism.languages.insertBefore('flow', 'keyword', {
+Prism.languageUtils.insertBefore('flow', 'keyword', {
   type: [
     {
       pattern: /\b(?:[Nn]umber|[Ss]tring|[Bb]oolean|Function|any|mixed|null|void)\b/,
@@ -16,7 +16,7 @@ Prism.languages.flow[
 ].pattern = /(?!\s)[_$a-z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*=\s*(?:function\b|(?:\([^()]*\)(?:\s*:\s*\w+)?|(?!\s)[_$a-z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)\s*=>))/i
 delete Prism.languages.flow['parameter']
 
-Prism.languages.insertBefore('flow', 'operator', {
+Prism.languageUtils.insertBefore('flow', 'operator', {
   'flow-punctuation': {
     pattern: /\{\||\|\}/,
     alias: 'punctuation',

@@ -5,7 +5,7 @@ import './prism-javascript'
 import './prism-typescript'
 import './prism-jsx'
 var typescript = Prism.util.clone(Prism.languages.typescript)
-Prism.languages.tsx = Prism.languages.extend('jsx', typescript)
+Prism.languages.tsx = Prism.languageUtils.extend('jsx', typescript)
 
 // This will prevent collisions between TSX tags and TS generic types.
 // Idea by https://github.com/karlhorky

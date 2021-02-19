@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages['firestore-security-rules'] = Prism.languages.extend('clike', {
+Prism.languages['firestore-security-rules'] = Prism.languageUtils.extend('clike', {
   comment: /\/\/.*/,
   keyword: /\b(?:allow|function|if|match|null|return|rules_version|service)\b/,
   operator: /&&|\|\||[<>!=]=?|[-+*/%]|\b(?:in|is)\b/,
@@ -8,7 +8,7 @@ Prism.languages['firestore-security-rules'] = Prism.languages.extend('clike', {
 
 delete Prism.languages['firestore-security-rules']['class-name']
 
-Prism.languages.insertBefore('firestore-security-rules', 'keyword', {
+Prism.languageUtils.insertBefore('firestore-security-rules', 'keyword', {
   path: {
     pattern: /(^|[\s(),])(?:\/(?:[\w\xA0-\uFFFF]+|\{[\w\xA0-\uFFFF]+(?:=\*\*)?\}|\$\([\w\xA0-\uFFFF.]+\)))+/,
     lookbehind: true,

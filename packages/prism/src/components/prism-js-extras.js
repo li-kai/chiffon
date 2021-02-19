@@ -1,7 +1,7 @@
 import Prism from './prism-core'
 import './prism-clike'
 import './prism-javascript'
-Prism.languages.insertBefore('javascript', 'function-variable', {
+Prism.languageUtils.insertBefore('javascript', 'function-variable', {
   'method-variable': {
     pattern: RegExp(
       '(\\.\\s*)' +
@@ -12,7 +12,7 @@ Prism.languages.insertBefore('javascript', 'function-variable', {
   },
 })
 
-Prism.languages.insertBefore('javascript', 'function', {
+Prism.languageUtils.insertBefore('javascript', 'function', {
   method: {
     pattern: RegExp(
       '(\\.\\s*)' + Prism.languages.javascript['function'].source,
@@ -22,7 +22,7 @@ Prism.languages.insertBefore('javascript', 'function', {
   },
 })
 
-Prism.languages.insertBefore('javascript', 'constant', {
+Prism.languageUtils.insertBefore('javascript', 'constant', {
   'known-class-name': [
     {
       // standard built-ins
@@ -53,7 +53,7 @@ function withId(source, flags) {
     flags,
   )
 }
-Prism.languages.insertBefore('javascript', 'keyword', {
+Prism.languageUtils.insertBefore('javascript', 'keyword', {
   imports: {
     // https://tc39.es/ecma262/#sec-imports
     pattern: withId(
@@ -92,7 +92,7 @@ Prism.languages.javascript['keyword'].unshift(
   },
 )
 
-Prism.languages.insertBefore('javascript', 'operator', {
+Prism.languageUtils.insertBefore('javascript', 'operator', {
   spread: {
     pattern: /\.{3}/,
     alias: 'operator',
@@ -103,7 +103,7 @@ Prism.languages.insertBefore('javascript', 'operator', {
   },
 })
 
-Prism.languages.insertBefore('javascript', 'punctuation', {
+Prism.languageUtils.insertBefore('javascript', 'punctuation', {
   'property-access': {
     pattern: withId(/(\.\s*)#?<ID>/.source),
     lookbehind: true,

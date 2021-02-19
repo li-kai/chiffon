@@ -28,7 +28,7 @@ function re(source, flags) {
 
 spread = re(spread).source
 
-Prism.languages.jsx = Prism.languages.extend('markup', javascript)
+Prism.languages.jsx = Prism.languageUtils.extend('markup', javascript)
 Prism.languages.jsx.tag.pattern = re(
   /<\/?(?:[\w.:-]+(?:<S>+(?:[\w.:$-]+(?:=(?:"(?:\\[^]|[^\\"])*"|'(?:\\[^]|[^\\'])*'|[^\s{'"/>=]+|<BRACES>))?|<SPREAD>))*<S>*\/?)?>/
     .source,
@@ -43,7 +43,7 @@ Prism.languages.jsx.tag.inside['tag'].inside[
 ] = /^[A-Z]\w*(?:\.[A-Z]\w*)*$/
 Prism.languages.jsx.tag.inside['comment'] = javascript['comment']
 
-Prism.languages.insertBefore(
+Prism.languageUtils.insertBefore(
   'inside',
   'attr-name',
   {
@@ -55,7 +55,7 @@ Prism.languages.insertBefore(
   Prism.languages.jsx.tag,
 )
 
-Prism.languages.insertBefore(
+Prism.languageUtils.insertBefore(
   'inside',
   'attr-value',
   {

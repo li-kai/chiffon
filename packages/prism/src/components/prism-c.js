@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.c = Prism.languages.extend('clike', {
+Prism.languages.c = Prism.languageUtils.extend('clike', {
   comment: {
     pattern: /\/\/(?:[^\r\n\\]|\\(?:\r\n?|\n|(?![\r\n])))*|\/\*[\s\S]*?(?:\*\/|$)/,
     greedy: true,
@@ -15,7 +15,7 @@ Prism.languages.c = Prism.languages.extend('clike', {
   operator: />>=?|<<=?|->|([-+&|:])\1|[?:~]|[-+*/%&|^!=<>]=?/,
 })
 
-Prism.languages.insertBefore('c', 'string', {
+Prism.languageUtils.insertBefore('c', 'string', {
   macro: {
     // allow for multiline macro definitions
     // spaces after the # character compile fine with gcc

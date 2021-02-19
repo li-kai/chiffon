@@ -105,5 +105,5 @@ for (var contentType in httpLanguages) {
   }
 }
 if (options) {
-  Prism.languages.insertBefore('http', 'header-name', options)
+  Prism.languageUtils.insertBefore('http', 'header-name', options)
 }

@@ -8,7 +8,7 @@ import './prism-markup'
  */
 function insertDocComment(lang, docComment) {
   if (Prism.languages[lang]) {
-    Prism.languages.insertBefore(lang, 'comment', {
+    Prism.languageUtils.insertBefore(lang, 'comment', {
       'doc-comment': docComment,
     })
   }

@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-css'
-Prism.languages.sass = Prism.languages.extend('css', {
+Prism.languages.sass = Prism.languageUtils.extend('css', {
   // Sass comments don't need to be closed, only indented
   comment: {
     pattern: /^([ \t]*)\/[\/*].*(?:(?:\r?\n|\r)\1[ \t].+)*/m,
@@ -8,7 +8,7 @@ Prism.languages.sass = Prism.languages.extend('css', {
   },
 })
 
-Prism.languages.insertBefore('sass', 'atrule', {
+Prism.languageUtils.insertBefore('sass', 'atrule', {
   // We want to consume the whole line
   'atrule-line': {
     // Includes support for = and + shortcuts
@@ -29,7 +29,7 @@ var operator = [
   },
 ]
 
-Prism.languages.insertBefore('sass', 'property', {
+Prism.languageUtils.insertBefore('sass', 'property', {
   // We want to consume the whole line
   'variable-line': {
     pattern: /^[ \t]*\$.+/m,
@@ -62,7 +62,7 @@ delete Prism.languages.sass.important
 
 // Now that whole lines for other patterns are consumed,
 // what's left should be selectors
-Prism.languages.insertBefore('sass', 'punctuation', {
+Prism.languageUtils.insertBefore('sass', 'punctuation', {
   selector: {
     pattern: /([ \t]*)\S(?:,[^,\r\n]+|[^,\r\n]*)(?:,[^,\r\n]+)*(?:,(?:\r?\n|\r)\1[ \t]+\S(?:,[^,\r\n]+|[^,\r\n]*)(?:,[^,\r\n]+)*)*/,
     lookbehind: true,

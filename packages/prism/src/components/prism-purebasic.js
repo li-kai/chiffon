@@ -8,7 +8,7 @@ slightly changed to pass all tests
 */
 
 // PureBasic support, steal stuff from ansi-c
-Prism.languages.purebasic = Prism.languages.extend('clike', {
+Prism.languages.purebasic = Prism.languageUtils.extend('clike', {
   comment: /;.*/,
   keyword: /\b(?:declarecdll|declaredll|compilerselect|compilercase|compilerdefault|compilerendselect|compilererror|enableexplicit|disableexplicit|not|and|or|xor|calldebugger|debuglevel|enabledebugger|disabledebugger|restore|read|includepath|includebinary|threaded|runtime|with|endwith|structureunion|endstructureunion|align|newlist|newmap|interface|endinterface|extends|enumeration|endenumeration|swap|foreach|continue|fakereturn|goto|gosub|return|break|module|endmodule|declaremodule|enddeclaremodule|declare|declarec|prototype|prototypec|enableasm|disableasm|dim|redim|data|datasection|enddatasection|to|procedurereturn|debug|default|case|select|endselect|as|import|endimport|importc|compilerif|compilerelse|compilerendif|compilerelseif|end|structure|endstructure|while|wend|for|next|step|if|else|elseif|endif|repeat|until|procedure|proceduredll|procedurec|procedurecdll|endprocedure|protected|shared|static|global|define|includefile|xincludefile|macro|endmacro)\b/i,
   function: /\b\w+(?:\.\w+)?\s*(?=\()/,
@@ -16,7 +16,7 @@ Prism.languages.purebasic = Prism.languages.extend('clike', {
   operator: /(?:@\*?|\?|\*)\w+|-[>-]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|?\||[~^%?*/@]/,
 })
 
-Prism.languages.insertBefore('purebasic', 'keyword', {
+Prism.languageUtils.insertBefore('purebasic', 'keyword', {
   tag: /#\w+/,
   asm: {
     pattern: /(^\s*)!.*/m,

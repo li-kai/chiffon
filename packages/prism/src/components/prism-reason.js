@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.reason = Prism.languages.extend('clike', {
+Prism.languages.reason = Prism.languageUtils.extend('clike', {
   string: {
     pattern: /"(?:\\(?:\r\n|[\s\S])|[^\\\r\n"])*"/,
     greedy: true,
@@ -10,7 +10,7 @@ Prism.languages.reason = Prism.languages.extend('clike', {
   keyword: /\b(?:and|as|assert|begin|class|constraint|do|done|downto|else|end|exception|external|for|fun|function|functor|if|in|include|inherit|initializer|lazy|let|method|module|mutable|new|nonrec|object|of|open|or|private|rec|sig|struct|switch|then|to|try|type|val|virtual|when|while|with)\b/,
   operator: /\.{3}|:[:=]|\|>|->|=(?:==?|>)?|<=?|>=?|[|^?'#!~`]|[+\-*\/]\.?|\b(?:mod|land|lor|lxor|lsl|lsr|asr)\b/,
 })
-Prism.languages.insertBefore('reason', 'class-name', {
+Prism.languageUtils.insertBefore('reason', 'class-name', {
   character: {
     pattern: /'(?:\\x[\da-f]{2}|\\o[0-3][0-7][0-7]|\\\d{3}|\\.|[^'\\\r\n])'/,
     alias: 'string',

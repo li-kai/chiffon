@@ -187,4 +187,4 @@ for (var i = 0, l = filters.length; i < l; i++) {
   }
 }
 
-Prism.languages.insertBefore('pug', 'filter', all_filters)
+Prism.languageUtils.insertBefore('pug', 'filter', all_filters)

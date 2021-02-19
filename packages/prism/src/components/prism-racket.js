@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-scheme'
-Prism.languages.racket = Prism.languages.extend('scheme', {
+Prism.languages.racket = Prism.languageUtils.extend('scheme', {
   'lambda-parameter': {
     // the racket lambda syntax is a lot more complex, so we won't even attempt to capture it.
     // this will just prevent false positives of the `function` pattern
@@ -22,7 +22,7 @@ Prism.languages.racket = Prism.languages.extend('scheme', {
 // With the regex parsed, we only have to replace all escaped "(" (they cannot be unescaped outside of character sets)
 // with /[([]/ and replace all "(" inside character sets.
 // Note: This method does not work for "(" that are escaped like this /\x28/ or this /\u0028/.
-Prism.languages.DFS(Prism.languages.racket, function (key, value) {
+Prism.languageUtils.DFS(Prism.languages.racket, function (key, value) {
   if (Prism.util.type(value) === 'RegExp') {
     var source = value.source.replace(
       /\\(.)|\[\^?((?:\\.|[^\\\]])*)\]/g,
@@ -63,7 +63,7 @@ Prism.languages.DFS(Prism.languages.racket, function (key, value) {
   }
 })
 
-Prism.languages.insertBefore('racket', 'string', {
+Prism.languageUtils.insertBefore('racket', 'string', {
   lang: {
     pattern: /^#lang.+/m,
     greedy: true,

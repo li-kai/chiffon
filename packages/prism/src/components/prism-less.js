@@ -8,7 +8,7 @@ import './prism-css'
  A comment before a mixin usage prevents the latter to be properly highlighted.
  */
 
-Prism.languages.less = Prism.languages.extend('css', {
+Prism.languages.less = Prism.languageUtils.extend('css', {
   comment: [
     /\/\*[\s\S]*?\*\//,
     {
@@ -35,7 +35,7 @@ Prism.languages.less = Prism.languages.extend('css', {
   operator: /[+\-*\/]/,
 })
 
-Prism.languages.insertBefore('less', 'property', {
+Prism.languageUtils.insertBefore('less', 'property', {
   variable: [
     // Variable declaration (the colon must be consumed!)
     {

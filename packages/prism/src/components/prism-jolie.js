@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.jolie = Prism.languages.extend('clike', {
+Prism.languages.jolie = Prism.languageUtils.extend('clike', {
   string: {
     pattern: /(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
     greedy: true,
@@ -15,7 +15,7 @@ Prism.languages.jolie = Prism.languages.extend('clike', {
 
 delete Prism.languages.jolie['class-name']
 
-Prism.languages.insertBefore('jolie', 'keyword', {
+Prism.languageUtils.insertBefore('jolie', 'keyword', {
   function: {
     pattern: /((?:\b(?:outputPort|inputPort|in|service|courier)\b|@)\s*)\w+/,
     lookbehind: true,

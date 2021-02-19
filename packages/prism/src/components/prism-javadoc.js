@@ -13,8 +13,8 @@ var reference = /(?:[a-zA-Z]\w+\s*\.\s*)*[A-Z]\w*(?:\s*<mem>)?|<mem>/.source.rep
   },
 )
 
-Prism.languages.javadoc = Prism.languages.extend('javadoclike', {})
-Prism.languages.insertBefore('javadoc', 'keyword', {
+Prism.languages.javadoc = Prism.languageUtils.extend('javadoclike', {})
+Prism.languageUtils.insertBefore('javadoc', 'keyword', {
   reference: {
     pattern: RegExp(
       /(@(?:exception|throws|see|link|linkplain|value)\s+(?:\*\s*)?)/.source +

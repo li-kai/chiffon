@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.javascript = Prism.languages.extend('clike', {
+Prism.languages.javascript = Prism.languageUtils.extend('clike', {
   'class-name': [
     Prism.languages.clike['class-name'],
     {
@@ -28,7 +28,7 @@ Prism.languages.javascript[
   'class-name'
 ][0].pattern = /(\b(?:class|interface|extends|implements|instanceof|new)\s+)[\w.\\]+/
 
-Prism.languages.insertBefore('javascript', 'keyword', {
+Prism.languageUtils.insertBefore('javascript', 'keyword', {
   regex: {
     pattern: /((?:^|[^$\w\xA0-\uFFFF."'\])\s]|\b(?:return|yield))\s*)\/(?:\[(?:[^\]\\\r\n]|\\.)*]|\\.|[^/\\\[\r\n])+\/[gimyus]{0,6}(?=(?:\s|\/\*(?:[^*]|\*(?!\/))*\*\/)*(?:$|[\r\n,.;:})\]]|\/\/))/,
     lookbehind: true,
@@ -73,7 +73,7 @@ Prism.languages.insertBefore('javascript', 'keyword', {
   constant: /\b[A-Z](?:[A-Z_]|\dx?)*\b/,
 })
 
-Prism.languages.insertBefore('javascript', 'string', {
+Prism.languageUtils.insertBefore('javascript', 'string', {
   'template-string': {
     pattern: /`(?:\\[\s\S]|\${(?:[^{}]|{(?:[^{}]|{[^}]*})*})+}|(?!\${)[^\\`])*`/,
     greedy: true,

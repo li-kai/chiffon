@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-markup'
-var parser = (Prism.languages.parser = Prism.languages.extend('markup', {
+var parser = (Prism.languages.parser = Prism.languageUtils.extend('markup', {
   keyword: {
     pattern: /(^|[^^])(?:\^(?:case|eval|for|if|switch|throw)\b|@(?:BASE|CLASS|GET(?:_DEFAULT)?|OPTIONS|SET_DEFAULT|USE)\b)/,
     lookbehind: true,
@@ -30,7 +30,7 @@ var parser = (Prism.languages.parser = Prism.languages.extend('markup', {
   punctuation: /[\[\](){};]/,
 }))
 
-parser = Prism.languages.insertBefore('parser', 'keyword', {
+parser = Prism.languageUtils.insertBefore('parser', 'keyword', {
   'parser-comment': {
     pattern: /(\s)#.*/,
     lookbehind: true,
@@ -58,7 +58,7 @@ parser = Prism.languages.insertBefore('parser', 'keyword', {
   },
 })
 
-parser = Prism.languages.insertBefore(
+parser = Prism.languageUtils.insertBefore(
   'inside',
   'punctuation',
   {

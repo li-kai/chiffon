@@ -2,7 +2,7 @@ import Prism from './prism-core'
 import './prism-clike'
 import './prism-c'
 import './prism-cpp'
-Prism.languages.chaiscript = Prism.languages.extend('clike', {
+Prism.languages.chaiscript = Prism.languageUtils.extend('clike', {
   string: {
     pattern: /(^|[^\\])'(?:[^'\\]|\\[\s\S])*'/,
     lookbehind: true,
@@ -25,7 +25,7 @@ Prism.languages.chaiscript = Prism.languages.extend('clike', {
   operator: />>=?|<<=?|\|\||&&|:[:=]?|--|\+\+|[=!<>+\-*/%|&^]=?|[?~]|`[^`\r\n]{1,4}`/,
 })
 
-Prism.languages.insertBefore('chaiscript', 'operator', {
+Prism.languageUtils.insertBefore('chaiscript', 'operator', {
   'parameter-type': {
     // e.g. def foo(int x, Vector y) {...}
     pattern: /([,(]\s*)\w+(?=\s+\w)/,
@@ -34,7 +34,7 @@ Prism.languages.insertBefore('chaiscript', 'operator', {
   },
 })
 
-Prism.languages.insertBefore('chaiscript', 'string', {
+Prism.languageUtils.insertBefore('chaiscript', 'string', {
   'string-interpolation': {
     pattern: /(^|[^\\])"(?:[^"$\\]|\\[\s\S]|\$(?!\{)|\$\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\})*"/,
     lookbehind: true,

@@ -69,7 +69,7 @@ Prism.languages.css['atrule'].inside[
   'selector-function-argument'
 ].inside = selectorInside
 
-Prism.languages.insertBefore('css', 'property', {
+Prism.languageUtils.insertBefore('css', 'property', {
   variable: {
     pattern: /(^|[^-\w\xA0-\uFFFF])--(?!\s)[-_a-z\xA0-\uFFFF](?:(?!\s)[-\w\xA0-\uFFFF])*/i,
     lookbehind: true,
@@ -86,7 +86,7 @@ var number = {
   lookbehind: true,
 }
 
-Prism.languages.insertBefore('css', 'function', {
+Prism.languageUtils.insertBefore('css', 'function', {
   operator: {
     pattern: /(\s)[+\-*\/](?=\s)/,
     lookbehind: true,

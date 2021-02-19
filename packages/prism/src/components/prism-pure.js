@@ -74,7 +74,7 @@ inlineLanguages.forEach(function (lang) {
     o['inline-lang-' + alias].inside.rest = Prism.util.clone(
       Prism.languages[alias],
     )
-    Prism.languages.insertBefore('pure', 'inline-lang', o)
+    Prism.languageUtils.insertBefore('pure', 'inline-lang', o)
   }
 })
 

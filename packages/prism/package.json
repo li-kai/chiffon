@@ -1,6 +1,6 @@
 {
   "name": "@chiffon/prism",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Lightweight, robust, elegant syntax highlighting. A spin-off project from Dabblet.",
   "source": "src/components/prism-core.js",
   "main": "dist/components/prism-core.js",

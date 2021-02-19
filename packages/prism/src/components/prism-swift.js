@@ -1,7 +1,7 @@
 import Prism from './prism-core'
 import './prism-clike'
 // issues: nested multiline comments
-Prism.languages.swift = Prism.languages.extend('clike', {
+Prism.languages.swift = Prism.languageUtils.extend('clike', {
   string: {
     pattern: /("|')(?:\\(?:\((?:[^()]|\([^)]+\))+\)|\r\n|[^(])|(?!\1)[^\\\r\n])*\1/,
     greedy: true,

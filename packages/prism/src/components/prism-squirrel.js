@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.squirrel = Prism.languages.extend('clike', {
+Prism.languages.squirrel = Prism.languageUtils.extend('clike', {
   comment: [
     Prism.languages.clike['comment'][0],
     {
@@ -36,7 +36,7 @@ Prism.languages.squirrel = Prism.languages.extend('clike', {
   punctuation: /[(){}\[\],;.]/,
 })
 
-Prism.languages.insertBefore('squirrel', 'operator', {
+Prism.languageUtils.insertBefore('squirrel', 'operator', {
   'attribute-punctuation': {
     pattern: /<\/|\/>/,
     alias: 'important',

@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-markup'
-Prism.languages.velocity = Prism.languages.extend('markup', {})
+Prism.languages.velocity = Prism.languageUtils.extend('markup', {})
 
 var velocity = {
   variable: {
@@ -29,7 +29,7 @@ velocity.variable.inside = {
   punctuation: velocity['punctuation'],
 }
 
-Prism.languages.insertBefore('velocity', 'comment', {
+Prism.languageUtils.insertBefore('velocity', 'comment', {
   unparsed: {
     pattern: /(^|[^\\])#\[\[[\s\S]*?]]#/,
     lookbehind: true,

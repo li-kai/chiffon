@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-css'
-Prism.languages.scss = Prism.languages.extend('css', {
+Prism.languages.scss = Prism.languageUtils.extend('css', {
   comment: {
     pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|\/\/.*)/,
     lookbehind: true,
@@ -41,7 +41,7 @@ Prism.languages.scss = Prism.languages.extend('css', {
   },
 })
 
-Prism.languages.insertBefore('scss', 'atrule', {
+Prism.languageUtils.insertBefore('scss', 'atrule', {
   keyword: [
     /@(?:if|else(?: if)?|forward|for|each|while|import|use|extend|debug|warn|mixin|include|function|return|content)\b/i,
     {
@@ -51,12 +51,12 @@ Prism.languages.insertBefore('scss', 'atrule', {
   ],
 })
 
-Prism.languages.insertBefore('scss', 'important', {
+Prism.languageUtils.insertBefore('scss', 'important', {
   // var and interpolated vars
   variable: /\$[-\w]+|#\{\$[-\w]+\}/,
 })
 
-Prism.languages.insertBefore('scss', 'function', {
+Prism.languageUtils.insertBefore('scss', 'function', {
   'module-modifier': {
     pattern: /\b(?:as|with|show|hide)\b/i,
     alias: 'keyword',

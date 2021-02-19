@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.birb = Prism.languages.extend('clike', {
+Prism.languages.birb = Prism.languageUtils.extend('clike', {
   string: {
     pattern: /r?("|')(?:\\.|(?!\1)[^\\])*\1/,
     greedy: true,
@@ -16,7 +16,7 @@ Prism.languages.birb = Prism.languages.extend('clike', {
   variable: /\b[a-z_]\w*\b/,
 })
 
-Prism.languages.insertBefore('birb', 'function', {
+Prism.languageUtils.insertBefore('birb', 'function', {
   metadata: {
     pattern: /<\w+>/,
     greedy: true,

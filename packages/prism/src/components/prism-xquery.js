@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-markup'
-Prism.languages.xquery = Prism.languages.extend('markup', {
+Prism.languages.xquery = Prism.languageUtils.extend('markup', {
   'xquery-comment': {
     pattern: /\(:[\s\S]*?:\)/,
     greedy: true,

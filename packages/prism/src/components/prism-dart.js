@@ -1,6 +1,6 @@
 import Prism from './prism-core'
 import './prism-clike'
-Prism.languages.dart = Prism.languages.extend('clike', {
+Prism.languages.dart = Prism.languageUtils.extend('clike', {
   string: [
     {
       pattern: /r?("""|''')[\s\S]*?\1/,
@@ -18,7 +18,7 @@ Prism.languages.dart = Prism.languages.extend('clike', {
   operator: /\bis!|\b(?:as|is)\b|\+\+|--|&&|\|\||<<=?|>>=?|~(?:\/=?)?|[+\-*\/%&^|=!<>]=?|\?/,
 })
 
-Prism.languages.insertBefore('dart', 'function', {
+Prism.languageUtils.insertBefore('dart', 'function', {
   metadata: {
     pattern: /@\w+/,
     alias: 'symbol',

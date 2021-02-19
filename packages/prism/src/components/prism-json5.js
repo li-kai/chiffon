@@ -2,7 +2,7 @@ import Prism from './prism-core'
 import './prism-json'
 var string = /("|')(?:\\(?:\r\n?|\n|.)|(?!\1)[^\\\r\n])*\1/
 
-Prism.languages.json5 = Prism.languages.extend('json', {
+Prism.languages.json5 = Prism.languageUtils.extend('json', {
   property: [
     {
       pattern: RegExp(string.source + '(?=\\s*:)'),

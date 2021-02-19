@@ -5,7 +5,7 @@ var interpolationExpr = {
   inside: null,
 }
 
-Prism.languages.v = Prism.languages.extend('clike', {
+Prism.languages.v = Prism.languageUtils.extend('clike', {
   string: [
     {
       pattern: /`(?:\\\`|\\?[^\`]{1,2})`/, // using {1,2} instead of `u` flag for compatibility
@@ -46,7 +46,7 @@ Prism.languages.v = Prism.languages.extend('clike', {
 
 interpolationExpr.inside = Prism.languages.v
 
-Prism.languages.insertBefore('v', 'operator', {
+Prism.languageUtils.insertBefore('v', 'operator', {
   attribute: {
     pattern: /^\s*\[(?:deprecated|unsafe_fn|typedef|live|inline|flag|ref_only|windows_stdcall|direct_array_access)\]/m,
     alias: 'annotation',
@@ -64,7 +64,7 @@ Prism.languages.insertBefore('v', 'operator', {
   },
 })
 
-Prism.languages.insertBefore('v', 'function', {
+Prism.languageUtils.insertBefore('v', 'function', {
   'generic-function': {
     // e.g. foo<T>( ...
     pattern: /\w+\s*<\w+>(?=\()/,
