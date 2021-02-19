@@ -2,7 +2,7 @@ function getTarget(caller) {
   return caller && caller.target
 }
 
-module.exports = function(api) {
+module.exports = function (api) {
   const nodeEnv = process.env.NODE_ENV
   api.cache.using(() => ['production', 'development'].indexOf(nodeEnv))
   // using api.caller automatically adds it to the cache

@@ -76,7 +76,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
       )
 
       return childCompilerPromise
-        .then(childCompilerOutput => {
+        .then((childCompilerOutput) => {
           const { entries, childCompilation } = childCompilerOutput
           for (const entry of entries) {
             let filename: string
@@ -108,7 +108,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
             compilation.assets[filename] = new RawSource(output)
           }
         })
-        .catch(error => {
+        .catch((error) => {
           compilation.errors.push(error)
         })
     })
@@ -219,7 +219,7 @@ class PrerenderWebpackPlugin implements webpack.Plugin {
       htmlMinifierOptions = minifyConfig
     }
 
-    return text => minify(text, htmlMinifierOptions)
+    return (text) => minify(text, htmlMinifierOptions)
   }
 
   private static getFiles(

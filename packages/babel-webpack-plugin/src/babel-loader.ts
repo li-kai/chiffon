@@ -12,7 +12,7 @@ const LOADER_NAME = 'babel-webpack-plugin/loader'
  * @param source string | Buffer
  * @param sourceMap RawSourceMap | undefined
  */
-const babelLoader: webpack.loader.Loader = function(
+const babelLoader: webpack.loader.Loader = function (
   source: string | Buffer,
   sourceMap?: RawSourceMap,
 ) {
@@ -74,7 +74,7 @@ const babelLoader: webpack.loader.Loader = function(
   }
 
   const code = typeof source === 'string' ? source : source.toString()
-  babel.transform(code, options, function(err, result) {
+  babel.transform(code, options, function (err, result) {
     if (err) {
       callback(err)
     } else if (!result) {
