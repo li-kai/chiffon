@@ -7,6 +7,7 @@
 
 - [@chiffon/babel-webpack-plugin](/packages/babel-webpack-plugin)
 - [@chiffon/prerender-webpack-plugin](/packages/prerender-webpack-plugin)
+- [@chiffon/prism](/packages/prism)
 
 ### Examples
 
