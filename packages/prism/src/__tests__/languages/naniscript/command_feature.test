@@ -6,10 +6,10 @@
 	@cmdWithNoParamsAndTabBefore
 				 @cmdWithNoParamsAndTabAndSpacesBefore
 						 @cmdWithNoParamsWrappedInWhitespaces
-@cmdWithNoParamWithTrailingSpace
-@cmdWithNoParamWithMultipleTrailingSpaces
-@cmdWithNoParamWithTrailingTab
-@cmdWithNoParamWithTrailingTabAndSpaces
+@cmdWithNoParamWithTrailingSpace 
+@cmdWithNoParamWithMultipleTrailingSpaces    
+@cmdWithNoParamWithTrailingTab	
+@cmdWithNoParamWithTrailingTabAndSpaces				
 @cmdWithPositiveIntParam 1
 @cmdWithNegativeIntParam -1
 @cmdWithPositiveFloatParamAndNoFraction 1.

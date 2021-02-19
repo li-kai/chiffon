@@ -22,11 +22,11 @@ DESC
 	["keyword", "EVALUATE"],
 	["keyword", "ORDER BY"],
 	["keyword", "ORDER\tBY"],
-	["keyword", "ORDER\r\nBY"],
+	["keyword", "ORDER\r\nBY"],	
 	["keyword", "RETURN"],
 	["keyword", "VAR"],
 	["keyword", "START AT"],
-	["keyword", "START\tAT"],
+	["keyword", "START\tAT"],	
 	["keyword", "START\r\nAT"],
 	["keyword", "ASC"],
 	["keyword", "DESC"]

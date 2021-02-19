@@ -6,8 +6,8 @@
 'test'
 "this is a multiline
 test
-that
-can
+that 
+can 
 be long"
 "This string \r\n Should also \\ \t"
 

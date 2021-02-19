@@ -103,7 +103,7 @@ ENDMACRO
 ----------------------------------------------------
 
 [
-	["keyword", "DECLARECDLL"],
+ 	["keyword", "DECLARECDLL"],
 	["keyword", "DECLAREDLL"],
 	["keyword", "COMPILERSELECT"],
 	["keyword", "COMPILERCASE"],

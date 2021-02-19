@@ -974,7 +974,7 @@ function toArray(list) {
   return array
 }
 
-export default Prism
+module.exports = Prism
 
 // some additional documentation/types
 

@@ -30,7 +30,7 @@ XOR
 	["operator", "!"], ["operator", "!="],
 	["operator", "<"], ["operator", "<="], ["operator", "<<"], ["operator", "<>"], ["operator", "<=>"],
 	["operator", ">"], ["operator", ">="], ["operator", ">>"],
-
+	
 	["operator", "AND"],
 	["operator", "BETWEEN"],
 	["operator", "IN"],

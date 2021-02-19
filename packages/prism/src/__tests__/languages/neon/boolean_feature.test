@@ -17,3 +17,5 @@ alt: [yes, no, YES, NO, TRUE, FALSE]
 ----------------------------------------------------
 
 Checks for booleans.
+
+

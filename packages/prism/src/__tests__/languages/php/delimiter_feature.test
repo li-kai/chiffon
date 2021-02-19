@@ -44,7 +44,7 @@ function main() {}
 		["punctuation", "{"],
 		["punctuation", "}"],
 		["comment", "// php is not ended yet"],
-		["delimiter", "?>"]
+   		["delimiter", "?>"]
 	]]
 ]
 

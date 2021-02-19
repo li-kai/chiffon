@@ -138,7 +138,7 @@ _ Bar
 		["literal-block-punctuation", "!!"], " Bar\r\n",
 		["literal-block-punctuation", "!"], " Baz"
 	]],
-
+	
 	"\r\n\r\nFoobar ",
 	["quoted-literal-block", [
 		["literal-block-punctuation", "::"],
@@ -146,13 +146,13 @@ _ Bar
 		["literal-block-punctuation", "\""], " Bar\r\n",
 		["literal-block-punctuation", "\"\""], " Baz"
 	]],
-
+	
 	["quoted-literal-block", [
 		["literal-block-punctuation", "::"],
 		["literal-block-punctuation", "#"], " Foo\r\n",
 		["literal-block-punctuation", "#"], " Bar"
 	]],
-
+	
 	["quoted-literal-block", [
 		["literal-block-punctuation", "::"],
 		["literal-block-punctuation", "$"], " Foo\r\n",

@@ -51,7 +51,7 @@ nodefault noreturn
 nostackframe
 oldfpccall
 otherwise
-overload override
+overload override 
 pascal platform
 private protected
 public published

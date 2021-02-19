@@ -64,7 +64,7 @@ ment*/
 	[ "comment", [ "/* com\r\nment */" ] ],
 	[ "comment", [ "/* com\r\nment*/" ] ],
 	[ "normal-word", "/*word" ],
-	[ "normal-word", "*/" ],
+ 	[ "normal-word", "*/" ],
 	[ "comment", ["/* \"comment\" */"] ],
 	[ "string", ["\"/* \""] ],
 	"strings",

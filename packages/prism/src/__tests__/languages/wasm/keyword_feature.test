@@ -361,7 +361,7 @@ unreachable
 
 	["keyword", ["memory", ["punctuation", "."], "size"]],
 	["keyword", ["memory", ["punctuation", "."], "grow"]],
-
+	
 	["keyword", "anyfunc"],
 	["keyword", "block"],
 	["keyword", "br"],

@@ -26,10 +26,10 @@
 		["punctuation", "]"]
 	]],
 	["section", [
-	["punctuation", "["], ["regex", "\\\\*"], ["operator", "*"], ".log", ["punctuation", "]"]
+    	["punctuation", "["], ["regex", "\\\\*"], ["operator", "*"], ".log", ["punctuation", "]"]
     ]],
 	["section", [
-	["punctuation", "["], "Section with indent", ["punctuation", "]"]
+    	["punctuation", "["], "Section with indent", ["punctuation", "]"]
     ]]
 ]
 

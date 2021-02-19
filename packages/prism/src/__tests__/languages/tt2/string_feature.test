@@ -14,7 +14,7 @@ string'
 ----------------------------------------------------
 
 [
-	["tt2",
+	["tt2", 
 		[
 			["delimiter", "[%"],
 			["double-quoted-string", ["\"https://example.com/\""]],

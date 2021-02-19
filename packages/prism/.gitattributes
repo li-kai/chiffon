@@ -1,0 +1,3 @@
+
+# Test files should not have their line endings modified by git
+/src/__tests__/languages/**/*.test binary

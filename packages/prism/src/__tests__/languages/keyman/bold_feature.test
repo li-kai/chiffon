@@ -39,7 +39,7 @@ version
 	["bold", "&name"], ["bold", "&oldcharposmatching"],
 	["bold", "&platform"], ["bold", "&targets"], ["bold", "&version"],
 	["bold", "&visualkeyboard"], ["bold", "&windowslanguages"],
-
+	
 	["bold", "bitmap"],
 	["bold", "bitmaps"],
 	["bold", "caps on only"],

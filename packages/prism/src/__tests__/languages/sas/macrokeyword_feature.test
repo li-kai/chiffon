@@ -15,7 +15,7 @@
 	["macro-keyword", "%INCLUDE"], ["macro-keyword", "%INDEX"],
 	["macro-keyword", "%INPUT"], ["macro-keyword", "%KTRIM"],
 	["macro-keyword", "%LENGTH"], ["macro-keyword", "%LET"], ["macro-keyword", "%LIST"],
-	["macro-keyword", "%LOCAL"],
+	["macro-keyword", "%LOCAL"], 
 	["macro-keyword", "%PUT"], ["macro-keyword", "%QKTRIM"],
 	["macro-keyword", "%QSCAN"], ["macro-keyword", "%QSUBSTR"],
 	["macro-keyword", "%QSYSFUNC"],

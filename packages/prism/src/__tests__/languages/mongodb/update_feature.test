@@ -4,8 +4,8 @@ db.users.updateOne(
 	},
 	{
 		$set: { age: 30 },
-		$inc: { updateCount: 1 },
-		$push: { updateDates: new Date() }
+		$inc: { updateCount: 1 }, 
+		$push: { updateDates: new Date() } 
 	}
 )
 

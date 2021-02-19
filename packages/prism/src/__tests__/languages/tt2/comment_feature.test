@@ -13,8 +13,8 @@
 		[
 			["comment", "[%# this entire directive is ignored no\r\n    matter how many lines it wraps onto\r\n%]" ]
 		]
-	],
-	["tt2",
+	],      
+	["tt2", 
 		[
 			["delimiter", "[%"],
 			["comment", "# this is a comment" ],

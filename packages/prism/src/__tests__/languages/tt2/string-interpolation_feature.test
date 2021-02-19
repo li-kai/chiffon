@@ -6,12 +6,12 @@
 	["tt2",
 		[
 			["delimiter", "[%"],
-			["double-quoted-string", [
+		 	["double-quoted-string", [
 				 "\"Hello, ",
 				 ["variable", "$name"],
 				 "!\""]
 			],
-			["delimiter", "%]"]
+		 	["delimiter", "%]"]
 		]
 	]
 ]
