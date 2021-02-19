@@ -42,14 +42,14 @@ function defaultTemplate({
           href={`${__webpack_public_path__}site.webmanifest`}
         />
         {css &&
-          css.map(cssResourceUrl => (
+          css.map((cssResourceUrl) => (
             <link
               href={`${__webpack_public_path__}${cssResourceUrl}`}
               rel="stylesheet"
             />
           ))}
         {js &&
-          js.map(jsResourceUrl => (
+          js.map((jsResourceUrl) => (
             <script
               src={`${__webpack_public_path__}${jsResourceUrl}`}
               nomodule
@@ -57,7 +57,7 @@ function defaultTemplate({
             />
           ))}
         {mjs &&
-          mjs.map(mjsResourceUrl => (
+          mjs.map((mjsResourceUrl) => (
             <script
               src={`${__webpack_public_path__}${mjsResourceUrl}`}
               type="module"

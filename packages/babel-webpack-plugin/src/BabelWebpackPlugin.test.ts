@@ -48,10 +48,10 @@ describe('BabelWebpackPlugin', () => {
   afterEach(async () => {
     await testDir.tearDown()
     // Allow webpack to take some time to close handles
-    await new Promise(resolve => setTimeout(resolve, 100))
+    await new Promise((resolve) => setTimeout(resolve, 100))
   })
 
-  it('should transpile files', done => {
+  it('should transpile files', (done) => {
     const config = Object.assign({}, globalConfig, {
       entry: { index: inputFile },
       output: {
@@ -71,7 +71,7 @@ describe('BabelWebpackPlugin', () => {
     })
   })
 
-  it('should not throw errors on successful compilation', done => {
+  it('should not throw errors on successful compilation', (done) => {
     const config = Object.assign({}, globalConfig, {
       entry: { index: inputFile },
       output: {

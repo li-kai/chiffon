@@ -37,7 +37,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
   public static readonly loader = require.resolve('../dist/babel-loader.js')
 
   public constructor(options: PublicOptions) {
-    const targets = options.targets.map(option => {
+    const targets = options.targets.map((option) => {
       const newOptions: PrivateTargetOptions = {
         ...option,
         excludedPlugins: option.excludedPlugins || [],
@@ -56,7 +56,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
    * @param compiler webpack.Compiler
    */
   public apply(compiler: webpack.Compiler): void {
-    compiler.hooks.make.tap(PLUGIN_NAME, compilation => {
+    compiler.hooks.make.tap(PLUGIN_NAME, (compilation) => {
       this.compilerMakeHook(compiler, compilation)
     })
   }
@@ -77,7 +77,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
     const childCompilerOutputs: Promise<{
       entries: webpack.Entry[]
       childCompilation: webpack.compilation.Compilation
-    }>[] = additionalTargets.map(options =>
+    }>[] = additionalTargets.map((options) =>
       BabelWebpackPlugin.runChildCompiler(compiler, compilation, options),
     )
 
@@ -113,7 +113,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
       }
 
       return Promise.all(childCompilerOutputs)
-        .then(childCompilerOutputs => {
+        .then((childCompilerOutputs) => {
           for (const { childCompilation } of childCompilerOutputs) {
             for (const chunk of childCompilation.chunks as webpack.compilation.Chunk[]) {
               const parentChunk = parentChunkByName[chunk.name]
@@ -133,7 +133,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
             childCompilation.namedChunkGroups.clear()
           }
         })
-        .catch(error => {
+        .catch((error) => {
           compilation.errors.push(error)
         })
     })
@@ -187,13 +187,14 @@ class BabelWebpackPlugin implements webpack.Plugin {
      * perform extra webpack compilations.
      * see: https://webpack.js.org/api/compiler-hooks/#normalmodulefactory
      */
-    childCompiler.hooks.normalModuleFactory.tap(PLUGIN_NAME, nmf => {
+    childCompiler.hooks.normalModuleFactory.tap(PLUGIN_NAME, (nmf) => {
       // TODO: webpack v5 bail out in afterResolve hook instead
-      nmf.hooks.createModule.tap(PLUGIN_NAME, module => {
+      nmf.hooks.createModule.tap(PLUGIN_NAME, (module) => {
         // @ts-ignore property loaders does exist but is not typed
         const newLoaders = module.loaders as webpack.NewLoader[]
         const ownLoader = BabelWebpackPlugin.loader
-        if (newLoaders.some(newLoader => newLoader.loader === ownLoader)) return
+        if (newLoaders.some((newLoader) => newLoader.loader === ownLoader))
+          return
 
         const { context, request, rawRequest } = module
         return new RawModule(
@@ -209,7 +210,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
      * with the specified target.
      * see: https://webpack.js.org/api/compiler-hooks/#compilation
      */
-    childCompiler.hooks.compilation.tap(PLUGIN_NAME, compilation => {
+    childCompiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
       /**
        * see: https://webpack.js.org/api/compilation-hooks/#normalmoduleloader
        * note: deprecated in webpack 5
@@ -237,7 +238,7 @@ class BabelWebpackPlugin implements webpack.Plugin {
     for (const plugin of plugins) {
       const isIncluded = !excludedPlugins.some(
         // @ts-ignore webpack.Plugin is extended and not implemented
-        excludedPlugin => plugin instanceof excludedPlugin,
+        (excludedPlugin) => plugin instanceof excludedPlugin,
       )
       if (isIncluded) {
         plugin.apply(childCompiler)

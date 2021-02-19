@@ -587,8 +587,6 @@ const Prism = {
       }
     },
   },
-
-  Token,
 }
 
 /**
@@ -599,7 +597,6 @@ const Prism = {
  * @param {string|string[]} [alias] The alias(es) of the token.
  * @param {string} [matchedStr=""] A copy of the full string this token was created from.
  * @class
- * @global
  * @public
  */
 function Token(type, content, alias, matchedStr) {
