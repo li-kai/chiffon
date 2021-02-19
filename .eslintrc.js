@@ -13,6 +13,14 @@ module.exports = {
       ],
       plugins: ['@typescript-eslint'],
       rules: {
+        '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/ban-types': [
+          'error',
+          {
+            types: { Function: false },
+            extendDefaults: true,
+          },
+        ],
         '@typescript-eslint/explicit-function-return-type': [
           'error',
           {

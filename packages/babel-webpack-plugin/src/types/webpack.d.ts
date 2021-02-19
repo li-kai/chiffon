@@ -1,4 +1,4 @@
-import webpack, { compilation, Plugin, Output } from 'webpack'
+import webpack, { Plugin, Output } from 'webpack'
 
 declare module 'webpack' {
   export interface ChildCompiler extends Compiler {
