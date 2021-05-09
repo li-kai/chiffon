@@ -7765,10 +7765,10 @@ realpath-native@^1.1.0:
   dependencies:
     util.promisify "^1.0.0"
 
-refa@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/refa/-/refa-0.5.0.tgz#33074cbb74c440df65e7527567375490073afcde"
-  integrity sha512-080Hrd8Z8v9Audgt1WpopjMM8ai1umraSzgMvLxgCEt+B9HhguhKBmQkjnE5+1p5WLtWQdr2rGE2c80gYvi9uQ==
+refa@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/refa/-/refa-0.8.0.tgz#81813b0ac80fd6e2d79f191e31054f210ef80a53"
+  integrity sha512-qOf9zk1McAuGPtQ16nzuWCUg9zx3Quc48i6oD6nxWJdrFeh3Do0vCpIGYLij/1ysAbh5rxdUNg+YzSVBRycX5g==
   dependencies:
     regexpp "^3.1.0"
 
