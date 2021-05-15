@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@types/html-minifier": "3.5.3",
-    "@types/node": "10.17.53",
+    "@types/node": "10.17.60",
     "@types/webpack": "4.41.26",
     "@types/webpack-sources": "0.1.8",
     "eslint": "6.8.0",
