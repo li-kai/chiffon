@@ -7772,10 +7772,10 @@ refa@0.5.0:
   dependencies:
     regexpp "^3.1.0"
 
-refa@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/refa/-/refa-0.6.0.tgz#d4f40a1f84b3e4cf301c8b8f7d935bb67164305d"
-  integrity sha512-jLBM8hbYs04CfiCG9ysn2XhANnRQWBtnv/1v0Qn3uixgW0vUe9Zr++xwyFsejaQkEgPg30K1X76yz46r5AZQSQ==
+refa@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/refa/-/refa-0.8.0.tgz#81813b0ac80fd6e2d79f191e31054f210ef80a53"
+  integrity sha512-qOf9zk1McAuGPtQ16nzuWCUg9zx3Quc48i6oD6nxWJdrFeh3Do0vCpIGYLij/1ysAbh5rxdUNg+YzSVBRycX5g==
   dependencies:
     regexpp "^3.1.0"
 
@@ -7824,6 +7824,14 @@ regex-not@^1.0.0, regex-not@^1.0.2:
   dependencies:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
+
+regexp-ast-analysis@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.2.tgz#01512911f2e1fdf69d070aff3951bbeb5a5b9ca4"
+  integrity sha512-inLIbwizLLAZkpC9/8zp8CeSkJJPsRaqXGDVpxEbNRZD10E+OP6vRDHt7OS9JjWECQLvOI2EmHx7DgdpyAvdrQ==
+  dependencies:
+    refa "^0.8.0"
+    regexpp "^3.1.0"
 
 regexp.prototype.flags@^1.2.0:
   version "1.3.1"
@@ -8190,12 +8198,13 @@ schema-utils@^2.0.0:
     ajv "^6.12.4"
     ajv-keywords "^3.5.2"
 
-scslre@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/scslre/-/scslre-0.1.1.tgz#02fcdbe7d3c4381b43f9118bb36e3e9178ce10c6"
-  integrity sha512-wsv9uvkNtTMIgNCRDY/Ys4ho//ltm/Fm+KgNMdn0de2TyBtU3O3OOw7E10Kxv4Acd2Gs6cQfODl0jvYvvK0dDA==
+scslre@0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/scslre/-/scslre-0.1.5.tgz#00b3adb2e94bfb8be83c04adc3bb0176a21532a9"
+  integrity sha512-PUWMog0DhV8dYB9zWV/YDDS9AT8pBbR12cWbqqzwRrhFpOGwu0OOFafFpUFD0Iw0+ZY5D4EpU4VWJai0SGwOCQ==
   dependencies:
-    refa "^0.6.0"
+    refa "^0.8.0"
+    regexp-ast-analysis "^0.2.2"
     regexpp "^3.1.0"
 
 select-hose@^2.0.0:
