@@ -7765,12 +7765,12 @@ realpath-native@^1.1.0:
   dependencies:
     util.promisify "^1.0.0"
 
-refa@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/refa/-/refa-0.5.0.tgz#33074cbb74c440df65e7527567375490073afcde"
-  integrity sha512-080Hrd8Z8v9Audgt1WpopjMM8ai1umraSzgMvLxgCEt+B9HhguhKBmQkjnE5+1p5WLtWQdr2rGE2c80gYvi9uQ==
+refa@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/refa/-/refa-0.10.0.tgz#d10f7a2cd83e7fb26b5add4c74a10757aa3c9d41"
+  integrity sha512-G/s5+/q4qr2Qwve5MbweLNPZx9AgQh7tMTrjPKjOHShUzNNCMPU11KQbWY7ucnY3BgmYvtK0QG7AL2kavDoeLA==
   dependencies:
-    regexpp "^3.1.0"
+    regexpp "^3.2.0"
 
 refa@^0.6.0:
   version "0.6.0"
@@ -7842,6 +7842,11 @@ regexpp@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-2.0.1.tgz#8d19d31cf632482b589049f8281f93dbcba4d07f"
   integrity sha512-lv0M6+TkDVniA3aD1Eg0DVpfU/booSu7Eev3TDO/mZKHBfVjgCGTV4t4buppESEYDtkArYFOxTJWv6S5C+iaNw==
+
+regexpp@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
+  integrity sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==
 
 regexpu-core@^2.0.0:
   version "2.0.0"
