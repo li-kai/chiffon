@@ -23,7 +23,7 @@
     "@babel/core": "7.12.17",
     "@types/babel__core": "7.1.12",
     "@types/jest": "24.9.1",
-    "@types/loader-utils": "1.1.4",
+    "@types/loader-utils": "1.1.9",
     "@types/memory-fs": "0.3.2",
     "@types/node": "10.17.53",
     "@types/webpack": "4.41.26",
@@ -39,7 +39,7 @@
     "typescript": "3.7.5"
   },
   "dependencies": {
-    "loader-utils": "1.4.0",
+    "loader-utils": "1.4.2",
     "webpack-sources": "1.4.3"
   },
   "peerDependencies": {
